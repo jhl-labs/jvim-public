@@ -1,0 +1,81 @@
+name: Feature request
+description: Suggest a new capability or an improvement to an existing one.
+title: "[feat]: "
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Good feature requests focus on the **problem** you're solving, not
+        the **solution** you picked. We may implement it differently than
+        you imagined — that's fine, and usually the reason it ships at all.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem are you trying to solve?
+      description: |
+        Describe the situation where today's jvim falls short. Include
+        enough context that a reader unfamiliar with your workflow can
+        picture the setup.
+      placeholder: |
+        I maintain a daily journal in markdown. Every morning I want to
+        jump to today's file, but the current `jvim` workspace tree
+        doesn't surface "today" — I have to type the date manually.
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-workaround
+    attributes:
+      label: How do you work around it today?
+      placeholder: |
+        I keep a shell alias `alias today='jvim journal/$(date +%Y-%m-%d).md'`
+        but that doesn't work if I'm already inside jvim.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would the feature look like from a user's perspective?
+      description: |
+        Keystrokes, menu items, config entries. You don't need to get the
+        internal design right — just describe what you'd *see* and *do*.
+      placeholder: |
+        A keybinding (say, Ctrl+J) that creates-or-opens `journal/YYYY-MM-DD.md`
+        relative to the current workspace root.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you considered
+      description: |
+        Other ways to solve the same problem. Helps us evaluate whether the
+        specific shape you picked is actually the best one.
+      placeholder: |
+        - A built-in template system
+        - An external shell script invoked from jvim
+
+  - type: dropdown
+    id: urgency
+    attributes:
+      label: How important is this to you?
+      options:
+        - Nice to have
+        - Would meaningfully improve my workflow
+        - Blocking — I will switch to another tool without it
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmations
+      options:
+        - label: I have searched existing issues and this is not a duplicate.
+          required: true
+        - label: I'm open to a smaller/different implementation if the full proposal isn't feasible.
+          required: true

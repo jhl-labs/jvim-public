@@ -1,0 +1,5 @@
+# Default owner for every path in this public repository.
+# CODEOWNERS trigger is best-effort since PRs are generally not accepted;
+# this exists so docs PRs get routed automatically when they do come in.
+
+*   @declue

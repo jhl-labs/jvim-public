@@ -1,0 +1,104 @@
+name: Bug report
+description: Something is broken or behaving unexpectedly in jvim.
+title: "[bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug. Please fill in every
+        section — incomplete reports slow triage and may be closed.
+
+        Before filing, please:
+        - Update to the latest release (`npm install -g jvim@latest`).
+        - Search [existing issues](https://github.com/jhl-labs/jvim-public/issues?q=is%3Aissue).
+        - For **security** issues, stop here and see [`SECURITY.md`](../SECURITY.md).
+
+  - type: input
+    id: version
+    attributes:
+      label: jvim version
+      description: Output of `jvim --version`.
+      placeholder: "0.1.0"
+    validations:
+      required: true
+
+  - type: input
+    id: install-method
+    attributes:
+      label: Install method
+      description: How did you install jvim?
+      placeholder: "npm install -g jvim / GitHub Releases tarball / other"
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating system and architecture
+      placeholder: "Ubuntu 22.04 x86_64 / Fedora 40 aarch64 / …"
+    validations:
+      required: true
+
+  - type: input
+    id: terminal
+    attributes:
+      label: Terminal emulator
+      description: Some bugs are terminal-specific (keybindings, rendering).
+      placeholder: "xterm / GNOME Terminal / Alacritty / WezTerm / iTerm2 / tmux …"
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: |
+        Exact sequence. Include the command, keystrokes, and any relevant
+        file contents. Minimize the input to the smallest that still shows
+        the bug.
+      placeholder: |
+        1. Open `notes.md` with `jvim notes.md`
+        2. Press Ctrl+F
+        3. Type `foo` and press Tab
+        4. Press Enter
+      render: text
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      placeholder: Cursor should jump to the next match.
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      placeholder: Nothing happens; the search overlay closes silently.
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or error output
+      description: |
+        Anything printed to the terminal when the bug occurred, or contents
+        of `.jvim/logs/` in the workspace if it exists.
+      render: text
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmations
+      options:
+        - label: I am using the latest release of jvim.
+          required: true
+        - label: I have searched existing issues and this is not a duplicate.
+          required: true
+        - label: This is not a security vulnerability (if it is, I will use the process in SECURITY.md instead).
+          required: true

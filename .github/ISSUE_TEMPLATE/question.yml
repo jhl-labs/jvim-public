@@ -1,0 +1,48 @@
+name: Question
+description: Ask for help with using jvim.
+title: "[question]: "
+labels: ["question", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before asking, please check:
+        - [`README.md`](../README.md)
+        - [`docs/install.md`](../docs/install.md)
+        - [`docs/faq.md`](../docs/faq.md)
+        - The in-app keymap (press **F1** inside jvim)
+
+        If the answer is already there, you'll usually find it faster than
+        we can respond.
+
+  - type: input
+    id: version
+    attributes:
+      label: jvim version
+      description: Output of `jvim --version`.
+    validations:
+      required: true
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+      description: Be specific. "How do I…" questions get answered fastest.
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: |
+        What are you trying to accomplish overall? The same question can
+        have different right answers depending on the use case.
+    validations:
+      required: true
+
+  - type: textarea
+    id: tried
+    attributes:
+      label: What have you tried so far?
+      description: Even a list of "I looked at X, Y, Z" helps us skip ground you've already covered.
