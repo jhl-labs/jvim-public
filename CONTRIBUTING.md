@@ -77,10 +77,29 @@ faith.
 
 ## 6. Why is the source private?
 
-`jvim` ships as obfuscated single-binary executables. The current business
-model depends on the implementation staying closed while keeping the product
-itself broadly available and free to use. This may change in the future; if
-it does, we will announce it here first.
+`jvim` ships as obfuscated single-binary executables under the **jvim
+Software License** (see [`LICENSE`](./LICENSE)) — a custom license that
+keeps binary use **free** (install, run, redistribute, commercial use all
+permitted) while keeping the source code proprietary. This is the same
+pattern products like Anthropic's Claude Code use.
+
+The business model depends on the implementation staying closed while the
+product itself remains broadly available and free to use. This may change
+in the future; if it does, we will announce it here first.
+
+A few license implications worth calling out explicitly:
+
+- **Reverse engineering is prohibited** (except where local law guarantees
+  that right).
+- **Accidentally obtained source is still off-limits.** If you come into
+  possession of jvim source code by any means — a leak, a misconfigured
+  repo, compelled disclosure, a security research finding — unauthorized
+  use remains prohibited. Please notify `bkperio@gmail.com` and destroy
+  copies on request.
+- **ML training on the Binaries or any source artifact is not permitted.**
+
+Commercial source-code licensing, partnerships, and evaluation access are
+negotiable — contact `bkperio@gmail.com`.
 
 That decision does not diminish the value of public feedback. Issues from
 this repository directly inform the roadmap, and most shipped features trace

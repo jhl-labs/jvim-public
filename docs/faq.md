@@ -2,10 +2,22 @@
 
 ## Is jvim open source?
 
-The `jvim` **binary** is freely available under
-[Apache-2.0](../LICENSE): you can install, run, redistribute, and integrate
-it without paying. The **source code** is not currently public. See
-[`CONTRIBUTING.md`](../CONTRIBUTING.md) for why.
+Not in the OSI sense. `jvim` uses a **custom proprietary license with free
+binary use**, similar to products like Anthropic's Claude Code:
+
+- The **compiled binaries are free** to install, run, redistribute, and
+  integrate — personally or commercially.
+- The **source code is proprietary**. It is not published, and using
+  source code obtained by any means (including accidental disclosure)
+  requires prior written permission from JHL Labs.
+- **Reverse engineering and de-obfuscation are prohibited** (except where
+  local law guarantees that right).
+
+Full terms in [`LICENSE`](../LICENSE); plain-language summary in
+[`README.md`](../README.md#license). Commercial source licensing inquiries:
+`bkperio@gmail.com`.
+
+For why the source isn't public, see [`CONTRIBUTING.md`](../CONTRIBUTING.md).
 
 ## Where does jvim store my data?
 

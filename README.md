@@ -3,7 +3,7 @@
 > AI-native TUI markdown workspace — vim-like ergonomics, Notepad-friendly defaults.
 
 [![npm](https://img.shields.io/npm/v/jvim.svg)](https://www.npmjs.com/package/jvim)
-[![license](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](./LICENSE)
+[![license](https://img.shields.io/badge/license-binary%20free%20%2F%20source%20proprietary-blue.svg)](./LICENSE)
 [![issues](https://img.shields.io/github/issues/jhl-labs/jvim-public.svg)](https://github.com/jhl-labs/jvim-public/issues)
 [![release](https://img.shields.io/github/v/release/jhl-labs/jvim-public.svg)](https://github.com/jhl-labs/jvim-public/releases)
 
@@ -105,5 +105,33 @@ release notes.
 
 ## License
 
-[Apache-2.0](./LICENSE). See [`NOTICE`](./NOTICE) and third-party attribution
-shipped with each release for dependency licenses.
+`jvim` is distributed under the **jvim Software License** — a custom
+proprietary-with-free-binary-use license, modeled after the licensing
+approach used by products like Anthropic's Claude Code.
+
+**In plain language:**
+
+- ✅ **Binary use is free.** You can install, run, and redistribute the
+  unmodified compiled Binaries — personally or commercially, on any number
+  of devices, as part of any product or service, without royalty.
+- ❌ **Source code is proprietary.** You do **not** receive any license to
+  the `jvim` source code by using the Binaries. The source is not open.
+- ❌ **No reverse engineering.** Decompilation, de-obfuscation, and any
+  attempt to derive the source or internal design from the Binaries are
+  prohibited (except where local law guarantees that right).
+- ❌ **No unauthorized use if you accidentally obtain the source.** If you
+  ever come into possession of `jvim` source code, build artifacts, or
+  internal documentation by any means — a leak, a misconfigured repository,
+  a security research finding, a compelled disclosure, an audit, or
+  anything else — you may **not** use, copy, study, or redistribute it
+  without **prior written permission** from JHL Labs. Please notify
+  `bkperio@gmail.com` and destroy copies on request.
+- ❌ **No use as ML training data.** You may not use the Binaries or any
+  derived artifact as input to any machine-learning model or dataset.
+
+Source-code licensing, partnerships, and other commercial arrangements are
+negotiable — contact **bkperio@gmail.com**.
+
+Full terms: see [`LICENSE`](./LICENSE) and [`NOTICE`](./NOTICE). Third-party
+dependency licenses covering code bundled inside the Binaries ship as
+`third-party-notices.txt` with every release.

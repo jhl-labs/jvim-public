@@ -1,6 +1,20 @@
 jvim
-Copyright 2026 jhl-labs and jvim contributors
+Copyright (c) 2025 JHL Labs. All rights reserved.
 
-This product includes software developed by third parties.
-See THIRD_PARTY_NOTICES.md for the list of bundled dependencies
-and their respective licenses.
+The jvim Binaries are distributed under the jvim Software License.
+See the accompanying LICENSE file for the full terms. In summary:
+
+  - Use and redistribution of the compiled Binaries is free for any
+    lawful purpose, including commercial use.
+  - The jvim source code is proprietary and NOT licensed under this
+    distribution. Reverse-engineering, de-obfuscation, and use of any
+    source code or internal build artifact obtained by any means
+    (including accidentally) require prior written permission from
+    JHL Labs. Unauthorized use is strictly prohibited.
+
+This product includes software developed by third parties bundled into
+the Binaries. Each release attaches `third-party-notices.txt` listing
+bundled dependencies and their respective upstream licenses, which
+govern those portions independently of the jvim Software License.
+
+Contact: bkperio@gmail.com
