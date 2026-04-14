@@ -16,6 +16,13 @@ keyboard users the power of vim.
 > issues, releases, documentation, and public-facing assets. Distribution is
 > via precompiled, obfuscated binaries on **npm** and **GitHub Releases**.
 
+## Demo
+
+<video controls width="600">
+  <source src="./jvim_video.mp4" type="video/mp4">
+</video>
+
+👉 안 보이면 [여기 클릭](./jvim_video.mp4)
 ## Install
 
 ### npm (recommended)
