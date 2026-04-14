@@ -18,7 +18,7 @@ keyboard users the power of vim.
 
 ## Demo
 
-![jvim demo](./jvim_demo.gif)
+![jvim demo](./jvm_demo_compact.gif)
 
 👉 원본 영상(음성·고화질): [jvim_demo.mp4](./jvim_demo.mp4)
 ## Install
