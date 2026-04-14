@@ -18,9 +18,9 @@ keyboard users the power of vim.
 
 ## Demo
 
-<video src="https://github.com/jhl-labs/jvim-public/releases/download/v0.1.2/jvim_demo.mp4" controls width="600"></video>
+![jvim demo](./jvim_demo.gif)
 
-👉 안 보이면 [여기 클릭](https://github.com/jhl-labs/jvim-public/releases/download/v0.1.2/jvim_demo.mp4)
+👉 원본 영상(음성·고화질): [jvim_demo.mp4](./jvim_demo.mp4)
 ## Install
 
 ### npm (recommended)
