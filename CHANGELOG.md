@@ -21,17 +21,32 @@ Every PR MUST add an entry under `[Unreleased]` unless it is a pure internal ref
 
 ## [Unreleased]
 
+(Nothing yet. Open follow-ups in `memory/project_release_follow_ups.md`: wiring the Bun coverage-summary generator once the Bun 1.3 coverage bug is fixed.)
+
+## [0.1.2] — 2026-04-15
+
+First publicly installable release.
+
 ### Added
+- **npm distribution** — install with `npm install -g @jhl_labs/jvim`. Launcher auto-resolves the platform binary for linux-x64 / linux-arm64.
+- **GitHub Release assets** — `jvim-<v>-linux-{x64,arm64}.tar.gz` + `.sha256`, plus `sbom.json` (CycloneDX v1.5), `trivy-scan.json`, `osv-scan.json`, and `third-party-notices.txt` bundled into every npm tarball and attached to the tagged release.
+- **License gate** — `scripts/license-audit.ts` blocks releases if any production dependency introduces GPL / AGPL / SSPL / unknown licenses. Clean at v0.1.2 (282 packages, 91.8% MIT, zero copyleft).
 - AI overlay now has three explicit modes: **Ask** (Q&A in the overlay, never inserted), **Insert** (new content at the cursor), and **Rewrite** (replace the current selection).
 - Context selection follows a single rule: a non-empty selection becomes the context; otherwise Insert uses a markdown-section / line-window fallback (by file extension), Ask uses no context, and Rewrite requires a selection.
 - `[ai.context]`, `[ai.prompts]`, `[ai.prompts.filetype]`, `[ai.quick_prompts]` in `config.toml` let you tune line windows, system prompts, and quick-prompt shortcuts per mode.
-- Project scaffolding placeholder — see `CONTINUE.md`.
+
+### Changed
+- **Build pipeline is now two-stage** (bundle → compile). The single-stage `bun build --compile src/cli/main.tsx` previously embedded a sourcemap `sources` array listing every `src/**/*.tsx` file. `--sourcemap=none` did not suppress the compile-time embed, and post-build `strip` destroyed Bun's payload section entirely (see Fixed). Two-stage builds to a single synthetic bundle first; the compile step sees only one input, so no source paths leak.
 
 ### Fixed
+- **v0.1.0 binary was non-functional** — post-build `strip --strip-all` removed the ELF section containing Bun's embedded script, leaving the binary as a bare Bun runtime that printed Bun's CLI help when invoked. Every `strip` variant (`--strip-debug`, `--strip-unneeded`) reproduced the same breakage.
 - Inserted AI responses are no longer corrupted by markdown-fence wrappers: an outermost fence whose language tag is `markdown`/`md`/empty/matching the file extension is stripped before insertion.
 
-### Notes
-- Pre-0.1. No releases yet. This section will be split into a dated version on first tag.
+### Deprecated
+- `@jhl_labs/jvim@0.1.0`, `@jhl_labs/jvim-linux-x64@0.1.0`, `@jhl_labs/jvim-linux-arm64@0.1.0` — binaries non-functional. `npm install -g @jhl_labs/jvim` resolves to 0.1.2.
+
+### Security
+- Verified no source-code leakage in either x64 or arm64 binaries: zero `src/**/*.tsx` paths, zero unminified identifiers, zero inline base64 sourcemap payloads.
 
 <!--
 When cutting a release, replace `## [Unreleased]` with:
