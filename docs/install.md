@@ -1,4 +1,8 @@
-# Installing jvim
+---
+layout: page
+title: Installing jvim
+description: npm / GitHub Releases 설치 가이드, 업그레이드, 트러블슈팅.
+---
 
 ## Supported platforms
 

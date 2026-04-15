@@ -1,4 +1,9 @@
-# Release reports
+---
+layout: page
+title: Release reports
+description: 릴리스마다 첨부되는 투명성 리포트 — SBOM, Trivy, OSV, third-party notices, SHA-256.
+permalink: /reports/
+---
 
 Every tagged release on
 [this repo](https://github.com/jhl-labs/jvim-public/releases) attaches a set

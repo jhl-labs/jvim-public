@@ -1,4 +1,8 @@
-# Frequently Asked Questions
+---
+layout: page
+title: Frequently Asked Questions
+description: jvim 사용 중 자주 묻는 질문 — 오픈소스 여부, 데이터 저장 위치, AI 프로바이더, 키맵 등.
+---
 
 ## Is jvim open source?
 

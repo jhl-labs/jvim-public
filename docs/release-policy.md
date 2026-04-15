@@ -1,4 +1,8 @@
-# Release Policy
+---
+layout: page
+title: Release Policy
+description: 버전 정책 · 릴리스 주기 · 지원 윈도우 · 검증 체크리스트 · 라이선스.
+---
 
 How `jvim` releases are versioned, cut, distributed, and supported. This
 document is the user-facing contract — it tells you what to expect from a
