@@ -86,8 +86,8 @@ cd my-vault && jvim
 - **Full-text + semantic search** — SQLite FTS5 plus optional vector
   embeddings. Case-sensitive toggle, vault-wide search.
 - **AI overlay** — inline completion, edit modes, quick prompts (Ctrl+/ or F6).
-- **Git-aware** — commit log viewer, in-editor diff display, vault-aware
-  indexing that survives `git checkout`.
+- **Git-aware** — commit log viewer (F5), header `+N/−M` diff summary and
+  `jvim diff` CLI, vault-aware indexing that survives `git checkout`.
 - **Single-binary distribution** — one file per platform, no Node runtime,
   no `node_modules`.
 
