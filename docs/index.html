@@ -18,18 +18,59 @@ description: Terminal-native markdown editor with AI overlay, semantic search, w
       content="https://raw.githubusercontent.com/jhl-labs/jvim-public/main/jvm_demo_compact.gif"
     />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%2316181d'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='ui-monospace,monospace' font-size='32' font-weight='700' fill='%2356d1f5'%3Ej%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" hreflang="ko" href="https://jhl-labs.github.io/jvim-public/?lang=ko" />
+    <link rel="alternate" hreflang="en" href="https://jhl-labs.github.io/jvim-public/?lang=en" />
+    <link rel="alternate" hreflang="x-default" href="https://jhl-labs.github.io/jvim-public/" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%2316181d'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='ui-monospace,monospace' font-size='32' font-weight='700' fill='%2356d1f5'%3Ej%3C/text%3E%3C/svg%3E"
+    />
     <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}" />
+    <style>
+      .lang-switch {
+        display: inline-flex;
+        align-items: center;
+        gap: 2px;
+        font-family: var(--mono);
+        font-size: 11px;
+        padding: 3px 4px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--bg-elev);
+      }
+      .lang-switch button {
+        background: transparent;
+        border: none;
+        color: var(--text-faint);
+        cursor: pointer;
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.05em;
+      }
+      .lang-switch button:hover {
+        color: var(--text);
+      }
+      .lang-switch button.active {
+        background: var(--bg-card);
+        color: var(--accent);
+      }
+    </style>
   </head>
   <body>
     <header class="nav">
       <div class="container nav-row">
         <a class="brand" href="#"><span style="color: var(--accent)">j</span>vim<span class="cursor">▌</span></a>
         <nav class="nav-links">
-          <a href="#features">기능</a>
-          <a href="#install">설치</a>
-          <a href="#transparency">투명성</a>
-          <a href="#license">라이선스</a>
+          <a href="#features" data-i18n="nav.features">기능</a>
+          <a href="#install" data-i18n="nav.install">설치</a>
+          <a href="#transparency" data-i18n="nav.transparency">투명성</a>
+          <a href="#license" data-i18n="nav.license">라이선스</a>
+          <span class="lang-switch" role="radiogroup" aria-label="Language">
+            <button type="button" data-lang="ko" aria-label="한국어">KO</button>
+            <button type="button" data-lang="en" aria-label="English">EN</button>
+          </span>
           <a class="gh" href="https://github.com/jhl-labs/jvim-public" aria-label="GitHub">
             <svg class="gh-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
           </a>
@@ -41,24 +82,24 @@ description: Terminal-native markdown editor with AI overlay, semantic search, w
       <section class="hero" style="border-top: none; padding-top: 60px">
         <div class="container">
           <div class="badges">
-            <span class="badge accent">v0.1.3 · Linux x64 / arm64</span>
-            <span class="badge">single binary · Bun-compiled</span>
-            <span class="badge">obfuscated · source private</span>
+            <span class="badge accent" data-i18n="hero.badge.version">v0.1.3 · Linux x64 / arm64</span>
+            <span class="badge" data-i18n="hero.badge.binary">single binary · Bun-compiled</span>
+            <span class="badge" data-i18n="hero.badge.obfuscated">obfuscated · source private</span>
           </div>
-          <h1>Notepad-ergonomic, vim-fast, AI-native.</h1>
-          <p class="tagline">
+          <h1 data-i18n="hero.title">Notepad-ergonomic, vim-fast, AI-native.</h1>
+          <p class="tagline" data-i18n="hero.tagline">
             마크다운 노트를 위한 터미널 편집기. wikilink·tag·git·semantic search·AI overlay까지 단일 바이너리에. 설치 1줄, npm 권장.
           </p>
 
           <div class="cta-row">
-            <a class="btn btn-primary" href="#install">시작하기</a>
-            <a class="btn btn-secondary" href="https://github.com/jhl-labs/jvim-public" target="_blank" rel="noopener">GitHub</a>
+            <a class="btn btn-primary" href="#install" data-i18n="hero.cta.start">시작하기</a>
+            <a class="btn btn-secondary" href="https://github.com/jhl-labs/jvim-public" target="_blank" rel="noopener" data-i18n="hero.cta.github">GitHub</a>
           </div>
 
           <div class="install-snippet">
             <span class="prompt">$</span>
             <code id="install-cmd">npm install -g @jhl_labs/jvim</code>
-            <button id="copy-btn" type="button" aria-label="복사">copy</button>
+            <button id="copy-btn" type="button" aria-label="copy" data-i18n="hero.copy.idle">copy</button>
           </div>
         </div>
       </section>
@@ -73,55 +114,54 @@ description: Terminal-native markdown editor with AI overlay, semantic search, w
             </div>
             <img
               src="https://raw.githubusercontent.com/jhl-labs/jvim-public/main/jvm_demo_compact.gif"
-              alt="jvim 실행 데모"
+              alt="jvim demo"
               loading="lazy"
             />
           </div>
-          <p class="demo-caption">
-            👉 원본 영상(음성·고화질):
-            <a href="https://github.com/jhl-labs/jvim-public/raw/main/jvim_demo.mp4">jvim_demo.mp4</a>
+          <p class="demo-caption" data-i18n-rich="demo.caption">
+            👉 원본 영상(음성·고화질): <a href="https://github.com/jhl-labs/jvim-public/raw/main/jvim_demo.mp4">jvim_demo.mp4</a>
           </p>
         </div>
       </section>
 
       <section id="features">
         <div class="container">
-          <h2 class="section-title">기능</h2>
-          <p class="section-subtitle">
+          <h2 class="section-title" data-i18n="features.title">기능</h2>
+          <p class="section-subtitle" data-i18n="features.subtitle">
             마크다운 워크스페이스에 필요한 것을 한 바이너리에. node_modules도, Node 런타임도 필요 없습니다.
           </p>
           <div class="features">
             <div class="feature">
-              <h3><span class="icon">md</span> 마크다운 우선 편집</h3>
-              <p>헤딩·강조·리스트·코드펜스·테이블·인라인 링크에 라이브 스타일링. 페이지가 아닌 워크스페이스 단위.</p>
+              <h3><span class="icon">md</span> <span data-i18n="features.md.title">마크다운 우선 편집</span></h3>
+              <p data-i18n="features.md.desc">헤딩·강조·리스트·코드펜스·테이블·인라인 링크에 라이브 스타일링. 페이지가 아닌 워크스페이스 단위.</p>
             </div>
             <div class="feature">
-              <h3><span class="icon">[[ ]]</span> Wikilink + Backlink</h3>
-              <p><code>[[file]]</code> 자동완성, outbound 오버레이, backlink 그래프. Obsidian 호환 데이터 모델.</p>
+              <h3><span class="icon">[[ ]]</span> <span data-i18n="features.wikilink.title">Wikilink + Backlink</span></h3>
+              <p data-i18n-rich="features.wikilink.desc"><code>[[file]]</code> 자동완성, outbound 오버레이, backlink 그래프. Obsidian 호환 데이터 모델.</p>
             </div>
             <div class="feature">
-              <h3><span class="icon">#</span> 태그 브라우저</h3>
-              <p><code>#tag</code> 자동완성과 F7 태그 브라우저. 태그-검색 핸드오프로 한 번에 vault 전체 탐색.</p>
+              <h3><span class="icon">#</span> <span data-i18n="features.tag.title">태그 브라우저</span></h3>
+              <p data-i18n-rich="features.tag.desc"><code>#tag</code> 자동완성과 F7 태그 브라우저. 태그-검색 핸드오프로 한 번에 vault 전체 탐색.</p>
             </div>
             <div class="feature">
-              <h3><span class="icon">🔎</span> 풀텍스트 + 시맨틱 검색</h3>
-              <p>SQLite FTS5 기본, 옵션으로 sqlite-vec 임베딩. 대소문자 토글, vault-wide 검색.</p>
+              <h3><span class="icon">🔎</span> <span data-i18n="features.search.title">풀텍스트 + 시맨틱 검색</span></h3>
+              <p data-i18n="features.search.desc">SQLite FTS5 기본, 옵션으로 sqlite-vec 임베딩. 대소문자 토글, vault-wide 검색.</p>
             </div>
             <div class="feature">
-              <h3><span class="icon">⌘</span> Notepad 단축키</h3>
-              <p>Ctrl+C/X/V/A/Z/Y/S/O/N + Shift+Arrow 선택. vim 스타일 트리(j/k/g/G/n/r/d)도 함께.</p>
+              <h3><span class="icon">⌘</span> <span data-i18n="features.keymap.title">Notepad 단축키</span></h3>
+              <p data-i18n="features.keymap.desc">Ctrl+C/X/V/A/Z/Y/S/O/N + Shift+Arrow 선택. vim 스타일 트리(j/k/g/G/n/r/d)도 함께.</p>
             </div>
             <div class="feature">
-              <h3><span class="icon">AI</span> AI 오버레이</h3>
-              <p>인라인 자동완성, 빠른 프롬프트, 모드별 컨텍스트 (Ask / Insert / Rewrite). Local LLM도 지원.</p>
+              <h3><span class="icon">AI</span> <span data-i18n="features.ai.title">AI 오버레이</span></h3>
+              <p data-i18n="features.ai.desc">인라인 자동완성, 빠른 프롬프트, 모드별 컨텍스트 (Ask / Insert / Rewrite). Local LLM도 지원.</p>
             </div>
             <div class="feature">
-              <h3><span class="icon">git</span> Git 통합</h3>
-              <p>커밋 로그 뷰어, in-editor diff. vault-aware 인덱스가 <code>git checkout</code> 후에도 유지됨.</p>
+              <h3><span class="icon">git</span> <span data-i18n="features.git.title">Git 통합</span></h3>
+              <p data-i18n-rich="features.git.desc">커밋 로그 뷰어, in-editor diff. vault-aware 인덱스가 <code>git checkout</code> 후에도 유지됨.</p>
             </div>
             <div class="feature">
-              <h3><span class="icon">📦</span> 단일 바이너리</h3>
-              <p>플랫폼당 한 파일. Node 런타임도 <code>node_modules</code>도 필요 없음. npm 또는 GitHub Releases.</p>
+              <h3><span class="icon">📦</span> <span data-i18n="features.binary.title">단일 바이너리</span></h3>
+              <p data-i18n-rich="features.binary.desc">플랫폼당 한 파일. Node 런타임도 <code>node_modules</code>도 필요 없음. npm 또는 GitHub Releases.</p>
             </div>
           </div>
         </div>
@@ -129,26 +169,34 @@ description: Terminal-native markdown editor with AI overlay, semantic search, w
 
       <section id="install">
         <div class="container">
-          <h2 class="section-title">설치</h2>
-          <p class="section-subtitle">
+          <h2 class="section-title" data-i18n="install.title">설치</h2>
+          <p class="section-subtitle" data-i18n-rich="install.subtitle">
             지원 플랫폼: <strong>linux-x64</strong>, <strong>linux-arm64</strong>. macOS / Windows 예정.
           </p>
           <div class="methods">
             <div class="method">
-              <h3>npm <span class="pill">권장</span></h3>
-              <p>플랫폼 바이너리는 <code>optionalDependencies</code>로 자동 선택됩니다. CLI 명령은 그대로 <code>jvim</code>.</p>
-              <pre><span class="c"># 신규 설치</span>
+              <h3>
+                <span data-i18n="install.npm.title">npm</span>
+                <span class="pill" data-i18n="install.npm.pill">권장</span>
+              </h3>
+              <p data-i18n-rich="install.npm.desc">
+                플랫폼 바이너리는 <code>optionalDependencies</code>로 자동 선택됩니다. CLI 명령은 그대로 <code>jvim</code>.
+              </p>
+              <pre><span class="c" data-i18n="install.npm.cmt1"># 신규 설치</span>
 npm install -g @jhl_labs/jvim
 
-<span class="c"># 업그레이드</span>
+<span class="c" data-i18n="install.npm.cmt2"># 업그레이드</span>
 npm install -g @jhl_labs/jvim@latest --include=optional
 
 jvim --version</pre>
             </div>
             <div class="method">
-              <h3>GitHub Release <span class="pill">에어갭</span></h3>
-              <p>스탠드얼론 tarball + SHA-256 체크섬. 사내망·CI 캐시·오프라인 환경에 적합.</p>
-              <pre><span class="c"># 0.1.3 / linux-x64 예시</span>
+              <h3>
+                <span data-i18n="install.release.title">GitHub Release</span>
+                <span class="pill" data-i18n="install.release.pill">에어갭</span>
+              </h3>
+              <p data-i18n="install.release.desc">스탠드얼론 tarball + SHA-256 체크섬. 사내망·CI 캐시·오프라인 환경에 적합.</p>
+              <pre><span class="c" data-i18n="install.release.cmt"># 0.1.3 / linux-x64 예시</span>
 curl -LO https://github.com/jhl-labs/jvim-public/releases/download/v0.1.3/jvim-0.1.3-linux-x64.tar.gz
 curl -LO https://github.com/jhl-labs/jvim-public/releases/download/v0.1.3/jvim-0.1.3-linux-x64.tar.gz.sha256
 sha256sum -c jvim-0.1.3-linux-x64.tar.gz.sha256
@@ -156,79 +204,73 @@ tar -xzf jvim-0.1.3-linux-x64.tar.gz
 sudo mv jvim /usr/local/bin/</pre>
             </div>
           </div>
-          <p style="margin-top: 20px; color: var(--text-dim); font-size: 14px">
-            상세 설치/업그레이드/트러블슈팅: <a href="{{ '/install/' | relative_url }}">설치 가이드</a> ·
-            자주 묻는 질문: <a href="{{ '/faq/' | relative_url }}">FAQ</a>
+          <p style="margin-top: 20px; color: var(--text-dim); font-size: 14px" data-i18n-rich="install.links">
+            상세 설치/업그레이드/트러블슈팅: <a href="{{ '/install/' | relative_url }}">설치 가이드</a> · 자주 묻는 질문: <a href="{{ '/faq/' | relative_url }}">FAQ</a>
           </p>
         </div>
       </section>
 
       <section id="transparency">
         <div class="container">
-          <h2 class="section-title">투명성 리포트</h2>
-          <p class="section-subtitle">
+          <h2 class="section-title" data-i18n="transparency.title">투명성 리포트</h2>
+          <p class="section-subtitle" data-i18n="transparency.subtitle">
             소스는 비공개지만, 매 릴리스마다 공급망과 보안 상태를 사용자가 직접 검증할 수 있도록 다음을 첨부합니다.
           </p>
           <div class="transparency-grid">
             <div class="transparency-item">
               <div class="name">sbom.json</div>
-              <div class="desc">CycloneDX v1.5 SBOM — 모든 production 의존성 + 라이선스</div>
+              <div class="desc" data-i18n="transparency.sbom">CycloneDX v1.5 SBOM — 모든 production 의존성 + 라이선스</div>
             </div>
             <div class="transparency-item">
               <div class="name">trivy-scan.json</div>
-              <div class="desc">Aqua Trivy 의존성 취약점 스캔</div>
+              <div class="desc" data-i18n="transparency.trivy">Aqua Trivy 의존성 취약점 스캔</div>
             </div>
             <div class="transparency-item">
               <div class="name">osv-scan.json</div>
-              <div class="desc">Google OSV-Scanner 취약점 스캔</div>
+              <div class="desc" data-i18n="transparency.osv">Google OSV-Scanner 취약점 스캔</div>
             </div>
             <div class="transparency-item">
               <div class="name">third-party-notices.txt</div>
-              <div class="desc">번들된 의존성과 upstream LICENSE 전문</div>
+              <div class="desc" data-i18n="transparency.notices">번들된 의존성과 upstream LICENSE 전문</div>
             </div>
             <div class="transparency-item">
               <div class="name">*.tar.gz.sha256</div>
-              <div class="desc">바이너리 무결성 검증용 SHA-256 체크섬</div>
+              <div class="desc" data-i18n="transparency.sha256">바이너리 무결성 검증용 SHA-256 체크섬</div>
             </div>
             <div class="transparency-item">
               <div class="name">License audit gate</div>
-              <div class="desc">GPL/AGPL/SSPL 의존성 발견 시 릴리스 자체가 차단</div>
+              <div class="desc" data-i18n="transparency.gate">GPL/AGPL/SSPL 의존성 발견 시 릴리스 자체가 차단</div>
             </div>
           </div>
-          <p style="margin-top: 20px; color: var(--text-dim); font-size: 14px">
-            최신 자산:
-            <a href="https://github.com/jhl-labs/jvim-public/releases/latest">Releases page</a> ·
-            정책 상세: <a href="{{ '/release-policy/' | relative_url }}">릴리스 정책</a>
+          <p style="margin-top: 20px; color: var(--text-dim); font-size: 14px" data-i18n-rich="transparency.links">
+            최신 자산: <a href="https://github.com/jhl-labs/jvim-public/releases/latest">Releases page</a> · 정책 상세: <a href="{{ '/release-policy/' | relative_url }}">릴리스 정책</a>
           </p>
         </div>
       </section>
 
       <section id="license">
         <div class="container">
-          <h2 class="section-title">라이선스</h2>
-          <p class="section-subtitle">
+          <h2 class="section-title" data-i18n="license.title">라이선스</h2>
+          <p class="section-subtitle" data-i18n="license.subtitle">
             jvim Software License — Anthropic Claude Code 스타일의 커스텀 라이선스.
           </p>
           <div class="license-card">
             <div class="label">jvim Software License</div>
-            <h3>바이너리 사용 무료, 소스 비공개</h3>
+            <h3 data-i18n="license.headline">바이너리 사용 무료, 소스 비공개</h3>
             <ul>
-              <li><span class="ok">✓</span> 설치·실행·재배포 자유 (상용 포함)</li>
-              <li><span class="ok">✓</span> 상용 통합 / 번들링 허용</li>
-              <li><span class="ok">✓</span> 무제한 디바이스</li>
-              <li><span class="no">✗</span> 소스 코드 비공개 — 사용 권한 없음</li>
-              <li><span class="no">✗</span> 리버스 엔지니어링 금지</li>
-              <li><span class="no">✗</span> 우연히 얻은 소스도 무단 사용 금지</li>
-              <li><span class="no">✗</span> ML 학습 데이터 사용 금지</li>
-              <li>
-                <span style="color: var(--text-faint); margin-right: 6px">→</span>
-                상용 소스 라이선스 / 파트너십:
-                <a href="mailto:bkperio@gmail.com">bkperio@gmail.com</a>
+              <li><span class="ok">✓</span> <span data-i18n="license.pt.free">설치·실행·재배포 자유 (상용 포함)</span></li>
+              <li><span class="ok">✓</span> <span data-i18n="license.pt.commercial">상용 통합 / 번들링 허용</span></li>
+              <li><span class="ok">✓</span> <span data-i18n="license.pt.devices">무제한 디바이스</span></li>
+              <li><span class="no">✗</span> <span data-i18n="license.pt.private">소스 코드 비공개 — 사용 권한 없음</span></li>
+              <li><span class="no">✗</span> <span data-i18n="license.pt.noreverse">리버스 엔지니어링 금지</span></li>
+              <li><span class="no">✗</span> <span data-i18n="license.pt.noleak">우연히 얻은 소스도 무단 사용 금지</span></li>
+              <li><span class="no">✗</span> <span data-i18n="license.pt.noml">ML 학습 데이터 사용 금지</span></li>
+              <li data-i18n-rich="license.pt.contact">
+                <span style="color: var(--text-faint); margin-right: 6px">→</span> 상용 소스 라이선스 / 파트너십: <a href="mailto:bkperio@gmail.com">bkperio@gmail.com</a>
               </li>
             </ul>
-            <p style="margin-top: 20px; font-size: 14px; color: var(--text-dim)">
-              전문: <a href="https://github.com/jhl-labs/jvim-public/blob/main/LICENSE">LICENSE</a> ·
-              요약 + 정책: <a href="{{ '/release-policy/' | relative_url }}">릴리스 정책</a>
+            <p style="margin-top: 20px; font-size: 14px; color: var(--text-dim)" data-i18n-rich="license.links">
+              전문: <a href="https://github.com/jhl-labs/jvim-public/blob/main/LICENSE">LICENSE</a> · 요약 + 정책: <a href="{{ '/release-policy/' | relative_url }}">릴리스 정책</a>
             </p>
           </div>
         </div>
@@ -236,36 +278,31 @@ sudo mv jvim /usr/local/bin/</pre>
 
       <section>
         <div class="container">
-          <h2 class="section-title">지원 & 커뮤니티</h2>
-          <p class="section-subtitle">소스는 비공개지만 이슈와 토론은 모두 공개됩니다.</p>
+          <h2 class="section-title" data-i18n="community.title">지원 & 커뮤니티</h2>
+          <p class="section-subtitle" data-i18n="community.subtitle">소스는 비공개지만 이슈와 토론은 모두 공개됩니다.</p>
           <div class="features">
             <div class="feature">
-              <h3><span class="icon">!</span> 버그 리포트</h3>
-              <p>
-                <a href="https://github.com/jhl-labs/jvim-public/issues/new?template=bug_report.yml">Bug report 템플릿</a>으로
-                재현 단계, 환경, 기대/실제 동작을 알려주세요.
+              <h3><span class="icon">!</span> <span data-i18n="community.bug.title">버그 리포트</span></h3>
+              <p data-i18n-rich="community.bug.desc">
+                <a href="https://github.com/jhl-labs/jvim-public/issues/new?template=bug_report.yml">Bug report 템플릿</a>으로 재현 단계, 환경, 기대/실제 동작을 알려주세요.
               </p>
             </div>
             <div class="feature">
-              <h3><span class="icon">+</span> 기능 제안</h3>
-              <p>
-                <a href="https://github.com/jhl-labs/jvim-public/issues/new?template=feature_request.yml">Feature request</a>로
-                해결하려는 문제와 제안을 함께 적어주세요.
+              <h3><span class="icon">+</span> <span data-i18n="community.feature.title">기능 제안</span></h3>
+              <p data-i18n-rich="community.feature.desc">
+                <a href="https://github.com/jhl-labs/jvim-public/issues/new?template=feature_request.yml">Feature request</a>로 해결하려는 문제와 제안을 함께 적어주세요.
               </p>
             </div>
             <div class="feature">
-              <h3><span class="icon">?</span> 질문 / 도움</h3>
-              <p>
-                <a href="https://github.com/jhl-labs/jvim-public/issues/new?template=question.yml">Question</a>으로 사용법
-                문의 가능. 우선 <a href="{{ '/faq/' | relative_url }}">FAQ</a> 확인.
+              <h3><span class="icon">?</span> <span data-i18n="community.question.title">질문 / 도움</span></h3>
+              <p data-i18n-rich="community.question.desc">
+                <a href="https://github.com/jhl-labs/jvim-public/issues/new?template=question.yml">Question</a>으로 사용법 문의 가능. 우선 <a href="{{ '/faq/' | relative_url }}">FAQ</a> 확인.
               </p>
             </div>
             <div class="feature">
-              <h3><span class="icon">🔒</span> 보안 신고</h3>
-              <p>
-                공개 이슈 금지.
-                <a href="https://github.com/jhl-labs/jvim-public/security/advisories/new">GitHub Private Vulnerability Reporting</a>
-                또는 <a href="mailto:bkperio@gmail.com">bkperio@gmail.com</a>.
+              <h3><span class="icon">🔒</span> <span data-i18n="community.security.title">보안 신고</span></h3>
+              <p data-i18n-rich="community.security.desc">
+                공개 이슈 금지. <a href="https://github.com/jhl-labs/jvim-public/security/advisories/new">GitHub Private Vulnerability Reporting</a> 또는 <a href="mailto:bkperio@gmail.com">bkperio@gmail.com</a>.
               </p>
             </div>
           </div>
@@ -276,16 +313,221 @@ sudo mv jvim /usr/local/bin/</pre>
     {% include footer.html %}
 
     <script>
+      // ------------------------------------------------------------------
+      // i18n: client-side Korean/English toggle. No framework, no build.
+      //
+      // Two attribute conventions:
+      //   data-i18n="<key>"        → plain-text replacement via textContent.
+      //   data-i18n-rich="<key>"   → the translation string contains inline
+      //                              markup (<code>, <a>, <strong>, <span>).
+      //                              Parsed via DOMParser and inserted as
+      //                              real nodes — never assigned to
+      //                              innerHTML. All translation strings are
+      //                              compile-time literals below, no user
+      //                              input reaches this path.
+      //
+      // Default language is Korean (the HTML ships with Korean). English
+      // strings live in the translations object. User choice persists in
+      // localStorage; ?lang=en in the URL overrides once.
+      // ------------------------------------------------------------------
+
+      const translations = {
+        en: {
+          'nav.features': 'Features',
+          'nav.install': 'Install',
+          'nav.transparency': 'Transparency',
+          'nav.license': 'License',
+
+          'hero.badge.version': 'v0.1.3 · Linux x64 / arm64',
+          'hero.badge.binary': 'single binary · Bun-compiled',
+          'hero.badge.obfuscated': 'obfuscated · source private',
+          'hero.title': 'Notepad-ergonomic, vim-fast, AI-native.',
+          'hero.tagline':
+            "A terminal-native editor for markdown notes. Wikilinks, tags, Git, semantic search, and an AI overlay — all in a single binary. One-line install, npm-first.",
+          'hero.cta.start': 'Get started',
+          'hero.cta.github': 'GitHub',
+          'hero.copy.idle': 'copy',
+          'hero.copy.done': 'copied!',
+
+          'demo.caption':
+            '👉 Full video (audio + hi-res): <a href="https://github.com/jhl-labs/jvim-public/raw/main/jvim_demo.mp4">jvim_demo.mp4</a>',
+
+          'features.title': 'Features',
+          'features.subtitle':
+            'Everything a markdown workspace needs, in a single binary. No node_modules, no Node runtime.',
+          'features.md.title': 'Markdown-first editing',
+          'features.md.desc':
+            'Live styling for headings, emphasis, lists, code fences, tables, and inline links. Workspace-scoped, not page-scoped.',
+          'features.wikilink.title': 'Wikilink + Backlink',
+          'features.wikilink.desc':
+            '<code>[[file]]</code> autocomplete, outbound overlay, backlink graph. Obsidian-compatible data model.',
+          'features.tag.title': 'Tag browser',
+          'features.tag.desc':
+            '<code>#tag</code> autocomplete and the F7 tag browser. Tag-to-search handoff searches the whole vault in one step.',
+          'features.search.title': 'Full-text + semantic search',
+          'features.search.desc':
+            'SQLite FTS5 built in, optional sqlite-vec embeddings. Case-sensitivity toggle, vault-wide search.',
+          'features.keymap.title': 'Notepad shortcuts',
+          'features.keymap.desc':
+            'Ctrl+C/X/V/A/Z/Y/S/O/N + Shift+Arrow selection. Vim-style tree (j/k/g/G/n/r/d) too.',
+          'features.ai.title': 'AI overlay',
+          'features.ai.desc':
+            'Inline completion, quick prompts, per-mode context (Ask / Insert / Rewrite). Local LLMs supported.',
+          'features.git.title': 'Git integration',
+          'features.git.desc':
+            'Commit log viewer, in-editor diff. Vault-aware index survives <code>git checkout</code>.',
+          'features.binary.title': 'Single binary',
+          'features.binary.desc':
+            'One file per platform. No Node runtime, no <code>node_modules</code>. Install via npm or GitHub Releases.',
+
+          'install.title': 'Install',
+          'install.subtitle':
+            'Supported platforms: <strong>linux-x64</strong>, <strong>linux-arm64</strong>. macOS / Windows planned.',
+          'install.npm.title': 'npm',
+          'install.npm.pill': 'recommended',
+          'install.npm.desc':
+            'The platform binary is selected automatically via <code>optionalDependencies</code>. The CLI you run is still just <code>jvim</code>.',
+          'install.npm.cmt1': '# new install',
+          'install.npm.cmt2': '# upgrade',
+          'install.release.title': 'GitHub Release',
+          'install.release.pill': 'airgapped',
+          'install.release.desc':
+            'Standalone tarball + SHA-256 checksum. Suits internal networks, CI caches, and offline environments.',
+          'install.release.cmt': '# 0.1.3 / linux-x64 example',
+          'install.links':
+            "Detailed install / upgrade / troubleshooting: <a href=\"{{ '/install/' | relative_url }}\">Install guide</a> · FAQ: <a href=\"{{ '/faq/' | relative_url }}\">FAQ</a>",
+
+          'transparency.title': 'Transparency reports',
+          'transparency.subtitle':
+            "The source is closed, but every release ships the artifacts below so you can audit supply chain and security independently.",
+          'transparency.sbom': 'CycloneDX v1.5 SBOM — every production dependency with license info',
+          'transparency.trivy': 'Aqua Trivy vulnerability scan on dependencies',
+          'transparency.osv': 'Google OSV-Scanner vulnerability scan',
+          'transparency.notices': 'Bundled dependencies with their full upstream LICENSE text',
+          'transparency.sha256': 'SHA-256 checksums for binary integrity verification',
+          'transparency.gate':
+            'License-audit gate — the release aborts if any GPL / AGPL / SSPL dependency appears',
+          'transparency.links':
+            "Latest assets: <a href=\"https://github.com/jhl-labs/jvim-public/releases/latest\">Releases page</a> · policy: <a href=\"{{ '/release-policy/' | relative_url }}\">Release policy</a>",
+
+          'license.title': 'License',
+          'license.subtitle':
+            'jvim Software License — a custom license modeled after products like Anthropic Claude Code.',
+          'license.headline': 'Binaries are free to use. Source stays proprietary.',
+          'license.pt.free': 'Install, run, and redistribute freely (commercial use included)',
+          'license.pt.commercial': 'Commercial integration / bundling allowed',
+          'license.pt.devices': 'Unlimited devices',
+          'license.pt.private': 'Source code is not public — no usage rights granted',
+          'license.pt.noreverse': 'No reverse engineering',
+          'license.pt.noleak': 'Accidentally obtained source stays off-limits without written permission',
+          'license.pt.noml': 'No use as machine-learning training data',
+          'license.pt.contact':
+            '<span style="color: var(--text-faint); margin-right: 6px">→</span> Commercial source license / partnership: <a href="mailto:bkperio@gmail.com">bkperio@gmail.com</a>',
+          'license.links':
+            "Full text: <a href=\"https://github.com/jhl-labs/jvim-public/blob/main/LICENSE\">LICENSE</a> · summary + policy: <a href=\"{{ '/release-policy/' | relative_url }}\">Release policy</a>",
+
+          'community.title': 'Support & community',
+          'community.subtitle': 'Source is closed; issues and discussions are open.',
+          'community.bug.title': 'Bug report',
+          'community.bug.desc':
+            'Use the <a href="https://github.com/jhl-labs/jvim-public/issues/new?template=bug_report.yml">Bug report template</a> with steps to reproduce, environment, and expected / actual behavior.',
+          'community.feature.title': 'Feature request',
+          'community.feature.desc':
+            'Use <a href="https://github.com/jhl-labs/jvim-public/issues/new?template=feature_request.yml">Feature request</a> — describe the problem, not just your proposed solution.',
+          'community.question.title': 'Question',
+          'community.question.desc':
+            "File a <a href=\"https://github.com/jhl-labs/jvim-public/issues/new?template=question.yml\">Question</a> for usage help. Check the <a href=\"{{ '/faq/' | relative_url }}\">FAQ</a> first.",
+          'community.security.title': 'Security report',
+          'community.security.desc':
+            'No public issues. Use <a href="https://github.com/jhl-labs/jvim-public/security/advisories/new">GitHub Private Vulnerability Reporting</a> or email <a href="mailto:bkperio@gmail.com">bkperio@gmail.com</a>.',
+        },
+      };
+
+      // Snapshot the initial Korean DOM so switching back restores identically.
+      // Rich nodes: keep the original child nodes to clone back on restore.
+      const defaultCache = new Map();
+      document.querySelectorAll('[data-i18n], [data-i18n-rich]').forEach((el) => {
+        const isRich = el.hasAttribute('data-i18n-rich');
+        if (isRich) {
+          const fragment = document.createDocumentFragment();
+          el.childNodes.forEach((n) => fragment.appendChild(n.cloneNode(true)));
+          defaultCache.set(el, { isRich: true, fragment });
+        } else {
+          defaultCache.set(el, { isRich: false, text: el.textContent });
+        }
+      });
+
+      // Parse a translation string containing static inline markup (<a>, <code>
+      // etc.) into real DOM nodes without touching innerHTML. Safe because the
+      // input is a literal from `translations` above, not user input.
+      function renderRich(htmlString) {
+        const parsed = new DOMParser().parseFromString(htmlString, 'text/html');
+        const out = document.createDocumentFragment();
+        Array.from(parsed.body.childNodes).forEach((n) => out.appendChild(n));
+        return out;
+      }
+
+      function applyLanguage(lang) {
+        const dict = lang === 'en' ? translations.en : null;
+        document.querySelectorAll('[data-i18n], [data-i18n-rich]').forEach((el) => {
+          const key = el.getAttribute('data-i18n') || el.getAttribute('data-i18n-rich');
+          const cached = defaultCache.get(el);
+          const value = dict ? dict[key] : null;
+
+          if (cached.isRich) {
+            el.replaceChildren();
+            if (value === null || value === undefined) {
+              el.appendChild(cached.fragment.cloneNode(true));
+            } else {
+              el.appendChild(renderRich(value));
+            }
+          } else {
+            el.textContent = value || cached.text;
+          }
+        });
+        document.documentElement.lang = lang;
+        document.querySelectorAll('.lang-switch button').forEach((b) => {
+          b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+        });
+        try {
+          localStorage.setItem('jvim-lang', lang);
+        } catch {
+          /* storage blocked — session-only, fine */
+        }
+      }
+
+      // Resolve initial language: URL ?lang= wins, then storage, then <html lang>.
+      const params = new URLSearchParams(location.search);
+      const urlLang = params.get('lang');
+      const storedLang = (() => {
+        try {
+          return localStorage.getItem('jvim-lang');
+        } catch {
+          return null;
+        }
+      })();
+      const initialLang = urlLang || storedLang || document.documentElement.lang || 'ko';
+      applyLanguage(initialLang === 'en' ? 'en' : 'ko');
+
+      document.querySelectorAll('.lang-switch button').forEach((b) => {
+        b.addEventListener('click', () => applyLanguage(b.getAttribute('data-lang')));
+      });
+
+      // Clipboard copy for the hero install snippet.
       const cmd = document.getElementById('install-cmd');
       const btn = document.getElementById('copy-btn');
       btn?.addEventListener('click', async () => {
         try {
           await navigator.clipboard.writeText(cmd.textContent.trim());
-          const original = btn.textContent;
-          btn.textContent = 'copied!';
+          const lang = document.documentElement.lang === 'en' ? 'en' : 'ko';
+          const doneLabel =
+            lang === 'en' ? translations.en['hero.copy.done'] : '복사됨!';
+          const idleLabel =
+            lang === 'en' ? translations.en['hero.copy.idle'] : 'copy';
+          btn.textContent = doneLabel;
           btn.classList.add('copied');
           setTimeout(() => {
-            btn.textContent = original;
+            btn.textContent = idleLabel;
             btn.classList.remove('copied');
           }, 1500);
         } catch {
