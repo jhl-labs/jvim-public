@@ -44,7 +44,7 @@ get notified without polling.
 
 | Channel | URL | Mirror of |
 |---|---|---|
-| **npm** (recommended) | [`jvim`](https://www.npmjs.com/package/jvim) + `@jhl_labs/jvim-linux-*` | Authoritative |
+| **npm** (recommended) | [`@jhl_labs/jvim`](https://www.npmjs.com/package/@jhl_labs/jvim) + `@jhl_labs/jvim-linux-*` | Authoritative |
 | **GitHub Releases** | [`jhl-labs/jvim-public/releases`](https://github.com/jhl-labs/jvim-public/releases) | Same binaries, attached to version tag with SHA-256 checksums and transparency reports |
 
 Both channels carry bit-identical binaries for a given version. The

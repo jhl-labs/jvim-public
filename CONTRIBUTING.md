@@ -15,8 +15,8 @@ contribute and why some traditional paths are not available here.
 
 Before filing:
 
-1. Update to the latest release: `npm install -g jvim@latest` or download
-   from [Releases](https://github.com/jhl-labs/jvim-public/releases).
+1. Update to the latest release: `npm install -g @jhl_labs/jvim@latest --include=optional`
+   or download from [Releases](https://github.com/jhl-labs/jvim-public/releases).
 2. Search [existing issues](https://github.com/jhl-labs/jvim-public/issues?q=is%3Aissue)
    — someone may have hit the same thing.
 3. Capture the minimum reproduction: a small file, the exact keystrokes,

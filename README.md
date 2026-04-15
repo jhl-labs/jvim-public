@@ -2,7 +2,7 @@
 
 > AI-native TUI markdown workspace — vim-like ergonomics, Notepad-friendly defaults.
 
-[![npm](https://img.shields.io/npm/v/jvim.svg)](https://www.npmjs.com/package/jvim)
+[![npm](https://img.shields.io/npm/v/@jhl_labs/jvim.svg)](https://www.npmjs.com/package/@jhl_labs/jvim)
 [![license](https://img.shields.io/badge/license-binary%20free%20%2F%20source%20proprietary-blue.svg)](./LICENSE)
 [![issues](https://img.shields.io/github/issues/jhl-labs/jvim-public.svg)](https://github.com/jhl-labs/jvim-public/issues)
 [![release](https://img.shields.io/github/v/release/jhl-labs/jvim-public.svg)](https://github.com/jhl-labs/jvim-public/releases)
@@ -26,13 +26,25 @@ keyboard users the power of vim.
 ### npm (recommended)
 
 ```bash
-npm install -g jvim
+npm install -g @jhl_labs/jvim
 jvim --version
 ```
+
+The package is **scoped under `@jhl_labs/`** (npm blocks unscoped `jvim`
+as too similar to existing packages). The CLI you run is still just
+`jvim` — only the install path carries the scope.
 
 npm resolves the correct precompiled binary for your platform automatically
 via `optionalDependencies` gated on `os`/`cpu`. Supported today:
 **linux-x64**, **linux-arm64**.
+
+To upgrade later:
+
+```bash
+npm install -g @jhl_labs/jvim@latest --include=optional
+```
+
+Detailed install + upgrade walkthrough: [`docs/install.md`](./docs/install.md).
 
 ### GitHub Releases (standalone binary)
 
