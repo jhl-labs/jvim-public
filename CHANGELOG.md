@@ -23,6 +23,14 @@ Every PR MUST add an entry under `[Unreleased]` unless it is a pure internal ref
 
 (Nothing yet. Open follow-ups in `memory/project_release_follow_ups.md`: wiring the Bun coverage-summary generator once the Bun 1.3 coverage bug is fixed.)
 
+## [0.1.4] — 2026-04-15
+
+### Fixed
+- **Editor: Tab now indents.** Previously Tab toggled focus between the file tree and editor, which conflicted with universal text-editor expectations and was the most reported UX papercut after the v0.1.2 launch. Focus toggle moves to **Ctrl+E**.
+
+### Deprecated
+- `@jhl_labs/jvim@0.1.3` and matching subpackages — superseded by 0.1.4 (Tab fix). `npm install -g @jhl_labs/jvim@latest` resolves to 0.1.4.
+
 ## [0.1.3] — 2026-04-15
 
 ### Added
