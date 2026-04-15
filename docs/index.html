@@ -82,7 +82,7 @@ description: Terminal-native markdown editor with AI overlay, semantic search, w
       <section class="hero" style="border-top: none; padding-top: 60px">
         <div class="container">
           <div class="badges">
-            <span class="badge accent" data-i18n="hero.badge.version">v0.1.3 · Linux x64 / arm64</span>
+            <span class="badge accent" data-i18n="hero.badge.version">v{{ site.version }} · Linux x64 / arm64</span>
             <span class="badge" data-i18n="hero.badge.binary">single binary · Bun-compiled</span>
             <span class="badge" data-i18n="hero.badge.obfuscated">obfuscated · source private</span>
           </div>
@@ -196,11 +196,11 @@ jvim --version</pre>
                 <span class="pill" data-i18n="install.release.pill">에어갭</span>
               </h3>
               <p data-i18n="install.release.desc">스탠드얼론 tarball + SHA-256 체크섬. 사내망·CI 캐시·오프라인 환경에 적합.</p>
-              <pre><span class="c" data-i18n="install.release.cmt"># 0.1.3 / linux-x64 예시</span>
-curl -LO https://github.com/jhl-labs/jvim-public/releases/download/v0.1.3/jvim-0.1.3-linux-x64.tar.gz
-curl -LO https://github.com/jhl-labs/jvim-public/releases/download/v0.1.3/jvim-0.1.3-linux-x64.tar.gz.sha256
-sha256sum -c jvim-0.1.3-linux-x64.tar.gz.sha256
-tar -xzf jvim-0.1.3-linux-x64.tar.gz
+              <pre><span class="c" data-i18n="install.release.cmt"># {{ site.version }} / linux-x64 예시</span>
+curl -LO https://github.com/jhl-labs/jvim-public/releases/download/v{{ site.version }}/jvim-{{ site.version }}-linux-x64.tar.gz
+curl -LO https://github.com/jhl-labs/jvim-public/releases/download/v{{ site.version }}/jvim-{{ site.version }}-linux-x64.tar.gz.sha256
+sha256sum -c jvim-{{ site.version }}-linux-x64.tar.gz.sha256
+tar -xzf jvim-{{ site.version }}-linux-x64.tar.gz
 sudo mv jvim /usr/local/bin/</pre>
             </div>
           </div>
@@ -338,7 +338,7 @@ sudo mv jvim /usr/local/bin/</pre>
           'nav.transparency': 'Transparency',
           'nav.license': 'License',
 
-          'hero.badge.version': 'v0.1.3 · Linux x64 / arm64',
+          'hero.badge.version': 'v{{ site.version }} · Linux x64 / arm64',
           'hero.badge.binary': 'single binary · Bun-compiled',
           'hero.badge.obfuscated': 'obfuscated · source private',
           'hero.title': 'Notepad-ergonomic, vim-fast, AI-native.',
@@ -393,7 +393,7 @@ sudo mv jvim /usr/local/bin/</pre>
           'install.release.pill': 'airgapped',
           'install.release.desc':
             'Standalone tarball + SHA-256 checksum. Suits internal networks, CI caches, and offline environments.',
-          'install.release.cmt': '# 0.1.3 / linux-x64 example',
+          'install.release.cmt': '# {{ site.version }} / linux-x64 example',
           'install.links':
             "Detailed install / upgrade / troubleshooting: <a href=\"{{ '/install/' | relative_url }}\">Install guide</a> · FAQ: <a href=\"{{ '/faq/' | relative_url }}\">FAQ</a>",
 

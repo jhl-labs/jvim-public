@@ -69,7 +69,7 @@ npm uninstall -g @jhl_labs/jvim
 Best for airgapped environments, CI caches, or when npm is unavailable.
 
 ```bash
-VERSION="0.1.3"       # pick the desired release; see Releases page for the latest
+VERSION="{{ site.version }}"  # pick the desired release; see Releases page for the latest
 ARCH="linux-x64"      # or linux-arm64
 URL="https://github.com/jhl-labs/jvim-public/releases/download/v${VERSION}/jvim-${VERSION}-${ARCH}.tar.gz"
 
