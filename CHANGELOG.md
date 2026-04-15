@@ -23,6 +23,17 @@ Every PR MUST add an entry under `[Unreleased]` unless it is a pure internal ref
 
 (Nothing yet. Open follow-ups in `memory/project_release_follow_ups.md`: wiring the Bun coverage-summary generator once the Bun 1.3 coverage bug is fixed.)
 
+## [0.1.3] — 2026-04-15
+
+### Added
+- AI overlay is now centered on screen and has a width cap, giving a cleaner box layout especially on wide terminals.
+
+### Fixed
+- Editor: when scrolling upward leaves a tiny sliver below the scroll-off threshold, the viewport now snaps cleanly to row 0 instead of stalling. Removes a noticeable jitter when navigating to the top of long documents.
+
+### Changed
+- Build pipeline: `VERSION` is injected into the compiled binary at build time from `package.json` via `--define 'process.env.JVIM_VERSION=...'`. Previous releases required bumping the same constant in two places.
+
 ## [0.1.2] — 2026-04-15
 
 First publicly installable release.
