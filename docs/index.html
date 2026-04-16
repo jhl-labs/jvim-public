@@ -56,6 +56,165 @@ description: Terminal-native markdown editor with AI overlay, semantic search, w
         background: var(--bg-card);
         color: var(--accent);
       }
+
+      /* ===== Keymap reference tables (full) ===== */
+      .keymap-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 16px;
+      }
+      .keymap-group {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .keymap-group summary {
+        cursor: pointer;
+        padding: 14px 18px;
+        font-weight: 600;
+        font-size: 15px;
+        background: var(--bg-elev);
+        border-bottom: 1px solid var(--border);
+        list-style: none;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .keymap-group summary::-webkit-details-marker {
+        display: none;
+      }
+      .keymap-group summary::after {
+        content: "▸";
+        color: var(--text-faint);
+        font-size: 11px;
+        transition: transform 0.15s ease;
+      }
+      .keymap-group[open] summary::after {
+        transform: rotate(90deg);
+      }
+      .keymap-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+      .keymap-table td {
+        padding: 6px 18px;
+        border-bottom: 1px solid var(--border);
+        color: var(--text-dim);
+      }
+      .keymap-table tr:last-child td {
+        border-bottom: none;
+      }
+      .keymap-table td:first-child {
+        font-family: var(--mono);
+        color: var(--accent);
+        white-space: nowrap;
+        width: 40%;
+        font-size: 12px;
+      }
+
+      /* ===== Core workflow cards (with screenshots) ===== */
+      .workflow {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+        align-items: center;
+        padding: 40px 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .workflow:last-child {
+        border-bottom: none;
+      }
+      .workflow.reverse .workflow-media {
+        order: 2;
+      }
+      .workflow-media {
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid var(--border);
+        background: var(--bg-elev);
+        box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.5);
+      }
+      .workflow-media img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      .workflow-body h3 {
+        margin: 0 0 8px;
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+      }
+      .workflow-body .tag {
+        display: inline-block;
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--accent);
+        background: rgba(86, 209, 245, 0.1);
+        border: 1px solid rgba(86, 209, 245, 0.3);
+        border-radius: 4px;
+        padding: 2px 8px;
+        margin-bottom: 10px;
+      }
+      .workflow-body p {
+        color: var(--text-dim);
+        font-size: 15px;
+        line-height: 1.65;
+        margin: 0 0 14px;
+      }
+      .workflow-steps {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        counter-reset: step;
+      }
+      .workflow-steps li {
+        counter-increment: step;
+        position: relative;
+        padding-left: 32px;
+        margin-bottom: 10px;
+        color: var(--text-dim);
+        font-size: 14px;
+        line-height: 1.55;
+      }
+      .workflow-steps li::before {
+        content: counter(step);
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 22px;
+        height: 22px;
+        background: var(--bg-card);
+        border: 1px solid var(--border-hi);
+        border-radius: 50%;
+        color: var(--accent);
+        font-family: var(--mono);
+        font-size: 11px;
+        font-weight: 600;
+        text-align: center;
+        line-height: 20px;
+      }
+      .workflow-steps code {
+        background: var(--bg-elev);
+        border: 1px solid var(--border);
+        border-radius: 3px;
+        padding: 1px 6px;
+        font-size: 12px;
+        color: var(--accent);
+      }
+      @media (max-width: 760px) {
+        .workflow,
+        .workflow.reverse {
+          grid-template-columns: 1fr;
+          gap: 20px;
+          padding: 30px 0;
+        }
+        .workflow.reverse .workflow-media {
+          order: 0;
+        }
+      }
     </style>
   </head>
   <body>
@@ -65,6 +224,8 @@ description: Terminal-native markdown editor with AI overlay, semantic search, w
         <nav class="nav-links">
           <a href="#features" data-i18n="nav.features">기능</a>
           <a href="#install" data-i18n="nav.install">설치</a>
+          <a href="#workflows" data-i18n="nav.workflows">사용법</a>
+          <a href="#keymap" data-i18n="nav.keymap">단축키</a>
           <a href="#transparency" data-i18n="nav.transparency">투명성</a>
           <a href="#license" data-i18n="nav.license">라이선스</a>
           <span class="lang-switch" role="radiogroup" aria-label="Language">
@@ -157,7 +318,7 @@ description: Terminal-native markdown editor with AI overlay, semantic search, w
             </div>
             <div class="feature">
               <h3><span class="icon">git</span> <span data-i18n="features.git.title">Git 통합</span></h3>
-              <p data-i18n-rich="features.git.desc">커밋 로그 뷰어, in-editor diff. vault-aware 인덱스가 <code>git checkout</code> 후에도 유지됨.</p>
+              <p data-i18n-rich="features.git.desc">커밋 로그 뷰어(F5), 헤더의 <code>+N/−M</code> diff 요약과 <code>jvim diff</code> CLI. vault-aware 인덱스가 <code>git checkout</code> 후에도 유지됨.</p>
             </div>
             <div class="feature">
               <h3><span class="icon">📦</span> <span data-i18n="features.binary.title">단일 바이너리</span></h3>
@@ -207,6 +368,243 @@ sudo mv jvim /usr/local/bin/</pre>
           <p style="margin-top: 20px; color: var(--text-dim); font-size: 14px" data-i18n-rich="install.links">
             상세 설치/업그레이드/트러블슈팅: <a href="{{ '/install/' | relative_url }}">설치 가이드</a> · 자주 묻는 질문: <a href="{{ '/faq/' | relative_url }}">FAQ</a>
           </p>
+        </div>
+      </section>
+
+      <!-- CORE WORKFLOWS ============================================ -->
+      <section id="workflows">
+        <div class="container">
+          <h2 class="section-title" data-i18n="workflows.title">핵심 사용법</h2>
+          <p class="section-subtitle" data-i18n="workflows.subtitle">
+            설치 후 바로 써볼 6가지 핵심 워크플로. 모든 스크린샷은 실제 jvim 실행 결과입니다.
+          </p>
+
+          <div class="workflow">
+            <div class="workflow-media">
+              <img src="{{ '/images/02-readme-open.png' | relative_url }}" alt="jvim editing" loading="lazy" />
+            </div>
+            <div class="workflow-body">
+              <span class="tag" data-i18n="workflows.edit.tag">편집 기초</span>
+              <h3 data-i18n="workflows.edit.title">즉시 편집 가능한 TUI</h3>
+              <p data-i18n="workflows.edit.body">
+                파일 한 개든 vault든 열자마자 편집 가능. 파일 트리는 왼쪽, 에디터는 오른쪽. 상단 상태바에 파일명·EOL·저장 상태가 실시간으로 표시됩니다. Tab으로 들여쓰기, Ctrl+E로 트리↔에디터 포커스 전환.
+              </p>
+              <ol class="workflow-steps" data-i18n-rich="workflows.edit.steps">
+                <li><code>jvim notes.md</code> 또는 <code>jvim my-vault/</code>로 시작</li>
+                <li>편집하면 상태바에 <code>●</code> 표시 (unsaved)</li>
+                <li><code>Ctrl+S</code>로 저장 — 원자적 쓰기로 파일 손실 위험 없음</li>
+                <li>새 파일은 <code>jvim new.md</code>만 하면 자동 생성 (vi/notepad 시맨틱)</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="workflow reverse">
+            <div class="workflow-media">
+              <img src="{{ '/images/05-command-palette-f4.png' | relative_url }}" alt="command palette" loading="lazy" />
+            </div>
+            <div class="workflow-body">
+              <span class="tag" data-i18n="workflows.nav.tag">빠른 이동</span>
+              <h3 data-i18n="workflows.nav.title">커맨드 팔레트 + 파일 팔레트</h3>
+              <p data-i18n="workflows.nav.body">
+                Ctrl+F4(또는 F4)는 모든 명령을 퍼지 검색으로 실행. Ctrl+O는 vault 내 파일을 순간 열기. Ctrl+Tab으로 열린 버퍼 사이클.
+              </p>
+              <ol class="workflow-steps" data-i18n-rich="workflows.nav.steps">
+                <li><code>F4</code> — 커맨드 팔레트 (save, close, toggle-line-numbers, …)</li>
+                <li><code>Ctrl+O</code> — 파일 팔레트 (vault 내 전체 파일 fuzzy)</li>
+                <li><code>F2</code> — 현재 문서 아웃라인 (heading 점프)</li>
+                <li><code>Ctrl+Tab</code>/<code>Ctrl+Shift+Tab</code> — 열린 버퍼 사이클</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="workflow">
+            <div class="workflow-media">
+              <img src="{{ '/images/14-find-in-doc-ctrlf.png' | relative_url }}" alt="find in document" loading="lazy" />
+            </div>
+            <div class="workflow-body">
+              <span class="tag" data-i18n="workflows.search.tag">검색</span>
+              <h3 data-i18n="workflows.search.title">문서 내 + vault 전체 검색</h3>
+              <p data-i18n="workflows.search.body">
+                Ctrl+F는 현재 문서 내 검색 (Tab으로 대소문자 토글). Shift+F4는 vault 전체 풀텍스트 검색 (FTS5 + 선택적 시맨틱). 태그·wikilink 토큰도 쿼리로 그대로.
+              </p>
+              <ol class="workflow-steps" data-i18n-rich="workflows.search.steps">
+                <li><code>Ctrl+F</code> — 문서 내 검색 · <code>Enter</code> 다음, <code>Shift+Enter</code> 이전</li>
+                <li><code>Ctrl+T</code> — replace-all</li>
+                <li><code>Shift+F4</code> — vault 전체 검색 (제목·본문·태그)</li>
+                <li><code>#tag</code>, <code>[[link]]</code> 쿼리에 그대로 쓸 수 있음</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="workflow reverse">
+            <div class="workflow-media">
+              <img src="{{ '/images/07-ai-overlay-f6-mode-pick.png' | relative_url }}" alt="AI overlay" loading="lazy" />
+            </div>
+            <div class="workflow-body">
+              <span class="tag" data-i18n="workflows.ai.tag">AI 활용</span>
+              <h3 data-i18n="workflows.ai.title">Ask / Insert / Rewrite — 세 가지 모드</h3>
+              <p data-i18n="workflows.ai.body">
+                Ctrl+/ 또는 F6으로 AI 오버레이 열기. 현재 선택·섹션·빈 컨텍스트 중 하나를 자동으로 잡고, 세 모드 중 하나로 행동. OpenAI 호환·Anthropic·로컬 LLM 모두 지원.
+              </p>
+              <ol class="workflow-steps" data-i18n-rich="workflows.ai.steps">
+                <li><code>Ctrl+/</code> — 오버레이 토글 (또는 <code>F6</code>)</li>
+                <li>모드 선택: <strong>Ask</strong> (답만 오버레이로), <strong>Insert</strong> (커서에 삽입), <strong>Rewrite</strong> (선택 영역 교체)</li>
+                <li>선택이 있으면 컨텍스트로 자동 사용; 없으면 line-window / 섹션 fallback</li>
+                <li><code>F9</code>로 인라인 자동완성 토글 (ghost text), <code>→</code>로 수락</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="workflow">
+            <div class="workflow-media">
+              <img src="{{ '/images/13-outbound-links-f8.png' | relative_url }}" alt="outbound links" loading="lazy" />
+            </div>
+            <div class="workflow-body">
+              <span class="tag" data-i18n="workflows.graph.tag">지식 그래프</span>
+              <h3 data-i18n="workflows.graph.title">Wikilink · Backlink · Tag</h3>
+              <p data-i18n="workflows.graph.body">
+                Obsidian 호환 데이터 모델 — <code>[[file]]</code> 자동완성, 전방/후방 연결 그래프, 태그 브라우저까지. 어떤 문서에서든 그래프를 따라 이동 가능.
+              </p>
+              <ol class="workflow-steps" data-i18n-rich="workflows.graph.steps">
+                <li><code>[[</code> 입력 → 실시간 파일 자동완성</li>
+                <li><code>F8</code> — 현재 문서의 outbound 링크 오버레이</li>
+                <li><code>Ctrl+B</code> — backlink 그래프 (이 문서를 참조하는 문서들)</li>
+                <li><code>F7</code> — tag 브라우저 · Enter로 <code>tag:&lt;name&gt;</code> 검색 핸드오프</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="workflow reverse">
+            <div class="workflow-media">
+              <img src="{{ '/images/06-vault-search-shift-f4.png' | relative_url }}" alt="vault search" loading="lazy" />
+            </div>
+            <div class="workflow-body">
+              <span class="tag" data-i18n="workflows.git.tag">Git 워크플로</span>
+              <h3 data-i18n="workflows.git.title">커밋 로그 · diff 요약 · CLI</h3>
+              <p data-i18n="workflows.git.body">
+                vault는 기본적으로 git 저장소. 상태바에 <code>+N/−M</code> 실시간 diff 요약. F5로 commit log를 열고, <code>jvim diff</code> CLI로 review 가능. AI 편집은 reviewable diff로 떨어집니다.
+              </p>
+              <ol class="workflow-steps" data-i18n-rich="workflows.git.steps">
+                <li><code>F5</code> — 커밋 로그 오버레이 (작성자·SHA·메시지)</li>
+                <li>상단 헤더의 <code>+12 −4</code> — 현재 문서의 미커밋 diff</li>
+                <li><code>jvim diff [file]</code> — CLI에서 pager 스타일 diff</li>
+                <li>vault-aware 인덱스는 <code>git checkout</code> 이후에도 유지</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- KEYMAP REFERENCE ========================================== -->
+      <section id="keymap">
+        <div class="container">
+          <h2 class="section-title" data-i18n="keymap.title">단축키 전체 목록</h2>
+          <p class="section-subtitle" data-i18n="keymap.subtitle">
+            카테고리를 클릭해 펼쳐보세요. 앱 안에서는 <code>F1</code>로 언제든 확인 가능합니다.
+          </p>
+
+          <div class="keymap-grid">
+            <details class="keymap-group" open>
+              <summary data-i18n="keymap.global">Global</summary>
+              <table class="keymap-table">
+                <tr><td>Ctrl+Q</td><td data-i18n="km.quit">jvim 종료 (dirty 시 저장 확인)</td></tr>
+                <tr><td>Ctrl+C / V / X</td><td data-i18n="km.clipboard">복사 / 붙여넣기 / 잘라내기</td></tr>
+                <tr><td>F1</td><td data-i18n="km.help">Keymap 오버레이 토글</td></tr>
+                <tr><td>F10 / Ctrl+K</td><td data-i18n="km.settings">설정 오버레이</td></tr>
+                <tr><td>Ctrl+P / F4</td><td data-i18n="km.cmdpalette">커맨드 팔레트</td></tr>
+                <tr><td>Ctrl+F</td><td data-i18n="km.find">문서 내 검색 (Tab 대소문자)</td></tr>
+                <tr><td>Ctrl+T</td><td data-i18n="km.replace">Replace-all</td></tr>
+                <tr><td>Shift+F4</td><td data-i18n="km.vaultsearch">vault 전체 검색</td></tr>
+                <tr><td>Shift+F3</td><td data-i18n="km.gotoline">Go to line</td></tr>
+              </table>
+            </details>
+
+            <details class="keymap-group" open>
+              <summary data-i18n="keymap.editor">Editor — 편집</summary>
+              <table class="keymap-table">
+                <tr><td>Ctrl+N</td><td data-i18n="km.newbuffer">새 버퍼</td></tr>
+                <tr><td>Ctrl+W</td><td data-i18n="km.closedoc">현재 문서 닫기</td></tr>
+                <tr><td>Ctrl+O</td><td data-i18n="km.openfile">파일 팔레트</td></tr>
+                <tr><td>Ctrl+S / F3</td><td data-i18n="km.save">저장</td></tr>
+                <tr><td>Ctrl+A / X</td><td data-i18n="km.selxcut">전체 선택 / 잘라내기</td></tr>
+                <tr><td>Ctrl+Z / Y</td><td data-i18n="km.undoredo">undo / redo</td></tr>
+                <tr><td>Tab / Shift+Tab</td><td data-i18n="km.indent">들여쓰기 / 내어쓰기 (VSCode 스타일)</td></tr>
+                <tr><td>Backspace / Del</td><td data-i18n="km.delete">한 글자 삭제</td></tr>
+                <tr><td>Enter</td><td data-i18n="km.newline">줄바꿈</td></tr>
+                <tr><td>Esc</td><td data-i18n="km.clearsel">선택 해제</td></tr>
+              </table>
+            </details>
+
+            <details class="keymap-group" open>
+              <summary data-i18n="keymap.nav">Editor — 이동</summary>
+              <table class="keymap-table">
+                <tr><td>Arrows</td><td data-i18n="km.arrows">커서 이동</td></tr>
+                <tr><td>Ctrl+← / →</td><td data-i18n="km.wordjump">단어 점프</td></tr>
+                <tr><td>Home / End</td><td data-i18n="km.linebound">줄 시작 / 끝</td></tr>
+                <tr><td>Ctrl+Home / End</td><td data-i18n="km.docbound">문서 시작 / 끝</td></tr>
+                <tr><td>Ctrl+U / D</td><td data-i18n="km.pageupdown">페이지 위 / 아래</td></tr>
+                <tr><td>Shift+&lt;nav&gt;</td><td data-i18n="km.selectextend">선택 확장</td></tr>
+                <tr><td>Ctrl+E / Tab*</td><td data-i18n="km.focustoggle">트리 ↔ 에디터 포커스 (트리 포커스 시 Tab)</td></tr>
+                <tr><td>Ctrl+Tab / Shift+Tab</td><td data-i18n="km.buffercycle">다음 / 이전 버퍼</td></tr>
+                <tr><td>Ctrl+PageUp / Down</td><td data-i18n="km.buffercycle2">버퍼 사이클 (대체)</td></tr>
+              </table>
+            </details>
+
+            <details class="keymap-group">
+              <summary data-i18n="keymap.doctools">문서 도구</summary>
+              <table class="keymap-table">
+                <tr><td>F2</td><td data-i18n="km.outline">아웃라인 (heading)</td></tr>
+                <tr><td>F7</td><td data-i18n="km.tagbrowser">태그 브라우저</td></tr>
+                <tr><td>F8</td><td data-i18n="km.outbound">outbound 링크</td></tr>
+                <tr><td>Ctrl+B</td><td data-i18n="km.backlink">backlink 그래프</td></tr>
+                <tr><td>#&lt;prefix&gt;</td><td data-i18n="km.tagac">태그 자동완성</td></tr>
+                <tr><td>[[&lt;prefix&gt;</td><td data-i18n="km.wikiac">wikilink 자동완성</td></tr>
+              </table>
+            </details>
+
+            <details class="keymap-group">
+              <summary data-i18n="keymap.ai">AI & 지식</summary>
+              <table class="keymap-table">
+                <tr><td>Ctrl+/ / F6</td><td data-i18n="km.aiopen">AI 오버레이 (Ask/Insert/Rewrite)</td></tr>
+                <tr><td>F9</td><td data-i18n="km.inlineai">인라인 자동완성 토글</td></tr>
+                <tr><td>→</td><td data-i18n="km.inlineaccept">ghost text 수락</td></tr>
+              </table>
+            </details>
+
+            <details class="keymap-group">
+              <summary data-i18n="keymap.git">Index & Git</summary>
+              <table class="keymap-table">
+                <tr><td>Ctrl+R</td><td data-i18n="km.reindex">전체 re-index</td></tr>
+                <tr><td>Ctrl+L / F5</td><td data-i18n="km.commitlog">commit log</td></tr>
+                <tr><td>F9 (scope)</td><td data-i18n="km.semanticscope">시맨틱 인덱스 scope (오버레이 밖에서)</td></tr>
+                <tr><td>F11</td><td data-i18n="km.favorite">즐겨찾기 토글</td></tr>
+              </table>
+            </details>
+
+            <details class="keymap-group">
+              <summary data-i18n="keymap.tree">파일 트리</summary>
+              <table class="keymap-table">
+                <tr><td>j / k / ↓ / ↑</td><td data-i18n="km.treemove">항목 이동</td></tr>
+                <tr><td>g / G</td><td data-i18n="km.treetopbottom">맨 위 / 맨 아래</td></tr>
+                <tr><td>Enter</td><td data-i18n="km.treeopen">파일 열기</td></tr>
+                <tr><td>n</td><td data-i18n="km.treenew">새 파일</td></tr>
+                <tr><td>r</td><td data-i18n="km.treerename">이름 변경</td></tr>
+                <tr><td>d</td><td data-i18n="km.treedelete">삭제 (확인)</td></tr>
+                <tr><td>/ or type</td><td data-i18n="km.treefilter">필터 검색</td></tr>
+                <tr><td>q</td><td data-i18n="km.treeback">포커스 해제</td></tr>
+              </table>
+            </details>
+
+            <details class="keymap-group">
+              <summary data-i18n="keymap.overlay">오버레이 공통</summary>
+              <table class="keymap-table">
+                <tr><td>↑ / ↓</td><td data-i18n="km.ovmove">항목 이동</td></tr>
+                <tr><td>Enter</td><td data-i18n="km.ovaccept">선택 / 열기</td></tr>
+                <tr><td>Esc</td><td data-i18n="km.ovdismiss">닫기</td></tr>
+                <tr><td>Tab</td><td data-i18n="km.ovtoggle">옵션 토글 (find에서는 대소문자)</td></tr>
+              </table>
+            </details>
+          </div>
         </div>
       </section>
 
@@ -335,8 +733,149 @@ sudo mv jvim /usr/local/bin/</pre>
         en: {
           'nav.features': 'Features',
           'nav.install': 'Install',
+          'nav.workflows': 'How to use',
+          'nav.keymap': 'Keymap',
           'nav.transparency': 'Transparency',
           'nav.license': 'License',
+
+          'workflows.title': 'Core workflows',
+          'workflows.subtitle':
+            "Six workflows worth trying right after installing. Every screenshot is a real jvim session.",
+
+          'workflows.edit.tag': 'Editing basics',
+          'workflows.edit.title': 'Edits immediately — no setup, no modes',
+          'workflows.edit.body':
+            "Open a file or a whole vault and start typing. File tree on the left, editor on the right. The status bar shows filename, EOL, and save state live. Tab indents, Ctrl+E switches focus between tree and editor.",
+          'workflows.edit.steps':
+            '<li>Start with <code>jvim notes.md</code> or <code>jvim my-vault/</code></li>' +
+            '<li>Status bar shows <code>●</code> when unsaved</li>' +
+            '<li><code>Ctrl+S</code> to save — atomic write, no risk of file corruption</li>' +
+            '<li>New files? <code>jvim new.md</code> auto-creates (vi / notepad semantics)</li>',
+
+          'workflows.nav.tag': 'Navigation',
+          'workflows.nav.title': 'Command palette + file palette',
+          'workflows.nav.body':
+            'F4 runs any command via fuzzy search. Ctrl+O opens any file in the vault instantly. Ctrl+Tab cycles through open buffers.',
+          'workflows.nav.steps':
+            '<li><code>F4</code> — command palette (save, close, toggle-line-numbers, …)</li>' +
+            '<li><code>Ctrl+O</code> — file palette (fuzzy across the vault)</li>' +
+            '<li><code>F2</code> — document outline (jump by heading)</li>' +
+            '<li><code>Ctrl+Tab</code> / <code>Ctrl+Shift+Tab</code> — cycle open buffers</li>',
+
+          'workflows.search.tag': 'Search',
+          'workflows.search.title': 'Find in document + vault-wide search',
+          'workflows.search.body':
+            'Ctrl+F for in-document find (Tab toggles case). Shift+F4 for vault-wide full-text search (FTS5 + optional semantic). Tag / wikilink tokens are valid query terms.',
+          'workflows.search.steps':
+            "<li><code>Ctrl+F</code> — in-document · <code>Enter</code> next, <code>Shift+Enter</code> previous</li>" +
+            '<li><code>Ctrl+T</code> — replace-all</li>' +
+            '<li><code>Shift+F4</code> — vault-wide (titles, bodies, tags)</li>' +
+            '<li><code>#tag</code>, <code>[[link]]</code> work directly as query terms</li>',
+
+          'workflows.ai.tag': 'AI',
+          'workflows.ai.title': 'Three modes — Ask / Insert / Rewrite',
+          'workflows.ai.body':
+            'Ctrl+/ or F6 opens the AI overlay. It grabs selection / section / empty context automatically and acts via one of three modes. Works with OpenAI-compatible, Anthropic, and local LLMs.',
+          'workflows.ai.steps':
+            '<li><code>Ctrl+/</code> — toggle overlay (or <code>F6</code>)</li>' +
+            '<li>Modes: <strong>Ask</strong> (answer in overlay), <strong>Insert</strong> (at cursor), <strong>Rewrite</strong> (replace selection)</li>' +
+            '<li>Selection becomes context; falls back to line-window / section otherwise</li>' +
+            '<li><code>F9</code> toggles inline completion (ghost text); <code>→</code> accepts</li>',
+
+          'workflows.graph.tag': 'Knowledge graph',
+          'workflows.graph.title': 'Wikilinks · Backlinks · Tags',
+          'workflows.graph.body':
+            'Obsidian-compatible data model — <code>[[file]]</code> autocomplete, outbound and backlink graphs, tag browser. Navigate the graph from any document.',
+          'workflows.graph.steps':
+            '<li>Type <code>[[</code> for live file autocomplete</li>' +
+            '<li><code>F8</code> — outbound links from the current document</li>' +
+            '<li><code>Ctrl+B</code> — backlink graph (documents that link here)</li>' +
+            '<li><code>F7</code> — tag browser · Enter hands off to <code>tag:&lt;name&gt;</code> search</li>',
+
+          'workflows.git.tag': 'Git workflow',
+          'workflows.git.title': 'Commit log · diff summary · CLI',
+          'workflows.git.body':
+            'Vaults are git repos by default. The status bar shows a live <code>+N/−M</code> diff summary. F5 opens the commit log, and <code>jvim diff</code> CLI gives a pager review. AI edits land as reviewable diffs.',
+          'workflows.git.steps':
+            '<li><code>F5</code> — commit log overlay (author · SHA · message)</li>' +
+            '<li><code>+12 −4</code> in the header — uncommitted diff of the current file</li>' +
+            '<li><code>jvim diff [file]</code> — pager-style diff from the CLI</li>' +
+            '<li>vault-aware index survives <code>git checkout</code></li>',
+
+          'keymap.title': 'Full keymap',
+          'keymap.subtitle':
+            "Click a category to expand. Press <code>F1</code> inside jvim for the same thing at any time.",
+
+          'keymap.global': 'Global',
+          'keymap.editor': 'Editor — editing',
+          'keymap.nav': 'Editor — navigation',
+          'keymap.doctools': 'Document tools',
+          'keymap.ai': 'AI & knowledge',
+          'keymap.git': 'Index & Git',
+          'keymap.tree': 'File tree',
+          'keymap.overlay': 'Overlays (common)',
+
+          'km.quit': 'Quit jvim (prompt on dirty)',
+          'km.clipboard': 'Copy / paste / cut',
+          'km.help': 'Toggle keymap overlay',
+          'km.settings': 'Settings overlay',
+          'km.cmdpalette': 'Command palette',
+          'km.find': 'In-document find (Tab: case)',
+          'km.replace': 'Replace-all',
+          'km.vaultsearch': 'Vault-wide search',
+          'km.gotoline': 'Go to line',
+
+          'km.newbuffer': 'New buffer',
+          'km.closedoc': 'Close current document',
+          'km.openfile': 'File palette',
+          'km.save': 'Save',
+          'km.selxcut': 'Select all / cut',
+          'km.undoredo': 'Undo / redo',
+          'km.indent': 'Indent / outdent (VSCode style)',
+          'km.delete': 'Delete char',
+          'km.newline': 'Insert newline',
+          'km.clearsel': 'Clear selection',
+
+          'km.arrows': 'Move cursor',
+          'km.wordjump': 'Word jump',
+          'km.linebound': 'Line start / end',
+          'km.docbound': 'Doc start / end',
+          'km.pageupdown': 'Page up / down',
+          'km.selectextend': 'Extend selection',
+          'km.focustoggle': 'Tree ↔ editor focus (Tab when tree focused)',
+          'km.buffercycle': 'Next / prev buffer',
+          'km.buffercycle2': 'Buffer cycle (alt)',
+
+          'km.outline': 'Outline (headings)',
+          'km.tagbrowser': 'Tag browser',
+          'km.outbound': 'Outbound links',
+          'km.backlink': 'Backlink graph',
+          'km.tagac': 'Tag autocomplete',
+          'km.wikiac': 'Wikilink autocomplete',
+
+          'km.aiopen': 'AI overlay (Ask/Insert/Rewrite)',
+          'km.inlineai': 'Toggle inline completion',
+          'km.inlineaccept': 'Accept ghost text',
+
+          'km.reindex': 'Full re-index',
+          'km.commitlog': 'Commit log',
+          'km.semanticscope': 'Semantic index scope (outside overlays)',
+          'km.favorite': 'Toggle favorite',
+
+          'km.treemove': 'Move selection',
+          'km.treetopbottom': 'Top / bottom',
+          'km.treeopen': 'Open file',
+          'km.treenew': 'New file',
+          'km.treerename': 'Rename',
+          'km.treedelete': 'Delete (with confirm)',
+          'km.treefilter': 'Type-to-filter',
+          'km.treeback': 'Release focus',
+
+          'km.ovmove': 'Move highlight',
+          'km.ovaccept': 'Accept / open',
+          'km.ovdismiss': 'Dismiss',
+          'km.ovtoggle': 'Toggle option (case in find)',
+
 
           'hero.badge.version': 'v{{ site.version }} · Linux x64 / arm64',
           'hero.badge.binary': 'single binary · Bun-compiled',
@@ -375,7 +914,7 @@ sudo mv jvim /usr/local/bin/</pre>
             'Inline completion, quick prompts, per-mode context (Ask / Insert / Rewrite). Local LLMs supported.',
           'features.git.title': 'Git integration',
           'features.git.desc':
-            'Commit log viewer, in-editor diff. Vault-aware index survives <code>git checkout</code>.',
+            'Commit log viewer (F5), <code>+N/−M</code> diff summary in the header and <code>jvim diff</code> CLI. The vault-aware index survives <code>git checkout</code>.',
           'features.binary.title': 'Single binary',
           'features.binary.desc':
             'One file per platform. No Node runtime, no <code>node_modules</code>. Install via npm or GitHub Releases.',
