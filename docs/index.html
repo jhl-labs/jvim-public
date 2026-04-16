@@ -374,121 +374,297 @@ sudo mv jvim /usr/local/bin/</pre>
       <!-- CORE WORKFLOWS ============================================ -->
       <section id="workflows">
         <div class="container">
-          <h2 class="section-title" data-i18n="workflows.title">핵심 사용법</h2>
+          <h2 class="section-title" data-i18n="workflows.title">상세 사용 가이드</h2>
           <p class="section-subtitle" data-i18n="workflows.subtitle">
-            설치 후 바로 써볼 6가지 핵심 워크플로. 모든 스크린샷은 실제 jvim 실행 결과입니다.
+            jvim의 모든 핵심 기능을 스크린샷과 함께 하나씩 안내합니다. 도움말(<code>F1</code>)에서 언급되는 모든 기능이 여기에 포함됩니다.
           </p>
 
+          <!-- 1. 편집 기초 -->
           <div class="workflow">
             <div class="workflow-media">
-              <img src="{{ '/images/02-readme-open.png' | relative_url }}" alt="jvim editing" loading="lazy" />
+              <img src="{{ '/images/02-readme-open.png' | relative_url }}" alt="jvim editor view" loading="lazy" />
             </div>
             <div class="workflow-body">
-              <span class="tag" data-i18n="workflows.edit.tag">편집 기초</span>
-              <h3 data-i18n="workflows.edit.title">즉시 편집 가능한 TUI</h3>
-              <p data-i18n="workflows.edit.body">
-                파일 한 개든 vault든 열자마자 편집 가능. 파일 트리는 왼쪽, 에디터는 오른쪽. 상단 상태바에 파일명·EOL·저장 상태가 실시간으로 표시됩니다. Tab으로 들여쓰기, Ctrl+E로 트리↔에디터 포커스 전환.
+              <span class="tag">편집 기초</span>
+              <h3>즉시 편집 가능한 TUI</h3>
+              <p>
+                파일 한 개든 vault 폴더든 열자마자 편집할 수 있습니다. 왼쪽에 파일 트리, 오른쪽에 에디터. 상단 상태바에 파일명·EOL·저장 상태·git diff 요약이 실시간으로 표시됩니다. 빈 문서의 EOF 영역은 vim 스타일 <code>~</code>로 채워 뷰포트 경계를 명확히 합니다.
               </p>
-              <ol class="workflow-steps" data-i18n-rich="workflows.edit.steps">
+              <ol class="workflow-steps">
                 <li><code>jvim notes.md</code> 또는 <code>jvim my-vault/</code>로 시작</li>
                 <li>편집하면 상태바에 <code>●</code> 표시 (unsaved)</li>
-                <li><code>Ctrl+S</code>로 저장 — 원자적 쓰기로 파일 손실 위험 없음</li>
-                <li>새 파일은 <code>jvim new.md</code>만 하면 자동 생성 (vi/notepad 시맨틱)</li>
+                <li><code>Ctrl+S</code>로 저장 — 원자적 쓰기 + fsync로 파일 손실 방지</li>
+                <li>존재하지 않는 파일 경로도 OK: <code>jvim new.md</code>하면 빈 버퍼 생성 (vi/notepad 시맨틱)</li>
+                <li><code>Ctrl+Z</code>/<code>Ctrl+Y</code>로 undo/redo · <code>Ctrl+A</code> 전체 선택</li>
               </ol>
             </div>
           </div>
 
+          <!-- 2. 파일 트리 -->
           <div class="workflow reverse">
+            <div class="workflow-media">
+              <img src="{{ '/images/45-file-tree-filter.png' | relative_url }}" alt="file tree filter" loading="lazy" />
+            </div>
+            <div class="workflow-body">
+              <span class="tag">파일 트리</span>
+              <h3>vim 스타일 트리 + 실시간 필터</h3>
+              <p>
+                파일 트리에서 <code>j</code>/<code>k</code>로 이동, <code>Enter</code>로 열기. 글자를 입력하면 실시간 type-to-filter로 파일을 순식간에 찾습니다. <code>n</code>/<code>r</code>/<code>d</code>로 새 파일·이름변경·삭제까지 트리 안에서 완결. 깊이 중첩된 디렉토리도 자동 접기/펼치기.
+              </p>
+              <ol class="workflow-steps">
+                <li><code>Ctrl+E</code> 또는 <code>Tab</code>(트리 포커스) — 에디터 ↔ 트리 전환</li>
+                <li><code>j</code>/<code>k</code> — 위·아래 이동 · <code>g</code>/<code>G</code> — 맨 위/아래</li>
+                <li>아무 글자 입력 → 실시간 필터 (위 스크린샷처럼 즉시 좁혀짐)</li>
+                <li><code>n</code> 새 파일 · <code>r</code> 이름 변경 · <code>d</code> 삭제 (확인 대화상자)</li>
+                <li><code>Enter</code>로 열기 · <code>q</code>로 에디터 복귀</li>
+              </ol>
+            </div>
+          </div>
+
+          <!-- 3. 커맨드 팔레트 + 빠른 이동 -->
+          <div class="workflow">
             <div class="workflow-media">
               <img src="{{ '/images/05-command-palette-f4.png' | relative_url }}" alt="command palette" loading="lazy" />
             </div>
             <div class="workflow-body">
-              <span class="tag" data-i18n="workflows.nav.tag">빠른 이동</span>
-              <h3 data-i18n="workflows.nav.title">커맨드 팔레트 + 파일 팔레트</h3>
-              <p data-i18n="workflows.nav.body">
-                Ctrl+F4(또는 F4)는 모든 명령을 퍼지 검색으로 실행. Ctrl+O는 vault 내 파일을 순간 열기. Ctrl+Tab으로 열린 버퍼 사이클.
+              <span class="tag">빠른 이동</span>
+              <h3>커맨드 팔레트 · 파일 팔레트 · 아웃라인</h3>
+              <p>
+                <code>F4</code>로 모든 명령을 fuzzy 검색 실행. <code>Ctrl+O</code>로 vault 내 아무 파일을 즉시 열기. <code>F2</code>로 현재 문서의 heading 아웃라인을 열어 긴 문서를 빠르게 탐색. <code>Shift+F3</code>으로 줄 번호 점프.
               </p>
-              <ol class="workflow-steps" data-i18n-rich="workflows.nav.steps">
-                <li><code>F4</code> — 커맨드 팔레트 (save, close, toggle-line-numbers, …)</li>
-                <li><code>Ctrl+O</code> — 파일 팔레트 (vault 내 전체 파일 fuzzy)</li>
-                <li><code>F2</code> — 현재 문서 아웃라인 (heading 점프)</li>
+              <ol class="workflow-steps">
+                <li><code>F4</code> / <code>Ctrl+P</code> — 커맨드 팔레트 (save, close, toggle-line-numbers, …)</li>
+                <li><code>Ctrl+O</code> — 파일 팔레트 (vault 전체 fuzzy)</li>
+                <li><code>F2</code> — 아웃라인 오버레이: heading으로 점프</li>
+                <li><code>Shift+F3</code> — Go to line 대화상자 (줄 번호 입력 → 점프)</li>
                 <li><code>Ctrl+Tab</code>/<code>Ctrl+Shift+Tab</code> — 열린 버퍼 사이클</li>
               </ol>
             </div>
           </div>
 
-          <div class="workflow">
-            <div class="workflow-media">
-              <img src="{{ '/images/14-find-in-doc-ctrlf.png' | relative_url }}" alt="find in document" loading="lazy" />
-            </div>
-            <div class="workflow-body">
-              <span class="tag" data-i18n="workflows.search.tag">검색</span>
-              <h3 data-i18n="workflows.search.title">문서 내 + vault 전체 검색</h3>
-              <p data-i18n="workflows.search.body">
-                Ctrl+F는 현재 문서 내 검색 (Tab으로 대소문자 토글). Shift+F4는 vault 전체 풀텍스트 검색 (FTS5 + 선택적 시맨틱). 태그·wikilink 토큰도 쿼리로 그대로.
-              </p>
-              <ol class="workflow-steps" data-i18n-rich="workflows.search.steps">
-                <li><code>Ctrl+F</code> — 문서 내 검색 · <code>Enter</code> 다음, <code>Shift+Enter</code> 이전</li>
-                <li><code>Ctrl+T</code> — replace-all</li>
-                <li><code>Shift+F4</code> — vault 전체 검색 (제목·본문·태그)</li>
-                <li><code>#tag</code>, <code>[[link]]</code> 쿼리에 그대로 쓸 수 있음</li>
-              </ol>
-            </div>
-          </div>
-
+          <!-- 4. 아웃라인 -->
           <div class="workflow reverse">
             <div class="workflow-media">
-              <img src="{{ '/images/07-ai-overlay-f6-mode-pick.png' | relative_url }}" alt="AI overlay" loading="lazy" />
+              <img src="{{ '/images/03-outline-f2.png' | relative_url }}" alt="outline overlay" loading="lazy" />
             </div>
             <div class="workflow-body">
-              <span class="tag" data-i18n="workflows.ai.tag">AI 활용</span>
-              <h3 data-i18n="workflows.ai.title">Ask / Insert / Rewrite — 세 가지 모드</h3>
-              <p data-i18n="workflows.ai.body">
-                Ctrl+/ 또는 F6으로 AI 오버레이 열기. 현재 선택·섹션·빈 컨텍스트 중 하나를 자동으로 잡고, 세 모드 중 하나로 행동. OpenAI 호환·Anthropic·로컬 LLM 모두 지원.
+              <span class="tag">아웃라인</span>
+              <h3>F2 — 문서 구조를 한눈에</h3>
+              <p>
+                현재 문서의 마크다운 heading (<code># ~ ######</code>)을 깊이별로 계층화하여 보여줍니다. Enter로 해당 heading 위치로 즉시 점프. 긴 문서에서 원하는 섹션을 찾는 가장 빠른 방법.
               </p>
-              <ol class="workflow-steps" data-i18n-rich="workflows.ai.steps">
-                <li><code>Ctrl+/</code> — 오버레이 토글 (또는 <code>F6</code>)</li>
-                <li>모드 선택: <strong>Ask</strong> (답만 오버레이로), <strong>Insert</strong> (커서에 삽입), <strong>Rewrite</strong> (선택 영역 교체)</li>
-                <li>선택이 있으면 컨텍스트로 자동 사용; 없으면 line-window / 섹션 fallback</li>
-                <li><code>F9</code>로 인라인 자동완성 토글 (ghost text), <code>→</code>로 수락</li>
+              <ol class="workflow-steps">
+                <li><code>F2</code> — 아웃라인 열기</li>
+                <li><code>↑</code>/<code>↓</code>로 heading 선택</li>
+                <li><code>Enter</code> — 해당 라인으로 커서 점프 + 오버레이 닫힘</li>
+                <li><code>Esc</code> — 점프 없이 닫기</li>
               </ol>
             </div>
           </div>
 
+          <!-- 5. 문서 내 검색 + Replace -->
           <div class="workflow">
             <div class="workflow-media">
-              <img src="{{ '/images/13-outbound-links-f8.png' | relative_url }}" alt="outbound links" loading="lazy" />
+              <img src="{{ '/images/48-search-case-toggle.png' | relative_url }}" alt="find with case toggle" loading="lazy" />
             </div>
             <div class="workflow-body">
-              <span class="tag" data-i18n="workflows.graph.tag">지식 그래프</span>
-              <h3 data-i18n="workflows.graph.title">Wikilink · Backlink · Tag</h3>
-              <p data-i18n="workflows.graph.body">
-                Obsidian 호환 데이터 모델 — <code>[[file]]</code> 자동완성, 전방/후방 연결 그래프, 태그 브라우저까지. 어떤 문서에서든 그래프를 따라 이동 가능.
+              <span class="tag">검색 · 치환</span>
+              <h3>Ctrl+F 검색 + Ctrl+T Replace-all</h3>
+              <p>
+                문서 내 검색은 <code>Ctrl+F</code>. 실시간 하이라이트와 함께 <code>Enter</code>/<code>Shift+Enter</code>으로 다음/이전 매치를 순회합니다. <code>Tab</code>으로 대소문자 구분을 토글(상태바에 <code>Aa</code> 뱃지 표시). <code>Ctrl+T</code>는 전체 치환 대화상자.
               </p>
-              <ol class="workflow-steps" data-i18n-rich="workflows.graph.steps">
-                <li><code>[[</code> 입력 → 실시간 파일 자동완성</li>
-                <li><code>F8</code> — 현재 문서의 outbound 링크 오버레이</li>
-                <li><code>Ctrl+B</code> — backlink 그래프 (이 문서를 참조하는 문서들)</li>
-                <li><code>F7</code> — tag 브라우저 · Enter로 <code>tag:&lt;name&gt;</code> 검색 핸드오프</li>
+              <ol class="workflow-steps">
+                <li><code>Ctrl+F</code> — 검색 오버레이 열기</li>
+                <li>검색어 입력 → 실시간 하이라이트 (매치 수 표시)</li>
+                <li><code>Tab</code> — 대소문자 구분 토글 (<code>Aa</code> 뱃지 on/off)</li>
+                <li><code>Enter</code> 다음 매치 · <code>Shift+Enter</code> 이전 매치</li>
+                <li><code>Ctrl+T</code> — replace-all: 검색어 + 교체어 입력 후 한 번에 치환</li>
               </ol>
             </div>
           </div>
 
+          <!-- 6. Vault 전체 검색 + 시맨틱 -->
           <div class="workflow reverse">
             <div class="workflow-media">
-              <img src="{{ '/images/06-vault-search-shift-f4.png' | relative_url }}" alt="vault search" loading="lazy" />
+              <img src="{{ '/images/06-vault-search-shift-f4.png' | relative_url }}" alt="vault-wide search" loading="lazy" />
             </div>
             <div class="workflow-body">
-              <span class="tag" data-i18n="workflows.git.tag">Git 워크플로</span>
-              <h3 data-i18n="workflows.git.title">커밋 로그 · diff 요약 · CLI</h3>
-              <p data-i18n="workflows.git.body">
-                vault는 기본적으로 git 저장소. 상태바에 <code>+N/−M</code> 실시간 diff 요약. F5로 commit log를 열고, <code>jvim diff</code> CLI로 review 가능. AI 편집은 reviewable diff로 떨어집니다.
+              <span class="tag">Vault 검색</span>
+              <h3>Shift+F4 — 풀텍스트 + 시맨틱 검색</h3>
+              <p>
+                vault 내 모든 파일의 제목·본문·태그를 SQLite FTS5로 풀텍스트 검색. 선택적으로 sqlite-vec 임베딩 기반 시맨틱 검색까지. 쿼리에 <code>#tag</code>, <code>[[link]]</code> 토큰을 그대로 사용 가능. 알 수 없는 접두사나 닫히지 않은 따옴표에는 경고 표시.
               </p>
-              <ol class="workflow-steps" data-i18n-rich="workflows.git.steps">
-                <li><code>F5</code> — 커밋 로그 오버레이 (작성자·SHA·메시지)</li>
-                <li>상단 헤더의 <code>+12 −4</code> — 현재 문서의 미커밋 diff</li>
-                <li><code>jvim diff [file]</code> — CLI에서 pager 스타일 diff</li>
-                <li>vault-aware 인덱스는 <code>git checkout</code> 이후에도 유지</li>
+              <ol class="workflow-steps">
+                <li><code>Shift+F4</code> — vault 전체 검색 오버레이</li>
+                <li>쿼리 입력 → 실시간 결과 (파일명·매치 라인 미리보기)</li>
+                <li><code>#travel</code> 같은 태그, <code>[[chunker]]</code> 같은 wikilink도 쿼리로 사용</li>
+                <li><code>Enter</code> — 선택한 결과 파일 열기</li>
+                <li>시맨틱 검색은 <code>config.toml</code>에서 <code>[ai.embeddings]</code> 설정 시 활성화</li>
+              </ol>
+            </div>
+          </div>
+
+          <!-- 7. 태그 시스템 -->
+          <div class="workflow">
+            <div class="workflow-media">
+              <img src="{{ '/images/43-tag-completion-typing.png' | relative_url }}" alt="tag completion" loading="lazy" />
+            </div>
+            <div class="workflow-body">
+              <span class="tag">태그 시스템</span>
+              <h3>#tag 자동완성 + F7 태그 브라우저</h3>
+              <p>
+                에디터에서 <code>#</code>를 입력하면 vault 전체의 태그를 실시간 자동완성. <code>F7</code> 태그 브라우저는 모든 태그를 접두사 필터와 함께 나열하며, Enter로 선택하면 <code>tag:&lt;name&gt;</code> vault 검색으로 핸드오프됩니다.
+              </p>
+              <ol class="workflow-steps">
+                <li>에디터에서 <code>#</code> 입력 → 실시간 태그 자동완성 팝업</li>
+                <li><code>↑</code>/<code>↓</code>로 선택, <code>Enter</code>로 삽입</li>
+                <li><code>F7</code> — 태그 브라우저: vault 전체 태그 일람</li>
+                <li>브라우저에서 <code>Enter</code> → <code>tag:&lt;name&gt;</code>으로 vault 검색 핸드오프</li>
+              </ol>
+            </div>
+          </div>
+
+          <!-- 8. Wikilink + Outbound -->
+          <div class="workflow reverse">
+            <div class="workflow-media">
+              <img src="{{ '/images/44-wikilink-completion-typing.png' | relative_url }}" alt="wikilink completion" loading="lazy" />
+            </div>
+            <div class="workflow-body">
+              <span class="tag">Wikilink</span>
+              <h3>[[파일]] 자동완성 + F8 Outbound 링크</h3>
+              <p>
+                에디터에서 <code>[[</code>를 입력하면 vault 내 파일을 실시간 fuzzy 자동완성. 완성된 wikilink는 클릭 없이 문서 간 연결을 형성합니다. <code>F8</code>은 현재 문서에서 나가는 모든 wikilink를 오버레이로 보여주며, Enter로 대상 파일 열기.
+              </p>
+              <ol class="workflow-steps">
+                <li>에디터에서 <code>[[</code> 입력 → vault 파일 자동완성</li>
+                <li><code>↑</code>/<code>↓</code>로 선택, <code>Tab</code> 또는 <code>Enter</code>로 완성</li>
+                <li><code>F8</code> — outbound 링크 오버레이: 이 문서가 참조하는 문서들</li>
+                <li><code>Enter</code> — 선택한 링크 대상 파일로 이동</li>
+              </ol>
+            </div>
+          </div>
+
+          <!-- 9. Backlink 그래프 -->
+          <div class="workflow">
+            <div class="workflow-media">
+              <img src="{{ '/images/50-backlink-graph-ctrlb.png' | relative_url }}" alt="backlink graph" loading="lazy" />
+            </div>
+            <div class="workflow-body">
+              <span class="tag">Backlink 그래프</span>
+              <h3>Ctrl+B — 이 문서를 참조하는 모든 문서</h3>
+              <p>
+                Obsidian 스타일 backlink 탐색. <code>Ctrl+B</code>로 현재 문서를 <code>[[wikilink]]</code>로 참조하는 모든 문서를 그래프 형태로 조회합니다. <code>[</code>/<code>]</code>로 이웃 문서를 호핑하며, 하이라이트 경로가 유지되어 어디서 왔는지 추적 가능.
+              </p>
+              <ol class="workflow-steps">
+                <li><code>Ctrl+B</code> — backlink 그래프 열기</li>
+                <li><code>↑</code>/<code>↓</code> — 백링크 리스트 탐색</li>
+                <li><code>[</code>/<code>]</code> — 이웃 문서로 hop (경로 유지)</li>
+                <li><code>Enter</code> — 선택한 문서를 에디터에서 열기</li>
+                <li><code>Esc</code> — 그래프 닫기</li>
+              </ol>
+            </div>
+          </div>
+
+          <!-- 10. AI 오버레이 (3모드 상세) -->
+          <div class="workflow reverse">
+            <div class="workflow-media">
+              <img src="{{ '/images/07-ai-overlay-f6-mode-pick.png' | relative_url }}" alt="AI overlay mode pick" loading="lazy" />
+            </div>
+            <div class="workflow-body">
+              <span class="tag">AI 오버레이</span>
+              <h3>Alt+/ — Ask · Insert · Rewrite 세 가지 모드</h3>
+              <p>
+                <code>Alt+/</code> (또는 <code>Ctrl+/</code> / <code>F6</code>)로 AI 오버레이를 열면 세 가지 모드 중 하나를 선택합니다. <strong>Ask</strong>는 오버레이에서 질의응답, <strong>Insert</strong>는 커서 위치에 생성 텍스트 삽입, <strong>Rewrite</strong>는 선택 영역을 AI가 교체합니다. 선택이 있으면 자동 컨텍스트, 없으면 섹션/line-window 폴백. OpenAI 호환·Anthropic·로컬 LLM 모두 지원. 11개 빌트인 컨텍스트 액션(요약, 번역, 코드 리뷰, 리팩토링 등) 제공.
+              </p>
+              <ol class="workflow-steps">
+                <li><code>Alt+/</code> — AI 컨텍스트 메뉴 (커서 위치에 표시)</li>
+                <li>모드 선택: <strong>Ask</strong> / <strong>Insert</strong> / <strong>Rewrite</strong></li>
+                <li>선택 영역이 있으면 컨텍스트로 자동 전달</li>
+                <li>AI 응답은 스트리밍 — 상태바에 진행 인디케이터 표시</li>
+                <li><code>Esc</code>로 취소 · Rewrite 결과가 마음에 안 들면 <code>Ctrl+Z</code></li>
+              </ol>
+            </div>
+          </div>
+
+          <!-- 11. AI 인라인 자동완성 -->
+          <div class="workflow">
+            <div class="workflow-media">
+              <img src="{{ '/images/22-inline-ai-toggle-f9.png' | relative_url }}" alt="inline AI autocomplete" loading="lazy" />
+            </div>
+            <div class="workflow-body">
+              <span class="tag">AI 자동완성</span>
+              <h3>Copilot 스타일 인라인 ghost text</h3>
+              <p>
+                <code>Alt+I</code> (또는 <code>F9</code>)로 인라인 자동완성을 토글합니다. 활성화되면 타이핑을 멈출 때 AI가 다음 내용을 ghost text로 제안. <code>Tab</code>으로 수락, 다른 키를 누르면 무시됩니다. 파일 헤더·현재 스코프·스타일을 자동으로 읽어 context-aware 자동완성. 상태바의 AI 뱃지로 on/off 상태와 에러 원인을 즉시 확인.
+              </p>
+              <ol class="workflow-steps">
+                <li><code>Alt+I</code> — 인라인 자동완성 토글 (<code>F9</code>도 동작)</li>
+                <li>타이핑 → 잠깐 멈추면 ghost text 표시 (흐릿한 텍스트)</li>
+                <li><code>Tab</code> — ghost text 수락 (VSCode 컨벤션)</li>
+                <li>다른 키 입력 시 제안 자동 해제</li>
+                <li><code>providers.toml</code>에서 <code>inline_model</code> 설정으로 빠른 모델 분리 가능</li>
+              </ol>
+            </div>
+          </div>
+
+          <!-- 12. 코드 구문 강조 -->
+          <div class="workflow reverse">
+            <div class="workflow-media">
+              <img src="{{ '/images/34-code-fence.png' | relative_url }}" alt="code syntax highlighting" loading="lazy" />
+            </div>
+            <div class="workflow-body">
+              <span class="tag">구문 강조</span>
+              <h3>Shiki 기반 100+ 언어 코드 하이라이팅</h3>
+              <p>
+                마크다운의 코드펜스 (<code>```js ... ```</code>) 안 코드가 Shiki 엔진으로 구문 강조됩니다. JavaScript, TypeScript, Python, Go, Rust, Bash 등 100개 이상 언어를 지원. 에디터 안에서 코드 블록이 읽기 좋게 색상 구분되어 기술 문서 작성에 최적.
+              </p>
+              <ol class="workflow-steps">
+                <li>마크다운에서 <code>```언어명</code>으로 코드펜스 시작</li>
+                <li>코드가 자동으로 구문 강조됨 (터미널 256색/truecolor)</li>
+                <li>지원 언어: js, ts, py, go, rust, bash, json, yaml, sql, html, css …</li>
+                <li>강조는 실시간 — 코드를 편집하면 즉시 갱신</li>
+              </ol>
+            </div>
+          </div>
+
+          <!-- 13. Git 통합 -->
+          <div class="workflow">
+            <div class="workflow-media">
+              <img src="{{ '/images/46-commit-log-f5.png' | relative_url }}" alt="commit log" loading="lazy" />
+            </div>
+            <div class="workflow-body">
+              <span class="tag">Git 통합</span>
+              <h3>F5 커밋 로그 · 헤더 diff · jvim diff CLI</h3>
+              <p>
+                vault는 기본적으로 git 저장소. 상태바 헤더에 <code>+N/−M</code>으로 현재 파일의 미커밋 변경 라인 수를 실시간 표시. <code>F5</code>로 커밋 로그 오버레이(작성자·SHA·메시지), <code>jvim diff</code>로 CLI에서 pager 스타일 리뷰 가능. AI 편집 결과도 diff로 확인 가능.
+              </p>
+              <ol class="workflow-steps">
+                <li><code>F5</code> / <code>Ctrl+L</code> — 커밋 로그 오버레이</li>
+                <li>상단 헤더의 <code>+12 −4</code> — 현재 파일의 미커밋 diff 요약</li>
+                <li><code>jvim diff [file]</code> — CLI pager 스타일 diff</li>
+                <li>vault-aware 인덱스는 <code>git checkout</code> 후에도 유지</li>
+                <li><code>Ctrl+R</code> — 전체 재인덱싱 (필요 시 수동 트리거)</li>
+              </ol>
+            </div>
+          </div>
+
+          <!-- 14. 설정 -->
+          <div class="workflow reverse">
+            <div class="workflow-media">
+              <img src="{{ '/images/11-settings-f10.png' | relative_url }}" alt="settings overlay" loading="lazy" />
+            </div>
+            <div class="workflow-body">
+              <span class="tag">설정</span>
+              <h3>F10 — config.toml 편집 + 즉시 반영</h3>
+              <p>
+                <code>F10</code> (또는 <code>Ctrl+K</code>)으로 설정 오버레이를 열어 <code>config.toml</code>을 직접 편집합니다. AI 프로바이더, 줄 번호, 탭 크기, scroll-off, 업데이트 체크 등을 설정. 저장하면 재시작 없이 즉시 반영됩니다. 잘못된 TOML은 에러 토스트로 알림.
+              </p>
+              <ol class="workflow-steps">
+                <li><code>F10</code> / <code>Ctrl+K</code> — 설정 오버레이 열기</li>
+                <li><code>[editor]</code> — tab_size, scroll_off, line_numbers</li>
+                <li><code>[ai]</code> — provider, model, inline_model, quick_prompts</li>
+                <li><code>[updates]</code> — check_on_start (npm 업데이트 체크 on/off)</li>
+                <li><code>Ctrl+S</code> 저장 시 즉시 반영 · 파싱 에러 시 이전 설정 유지</li>
               </ol>
             </div>
           </div>
@@ -738,69 +914,9 @@ sudo mv jvim /usr/local/bin/</pre>
           'nav.transparency': 'Transparency',
           'nav.license': 'License',
 
-          'workflows.title': 'Core workflows',
+          'workflows.title': 'Detailed usage guide',
           'workflows.subtitle':
-            "Six workflows worth trying right after installing. Every screenshot is a real jvim session.",
-
-          'workflows.edit.tag': 'Editing basics',
-          'workflows.edit.title': 'Edits immediately — no setup, no modes',
-          'workflows.edit.body':
-            "Open a file or a whole vault and start typing. File tree on the left, editor on the right. The status bar shows filename, EOL, and save state live. Tab indents, Ctrl+E switches focus between tree and editor.",
-          'workflows.edit.steps':
-            '<li>Start with <code>jvim notes.md</code> or <code>jvim my-vault/</code></li>' +
-            '<li>Status bar shows <code>●</code> when unsaved</li>' +
-            '<li><code>Ctrl+S</code> to save — atomic write, no risk of file corruption</li>' +
-            '<li>New files? <code>jvim new.md</code> auto-creates (vi / notepad semantics)</li>',
-
-          'workflows.nav.tag': 'Navigation',
-          'workflows.nav.title': 'Command palette + file palette',
-          'workflows.nav.body':
-            'F4 runs any command via fuzzy search. Ctrl+O opens any file in the vault instantly. Ctrl+Tab cycles through open buffers.',
-          'workflows.nav.steps':
-            '<li><code>F4</code> — command palette (save, close, toggle-line-numbers, …)</li>' +
-            '<li><code>Ctrl+O</code> — file palette (fuzzy across the vault)</li>' +
-            '<li><code>F2</code> — document outline (jump by heading)</li>' +
-            '<li><code>Ctrl+Tab</code> / <code>Ctrl+Shift+Tab</code> — cycle open buffers</li>',
-
-          'workflows.search.tag': 'Search',
-          'workflows.search.title': 'Find in document + vault-wide search',
-          'workflows.search.body':
-            'Ctrl+F for in-document find (Tab toggles case). Shift+F4 for vault-wide full-text search (FTS5 + optional semantic). Tag / wikilink tokens are valid query terms.',
-          'workflows.search.steps':
-            "<li><code>Ctrl+F</code> — in-document · <code>Enter</code> next, <code>Shift+Enter</code> previous</li>" +
-            '<li><code>Ctrl+T</code> — replace-all</li>' +
-            '<li><code>Shift+F4</code> — vault-wide (titles, bodies, tags)</li>' +
-            '<li><code>#tag</code>, <code>[[link]]</code> work directly as query terms</li>',
-
-          'workflows.ai.tag': 'AI',
-          'workflows.ai.title': 'Three modes — Ask / Insert / Rewrite',
-          'workflows.ai.body':
-            'Ctrl+/ or F6 opens the AI overlay. It grabs selection / section / empty context automatically and acts via one of three modes. Works with OpenAI-compatible, Anthropic, and local LLMs.',
-          'workflows.ai.steps':
-            '<li><code>Ctrl+/</code> — toggle overlay (or <code>F6</code>)</li>' +
-            '<li>Modes: <strong>Ask</strong> (answer in overlay), <strong>Insert</strong> (at cursor), <strong>Rewrite</strong> (replace selection)</li>' +
-            '<li>Selection becomes context; falls back to line-window / section otherwise</li>' +
-            '<li><code>F9</code> toggles inline completion (ghost text); <code>→</code> accepts</li>',
-
-          'workflows.graph.tag': 'Knowledge graph',
-          'workflows.graph.title': 'Wikilinks · Backlinks · Tags',
-          'workflows.graph.body':
-            'Obsidian-compatible data model — <code>[[file]]</code> autocomplete, outbound and backlink graphs, tag browser. Navigate the graph from any document.',
-          'workflows.graph.steps':
-            '<li>Type <code>[[</code> for live file autocomplete</li>' +
-            '<li><code>F8</code> — outbound links from the current document</li>' +
-            '<li><code>Ctrl+B</code> — backlink graph (documents that link here)</li>' +
-            '<li><code>F7</code> — tag browser · Enter hands off to <code>tag:&lt;name&gt;</code> search</li>',
-
-          'workflows.git.tag': 'Git workflow',
-          'workflows.git.title': 'Commit log · diff summary · CLI',
-          'workflows.git.body':
-            'Vaults are git repos by default. The status bar shows a live <code>+N/−M</code> diff summary. F5 opens the commit log, and <code>jvim diff</code> CLI gives a pager review. AI edits land as reviewable diffs.',
-          'workflows.git.steps':
-            '<li><code>F5</code> — commit log overlay (author · SHA · message)</li>' +
-            '<li><code>+12 −4</code> in the header — uncommitted diff of the current file</li>' +
-            '<li><code>jvim diff [file]</code> — pager-style diff from the CLI</li>' +
-            '<li>vault-aware index survives <code>git checkout</code></li>',
+            "A comprehensive walkthrough of every core feature with real screenshots. Everything mentioned in the in-app help (F1) is covered here.",
 
           'keymap.title': 'Full keymap',
           'keymap.subtitle':
