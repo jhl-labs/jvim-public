@@ -138,6 +138,15 @@ description: Terminal-native markdown editor with AI overlay, semantic search, w
         width: 40%;
         font-size: 12px;
       }
+      .keymap-note {
+        margin: 12px 0 0;
+        color: var(--text-dim);
+        font-size: 13px;
+        line-height: 1.7;
+      }
+      .keymap-note code {
+        font-size: 12px;
+      }
 
       /* ===== Core workflow cards (with screenshots) ===== */
       .workflow {
@@ -477,7 +486,7 @@ sudo mv jvim /usr/local/bin/</pre>
                 <li><code>Ctrl+O</code> — 파일 팔레트 (vault 전체 fuzzy)</li>
                 <li><code>F2</code> — 아웃라인 오버레이: heading으로 점프</li>
                 <li><code>Shift+F3</code> — Go to line 대화상자 (줄 번호 입력 → 점프)</li>
-                <li><code>Ctrl+PgUp</code>/<code>Ctrl+PgDn</code> — 열린 버퍼 사이클</li>
+                <li><code>Ctrl+PgUp</code>/<code>Ctrl+PgDn</code> — 이미 열어 둔 문서 탭(버퍼)을 이전/다음으로 전환</li>
               </ol>
             </div>
           </div>
@@ -798,6 +807,12 @@ sudo mv jvim /usr/local/bin/</pre>
           <p class="section-subtitle" data-i18n="keymap.subtitle">
             카테고리를 클릭해 펼쳐보세요. 앱 안에서는 <code>F1</code>로 언제든 확인 가능합니다.
           </p>
+          <p class="keymap-note" data-i18n-rich="keymap.note">
+            이 목록은 jvim 앱 안 단축키입니다. 웹 페이지 자체는 키 입력에 반응하지 않습니다.
+            <code>Ctrl+PgUp</code>/<code>Ctrl+PgDn</code>은 일부 터미널이 자체 탭 전환에 먼저 써서
+            전달되지 않을 수 있으니, 반응이 없으면 트리 포커스로 옮긴 뒤
+            <code>Ctrl+Shift+←/→</code>를 사용하세요.
+          </p>
 
           <div class="keymap-grid">
             <details class="keymap-group" open>
@@ -842,7 +857,7 @@ sudo mv jvim /usr/local/bin/</pre>
                 <tr><td>Ctrl+U / D</td><td data-i18n="km.pageupdown">페이지 위 / 아래</td></tr>
                 <tr><td>Shift+&lt;nav&gt;</td><td data-i18n="km.selectextend">선택 확장</td></tr>
                 <tr><td>Ctrl+E / Tab*</td><td data-i18n="km.focustoggle">트리 ↔ 에디터 포커스 (트리 포커스 시 Tab)</td></tr>
-                <tr><td>Ctrl+PgUp / PgDn</td><td data-i18n="km.buffercycle">다음 / 이전 버퍼</td></tr>
+                <tr><td>Ctrl+PgUp / PgDn</td><td data-i18n="km.buffercycle">열린 문서 탭 이전 / 다음</td></tr>
                 <tr><td>Ctrl+Shift+→ / ←</td><td data-i18n="km.buffercycle2">단어 선택 / 트리 포커스에서 버퍼 순환</td></tr>
               </table>
             </details>
@@ -1047,7 +1062,7 @@ sudo mv jvim /usr/local/bin/</pre>
             'Core workflows with real PTY-captured screenshots. Use the table below or in-app F1 help for the full keymap.',
           'wf.editBasics': `<span class="tag">Editing basics</span><h3>Immediately editable TUI</h3><p>Open a single file or an entire vault and start editing right away. File tree on the left, editor on the right. The top status bar shows filename, EOL, dirty state, and Git diff summary in real time. Empty EOF space uses vim-style <code>~</code> markers so the viewport edge stays obvious.</p><ol class="workflow-steps"><li><code>jvim notes.md</code> or <code>jvim my-vault/</code> to start</li><li>Edit anything and the status bar shows <code>●</code> for unsaved changes</li><li><code>Ctrl+S</code> saves with atomic write + fsync</li><li>Nonexistent paths are fine too: <code>jvim new.md</code> opens a blank buffer</li><li><code>Ctrl+Z</code>/<code>Ctrl+Y</code> for undo/redo and <code>Ctrl+A</code> for select-all</li></ol>`,
           'wf.fileTree': `<span class="tag">File tree</span><h3>Vim-style tree with live filtering</h3><p>Move with <code>j</code>/<code>k</code>, open with <code>Enter</code>, and type to filter instantly. Create, rename, and delete files inside the tree with <code>n</code>/<code>r</code>/<code>d</code>. Deep folders collapse and expand automatically.</p><ol class="workflow-steps"><li><code>Ctrl+E</code> or <code>Tab</code> while the tree is focused switches editor ↔ tree</li><li><code>j</code>/<code>k</code> moves, <code>g</code>/<code>G</code> jumps to top/bottom</li><li>Typing narrows the file list live, as shown in the screenshot</li><li><code>n</code> new file, <code>r</code> rename, <code>d</code> delete with confirmation</li><li><code>Enter</code> opens the selected file, <code>q</code> returns focus to the editor</li></ol>`,
-          'wf.palette': `<span class="tag">Fast navigation</span><h3>Command palette, file palette, and outline</h3><p><code>F4</code> fuzzy-searches every command, <code>Ctrl+O</code> jumps to any file in the vault, and <code>F2</code> opens the current document outline for long-form navigation. <code>Shift+F3</code> jumps to a line number directly.</p><ol class="workflow-steps"><li><code>F4</code> / <code>Ctrl+P</code> opens the command palette</li><li><code>Ctrl+O</code> opens the vault-wide file palette</li><li><code>F2</code> opens the heading outline overlay</li><li><code>Shift+F3</code> opens the go-to-line dialog</li><li><code>Ctrl+PgUp</code>/<code>Ctrl+PgDn</code> cycles open buffers</li></ol>`,
+          'wf.palette': `<span class="tag">Fast navigation</span><h3>Command palette, file palette, and outline</h3><p><code>F4</code> fuzzy-searches every command, <code>Ctrl+O</code> jumps to any file in the vault, and <code>F2</code> opens the current document outline for long-form navigation. <code>Shift+F3</code> jumps to a line number directly.</p><ol class="workflow-steps"><li><code>F4</code> / <code>Ctrl+P</code> opens the command palette</li><li><code>Ctrl+O</code> opens the vault-wide file palette</li><li><code>F2</code> opens the heading outline overlay</li><li><code>Shift+F3</code> opens the go-to-line dialog</li><li><code>Ctrl+PgUp</code>/<code>Ctrl+PgDn</code> switches between already-open document tabs</li></ol>`,
           'wf.outline': `<span class="tag">Outline</span><h3>F2 for document structure at a glance</h3><p>The outline presents markdown headings (<code>#</code> through <code>######</code>) as a hierarchy. Press <code>Enter</code> to jump straight to that section. It is the fastest way to move through long notes.</p><ol class="workflow-steps"><li><code>F2</code> opens the outline</li><li><code>↑</code>/<code>↓</code> changes the selected heading</li><li><code>Enter</code> jumps to that line and closes the overlay</li><li><code>Esc</code> closes without moving</li></ol>`,
           'wf.findReplace': `<span class="tag">Find and replace</span><h3><code>Ctrl+F</code> find and <code>Ctrl+T</code> replace-all</h3><p>In-document search highlights matches live. <code>Enter</code> and <code>Shift+Enter</code> walk forward and backward through matches. <code>Tab</code> toggles case sensitivity and shows the <code>Aa</code> badge. <code>Ctrl+T</code> opens replace-all.</p><ol class="workflow-steps"><li><code>Ctrl+F</code> opens the find overlay</li><li>Typing updates highlights and match counts live</li><li><code>Tab</code> toggles case sensitivity with the <code>Aa</code> badge</li><li><code>Enter</code> moves to the next match, <code>Shift+Enter</code> to the previous one</li><li><code>Ctrl+T</code> replaces all matches in one pass</li></ol>`,
           'wf.format': `<span class="tag">Formatting</span><h3><code>Alt+F</code> formats the document, <code>Alt+Shift+F</code> formats the selection</h3><p>Built-in formatting can clean up the current buffer or only the selected region. Markdown lists and spacing are normalized, and supported code/config files follow Prettier-style formatting. Focus stays in the editor so you can keep typing immediately.</p><ol class="workflow-steps"><li><code>Alt+F</code> formats the current document</li><li>If text is selected, <code>Alt+Shift+F</code> formats only that range</li><li>The result is applied directly to the buffer</li><li>You can review the result before saving with <code>Ctrl+S</code></li></ol>`,
@@ -1067,6 +1082,8 @@ sudo mv jvim /usr/local/bin/</pre>
           'keymap.title': 'Full keymap',
           'keymap.subtitle':
             "Click a category to expand. Press <code>F1</code> inside jvim for the same thing at any time.",
+          'keymap.note':
+            "These are jvim in-app shortcuts; the web page itself is not interactive. <code>Ctrl+PgUp</code>/<code>Ctrl+PgDn</code> only works when your terminal forwards those keys. If nothing happens, move focus to the tree and use <code>Ctrl+Shift+←/→</code> instead.",
 
           'keymap.global': 'Global',
           'keymap.editor': 'Editor — editing',
@@ -1106,7 +1123,7 @@ sudo mv jvim /usr/local/bin/</pre>
           'km.pageupdown': 'Page up / down',
           'km.selectextend': 'Extend selection',
           'km.focustoggle': 'Tree ↔ editor focus (Tab when tree focused)',
-          'km.buffercycle': 'Next / prev buffer',
+          'km.buffercycle': 'Previous / next open document tab',
           'km.buffercycle2': 'Select word / cycle buffer from tree',
 
           'km.outline': 'Outline (headings)',
