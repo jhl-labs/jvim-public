@@ -38,6 +38,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 a {
   color: var(--accent);
   text-decoration: none;
@@ -56,6 +61,7 @@ pre,
   max-width: 1024px;
   margin: 0 auto;
   padding: 0 24px;
+  min-width: 0;
 }
 
 /* ---------- top nav (shared) ---------- */
@@ -72,6 +78,7 @@ header.nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 16px;
   padding: 14px 0;
 }
 
@@ -96,6 +103,7 @@ header.nav {
   display: flex;
   gap: 24px;
   font-size: 14px;
+  min-width: 0;
 }
 .nav-links a {
   color: var(--text-dim);
@@ -221,6 +229,8 @@ header.nav {
   align-items: center;
   gap: 10px;
   position: relative;
+  width: 100%;
+  min-width: 0;
 }
 .install-snippet .prompt {
   color: var(--text-faint);
@@ -229,6 +239,7 @@ header.nav {
 .install-snippet code {
   color: var(--text);
   flex: 1;
+  min-width: 0;
   white-space: nowrap;
   overflow-x: auto;
   scrollbar-width: thin;
@@ -322,7 +333,7 @@ section {
 /* ---------- feature cards / methods / transparency / license ---------- */
 .features {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
   gap: 16px;
 }
 .feature {
@@ -330,6 +341,7 @@ section {
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 20px 22px;
+  min-width: 0;
   transition:
     border-color 0.15s ease,
     transform 0.15s ease;
@@ -374,6 +386,7 @@ section {
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 22px;
+  min-width: 0;
 }
 .method h3 {
   margin: 0 0 8px;
@@ -403,6 +416,7 @@ section {
   padding: 12px 14px;
   margin: 0;
   font-size: 13px;
+  max-width: 100%;
   overflow-x: auto;
   color: var(--text);
   line-height: 1.55;
@@ -421,6 +435,7 @@ section {
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 16px 18px;
+  min-width: 0;
 }
 .transparency-item .name {
   font-family: var(--mono);
@@ -438,6 +453,7 @@ section {
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 26px 28px;
+  min-width: 0;
 }
 .license-card .label {
   font-family: var(--mono);
@@ -636,6 +652,32 @@ footer.site-footer .links a {
   max-width: 100%;
   border-radius: 8px;
   border: 1px solid var(--border);
+}
+
+@media (max-width: 760px) {
+  .container,
+  .prose {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .nav-row {
+    gap: 12px;
+  }
+
+  .nav-links {
+    gap: 12px;
+  }
+
+  .install-snippet {
+    padding: 12px 14px;
+  }
+
+  .features,
+  .transparency-grid,
+  .license-card ul {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Rouge / kramdown syntax highlighting — minimal dark palette. */
