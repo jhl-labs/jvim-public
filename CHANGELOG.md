@@ -21,7 +21,38 @@ Every PR MUST add an entry under `[Unreleased]` unless it is a pure internal ref
 
 ## [Unreleased]
 
-(Nothing yet. Open follow-ups in `memory/project_release_follow_ups.md`: wiring the Bun coverage-summary generator once the Bun 1.3 coverage bug is fixed.)
+### Added
+- **Git workflow panel (Ctrl+Shift+G)** — new overlay with commit / push / pull / fetch actions. Status line now shows current branch and ahead/behind counts so you can stay in-editor through the whole review cycle.
+- **Git operations**: `fetch --prune`, `pull --ff-only` (refuses dirty tree), `push` with automatic `--set-upstream` on a new branch's first push. Missing git CLI is surfaced as a clear error; toast paths are redacted to avoid leaking absolute paths.
+- **Semantic knowledge index**:
+  - Configurable per-project index folders.
+  - Browse nested docs with Shift+F5.
+  - Pick which docs participate in indexing.
+  - Unicode tags supported (한국어, 日本語, café).
+  - AI Ask overlay surfaces the retrieved sources; press Enter to open one.
+- **Palette action items** — the palette accepts commands alongside file entries. The tag browser can hand a selection off to the search flow.
+- **Editor: vim-style soft word wrap** for long lines.
+
+### Changed
+- **Syntax highlighting theme**: switched from `github-light` to `github-dark`. Previously dark token colors (strings, variable names) were unreadable on dark terminal backgrounds — most noticeable in Python because of docstring / f-string density. JSON, TypeScript, HTML, CSS, Dockerfile, YAML benefit equally.
+- **Overlay UX**: deferred dismiss, palette modes, and shared knowledge scope make overlay behavior consistent across the editor.
+- **Tree panel**: Esc / q returns to the editor when no filter is active.
+
+### Fixed
+- **Find overlay**: guards dismissal against a dual-dispatch cursor snapback; hits are live-previewed as you type or arrow through matches.
+- **Save errors** are now prefixed with `save failed:` so toasts are unambiguous.
+- **TOML config errors** are labeled with which config scope (user / project) failed.
+- **Raw keyboard shortcuts** are guarded behind overlays — no accidental firing while an overlay is open.
+- **Link resolution**: both outbound and inbound targets resolve exactly; alias and heading-anchor resolution corrected.
+- **Backlinks**: inbound targets match exactly, no more false positives.
+- **Editor**: waits for closed markdown fences before applying fence-based highlighting; `DEL` treated as a backward delete; terminal row budget honored.
+- **Markdown selection formatting** stays scoped to the selection (no bleed to neighboring paragraphs).
+- **Fenced markdown code blocks** are highlighted inside markdown documents.
+- **Git status** display: counts split onto their own line and spelled out for clarity.
+- **AI processing badge** now animates, giving clear visual feedback during long operations.
+
+### Notes
+- This release consolidates everything published between v0.2.0 and v0.4.0 on npmjs.org that had not yet been recorded on this public changelog. From v0.5.0 on, the changelog here is the authoritative user-facing history.
 
 ## [0.1.4] — 2026-04-15
 
