@@ -21,6 +21,26 @@ Every PR MUST add an entry under `[Unreleased]` unless it is a pure internal ref
 
 ## [Unreleased]
 
+### Fixed
+- **File tree no longer aborts when the path contains root-owned subtrees.** Running `jvim` in `$HOME` (or anywhere that happens to hold podman/docker overlay layers, apt cache partials, etc.) previously crashed the scan with `EACCES: permission denied` and left the editor with no file list at all. Unreadable subtrees are now skipped; the readable siblings still render.
+- **Opening a file with an unrecognized extension loads its contents.** `jvim test.crt` on an existing certificate used to render a blank buffer and risked overwriting the file on save. The restore path now checks the disk before assuming "new file".
+
+### Changed
+- **File tree is vim-style permissive.** The tree now shows `.crt`, `.env`, `.gitignore`, `.service`, `.tf`, `.hcl`, `.proto`, `.graphql`, `.vue`, `.svelte`, and every other text-ish file by default — hiding only known binary formats (images, archives, executables, media, sqlite, fonts, binary documents). Extensionless scripts (Makefile, shebang runners) are included without needing a name allowlist. Use `.jvimignore` to prune project-specific noise.
+
+### Added
+- **Open-time safety guard.** Before loading a file into the buffer, jvim refuses:
+  - Non-regular files (directories, fifos, sockets, devices).
+  - Files larger than 50 MB (status line: *"file too large (X MB); jvim refuses files larger than 50 MB"*).
+  - Binary files (NUL-byte sniff on the first 8 KiB; *"binary file (contains NUL bytes); jvim declined to open — use xxd, hexdump, or a hex viewer"*).
+  
+  On rejection the previous buffer, cursor, and save status stay intact — only the status bar surfaces the reason, so a stray click on a binary in the tree doesn't lose your editor state.
+
+### Deprecated
+- `@jhl_labs/jvim@0.5.0` and matching subpackages — superseded by 0.5.1 (fixes the EACCES scan crash and the unknown-extension blank-buffer bug). `npm install -g @jhl_labs/jvim@latest` resolves to 0.5.1.
+
+## [0.5.0] — 2026-04-20
+
 ### Added
 - **Git workflow panel (Ctrl+Shift+G)** — new overlay with commit / push / pull / fetch actions. Status line now shows current branch and ahead/behind counts so you can stay in-editor through the whole review cycle.
 - **Git operations**: `fetch --prune`, `pull --ff-only` (refuses dirty tree), `push` with automatic `--set-upstream` on a new branch's first push. Missing git CLI is surfaced as a clear error; toast paths are redacted to avoid leaking absolute paths.
