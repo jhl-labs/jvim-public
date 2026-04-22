@@ -21,6 +21,13 @@ Every PR MUST add an entry under `[Unreleased]` unless it is a pure internal ref
 
 ## [Unreleased]
 
+## [0.5.2] — 2026-04-22
+
+### Docs
+- Added `LICENSE.kr`, a Korean reference translation of the jvim Software License. The English `LICENSE` remains the controlling text.
+
+## [0.5.1] — 2026-04-21
+
 ### Fixed
 - **File tree no longer aborts when the path contains root-owned subtrees.** Running `jvim` in `$HOME` (or anywhere that happens to hold podman/docker overlay layers, apt cache partials, etc.) previously crashed the scan with `EACCES: permission denied` and left the editor with no file list at all. Unreadable subtrees are now skipped; the readable siblings still render.
 - **Opening a file with an unrecognized extension loads its contents.** `jvim test.crt` on an existing certificate used to render a blank buffer and risked overwriting the file on save. The restore path now checks the disk before assuming "new file".
@@ -33,7 +40,7 @@ Every PR MUST add an entry under `[Unreleased]` unless it is a pure internal ref
   - Non-regular files (directories, fifos, sockets, devices).
   - Files larger than 50 MB (status line: *"file too large (X MB); jvim refuses files larger than 50 MB"*).
   - Binary files (NUL-byte sniff on the first 8 KiB; *"binary file (contains NUL bytes); jvim declined to open — use xxd, hexdump, or a hex viewer"*).
-  
+
   On rejection the previous buffer, cursor, and save status stay intact — only the status bar surfaces the reason, so a stray click on a binary in the tree doesn't lose your editor state.
 
 ### Deprecated
@@ -126,4 +133,10 @@ When cutting a release, replace `## [Unreleased]` with:
 ...and add a fresh empty `## [Unreleased]` above it. Link refs at the bottom.
 -->
 
-[Unreleased]: https://github.com/jhl-labs/jvim/compare/main...HEAD
+[Unreleased]: https://github.com/jhl-labs/jvim/compare/v0.5.2...HEAD
+[0.5.2]: https://github.com/jhl-labs/jvim/releases/tag/v0.5.2
+[0.5.1]: https://github.com/jhl-labs/jvim/releases/tag/v0.5.1
+[0.5.0]: https://github.com/jhl-labs/jvim/releases/tag/v0.5.0
+[0.1.4]: https://github.com/jhl-labs/jvim/releases/tag/v0.1.4
+[0.1.3]: https://github.com/jhl-labs/jvim/releases/tag/v0.1.3
+[0.1.2]: https://github.com/jhl-labs/jvim/releases/tag/v0.1.2

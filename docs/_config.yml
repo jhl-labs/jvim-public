@@ -13,8 +13,8 @@ baseurl: /jvim-public
 # docs/ops/npm-release.md §4 step "Update docs site version"). All
 # version-specific strings in index.html / install.md reference
 # {{ site.version }} so a release only needs to edit this file.
-version: "0.1.4"
-release_date: "2026-04-15"
+version: "0.5.2"
+release_date: "2026-04-22"
 
 # We provide our own layout; don't pull in a default theme.
 theme: null
