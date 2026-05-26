@@ -1,0 +1,68 @@
+/* Starlight 다크 테마 토큰 오버라이드 — 기존 jvim 사이트의 색 정체성 유지 */
+:root {
+  --sl-color-accent-low: #0e2a33;
+  --sl-color-accent: #56d1f5;
+  --sl-color-accent-high: #b8eaff;
+  --sl-color-bg: #0d0f12;
+  --sl-color-bg-nav: #11141a;
+  --sl-color-bg-sidebar: #11141a;
+  --sl-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --sl-font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+}
+
+/* 코드 블록 — jvim 다크 톤 */
+:root[data-theme='dark'] {
+  --astro-code-color-background: #16181d;
+}
+
+/* hero 영역 강조 */
+.hero-block {
+  background: linear-gradient(180deg, #0d0f12 0%, #11141a 100%);
+  padding: 80px 0 60px;
+  text-align: center;
+  border-bottom: 1px solid var(--sl-color-hairline);
+}
+
+.hero-block h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  letter-spacing: -0.02em;
+  margin: 0 0 0.5em;
+}
+
+.hero-block .tagline {
+  font-size: 1.2rem;
+  color: var(--sl-color-gray-2);
+  max-width: 640px;
+  margin: 0 auto 2em;
+}
+
+/* CTA 버튼 */
+.cta-row {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cta-row a {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.1s ease;
+}
+
+.cta-row a:hover {
+  transform: translateY(-1px);
+}
+
+.cta-primary {
+  background: var(--sl-color-accent);
+  color: var(--sl-color-bg);
+}
+
+.cta-secondary {
+  background: var(--sl-color-bg-nav);
+  color: var(--sl-color-text);
+  border: 1px solid var(--sl-color-hairline);
+}
