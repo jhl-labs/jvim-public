@@ -1,0 +1,56 @@
+---
+interface Props {
+  persona: 'notepad' | 'vim' | 'obsidian';
+  title: string;
+  desc: string;
+  href: string;
+}
+
+const { persona, title, desc, href } = Astro.props;
+const iconMap = { notepad: '📝', vim: ':wq', obsidian: '🔮' };
+---
+
+<a class="persona-card" href={href} data-persona={persona}>
+  <span class="persona-icon">{iconMap[persona]}</span>
+  <h3>{title}</h3>
+  <p>{desc}</p>
+  <span class="persona-cta">Start →</span>
+</a>
+
+<style>
+  .persona-card {
+    display: block;
+    padding: 24px;
+    background: var(--sl-color-bg-nav);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--sl-color-text);
+    transition: transform 0.1s ease, border-color 0.1s ease;
+  }
+  .persona-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--sl-color-accent);
+  }
+  .persona-icon {
+    display: inline-block;
+    font-family: var(--sl-font-mono);
+    font-size: 18px;
+    margin-bottom: 12px;
+    color: var(--sl-color-accent);
+  }
+  .persona-card h3 {
+    margin: 0 0 8px;
+    font-size: 1.15rem;
+  }
+  .persona-card p {
+    margin: 0 0 16px;
+    color: var(--sl-color-gray-2);
+    font-size: 0.95rem;
+  }
+  .persona-cta {
+    color: var(--sl-color-accent);
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+</style>

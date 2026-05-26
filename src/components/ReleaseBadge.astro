@@ -1,0 +1,24 @@
+---
+import versionMeta from '../version.json';
+---
+
+<span class="release-badge">
+  <code>v{versionMeta.version}</code>
+  <span class="release-date">released {versionMeta.releaseDate}</span>
+</span>
+
+<style>
+  .release-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 10px;
+    background: var(--sl-color-bg-nav);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 12px;
+    font-size: 13px;
+  }
+  .release-date {
+    color: var(--sl-color-gray-2);
+  }
+</style>
