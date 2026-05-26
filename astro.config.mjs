@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import mdx from '@astrojs/mdx';
 export default defineConfig({
   site: 'https://jhl-labs.github.io',
   base: '/jvim-public',
@@ -20,14 +21,29 @@ export default defineConfig({
         en: { label: 'English', lang: 'en' },
         ko: { label: '한국어', lang: 'ko' },
       },
-      social: {
-        github: 'https://github.com/jhl-labs/jvim-public',
-      },
+      social: [
+        { icon: 'github', label: 'GitHub', href: 'https://github.com/jhl-labs/jvim-public' },
+      ],
       customCss: ['./src/styles/custom.css'],
+      // 다크 모드 강제 (jvim 자체가 TUI 다크 톤이므로 사이트도 일관)
+      components: {
+        ThemeSelect: './src/components/ThemeSelect.astro',
+      },
       head: [
         {
           tag: 'meta',
           attrs: { property: 'og:image', content: 'https://raw.githubusercontent.com/jhl-labs/jvim-public/main/jvm_demo_compact.gif' },
+        },
+        {
+          tag: 'script',
+          content: `
+            (function () {
+              try {
+                document.documentElement.dataset.theme = 'dark';
+                localStorage.setItem('starlight-theme', 'dark');
+              } catch (e) { /* private mode */ }
+            })();
+          `,
         },
       ],
       sidebar: [
@@ -79,5 +95,6 @@ export default defineConfig({
         },
       ],
     }),
+    mdx(),
   ],
 });
