@@ -59,10 +59,15 @@ body {
 
 .sl-markdown-content pre {
   font-size: 0.92em;
-  line-height: 1.55;
+  line-height: 1.6;
   border: 1px solid var(--sl-color-hairline);
   border-radius: 8px;
-  padding: 14px 18px;
+  padding: 16px 20px;
+}
+
+/* expressive-code outer frame — flatten extra border */
+.sl-markdown-content .expressive-code .frame {
+  border-radius: 8px;
 }
 
 /* ---------- Inline code → key-cap look ---------- */
@@ -212,14 +217,29 @@ body {
 nav[aria-labelledby='starlight__sidebar-label'] a {
   font-size: 0.93em;
   line-height: 1.5;
+  border-left: 2px solid transparent;
+  transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+}
+
+nav[aria-labelledby='starlight__sidebar-label'] a:hover {
+  background: rgba(86, 209, 245, 0.04);
+  color: var(--sl-color-accent-high);
+}
+
+nav[aria-labelledby='starlight__sidebar-label'] a[aria-current='page'] {
+  background: var(--sl-color-accent-low);
+  color: var(--sl-color-accent-high) !important;
+  border-left-color: var(--sl-color-accent);
+  font-weight: 600;
 }
 
 nav[aria-labelledby='starlight__sidebar-label'] details > summary {
-  font-size: 0.85em;
-  letter-spacing: 0.04em;
+  font-size: 0.78em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--sl-color-gray-3);
   font-weight: 600;
+  padding-block: 8px;
 }
 
 /* ---------- ToC (right rail) ---------- */
