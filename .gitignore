@@ -1,0 +1,4 @@
+node_modules/
+.astro/
+.pnpm-store/
+# docs/ 는 빌드 산출물 — Task 21에서 .gitignore에 추가 (지금은 추가하지 말 것)
