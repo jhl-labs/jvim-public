@@ -1,0 +1,69 @@
+---
+interface KeymapRow {
+  keys: string | string[];
+  action: string;
+  notes?: string;
+}
+
+interface Props {
+  title?: string;
+  rows: KeymapRow[];
+}
+
+const { title, rows } = Astro.props;
+
+function renderKeys(k: string | string[]): string {
+  return Array.isArray(k) ? k.join(' / ') : k;
+}
+---
+
+<div class="keymap-table">
+  {title && <h4>{title}</h4>}
+  <table>
+    <thead>
+      <tr><th>Keys</th><th>Action</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      {rows.map((row) => (
+        <tr>
+          <td><code>{renderKeys(row.keys)}</code></td>
+          <td>{row.action}</td>
+          <td>{row.notes ?? ''}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .keymap-table {
+    margin: 16px 0;
+  }
+  .keymap-table h4 {
+    margin-bottom: 8px;
+  }
+  .keymap-table table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+  .keymap-table th, .keymap-table td {
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--sl-color-hairline);
+  }
+  .keymap-table th {
+    background: var(--sl-color-bg-nav);
+    font-weight: 600;
+  }
+  .keymap-table td:first-child {
+    white-space: nowrap;
+    width: 30%;
+  }
+  .keymap-table code {
+    background: var(--sl-color-bg-nav);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.9em;
+  }
+</style>
