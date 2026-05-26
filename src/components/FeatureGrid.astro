@@ -1,0 +1,58 @@
+---
+interface Feature {
+  icon: string;
+  title: string;
+  desc: string;
+}
+
+interface Props {
+  features: Feature[];
+}
+
+const { features } = Astro.props;
+---
+
+<div class="feature-grid">
+  {features.map((f) => (
+    <div class="feature-card">
+      <span class="feature-icon">{f.icon}</span>
+      <h3>{f.title}</h3>
+      <p>{f.desc}</p>
+    </div>
+  ))}
+</div>
+
+<style>
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: 16px;
+    margin: 32px 0;
+  }
+  .feature-card {
+    background: var(--sl-color-bg-nav);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .feature-icon {
+    display: inline-block;
+    font-family: var(--sl-font-mono);
+    font-size: 14px;
+    padding: 4px 10px;
+    background: var(--sl-color-accent-low);
+    color: var(--sl-color-accent-high);
+    border-radius: 6px;
+    margin-bottom: 12px;
+  }
+  .feature-card h3 {
+    margin: 0 0 8px;
+    font-size: 1.1rem;
+  }
+  .feature-card p {
+    margin: 0;
+    color: var(--sl-color-gray-2);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+</style>
