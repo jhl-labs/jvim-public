@@ -1,0 +1,70 @@
+---
+// asciinema-player v3 wrapper. cast 파일은 src/assets/casts/<slug>.cast.
+// 사용 예: <AsciinemaPlayer slug="editor-basics" title="Editor basics" />
+
+interface Props {
+  slug: string;
+  title?: string;
+  caption?: string;
+  /** loop · autoplay 등은 기본 off. cast 재생은 사용자 클릭 후 시작. */
+  autoplay?: boolean;
+  loop?: boolean;
+}
+
+const { slug, title, caption, autoplay = false, loop = false } = Astro.props;
+const id = `cast-${slug}-${Math.random().toString(36).slice(2, 8)}`;
+const castUrl = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/casts/${slug}.cast`;
+---
+
+<figure class="cast-figure">
+  {title && <figcaption class="cast-title">{title}</figcaption>}
+  <div id={id} class="cast-player" data-cast={castUrl} data-autoplay={autoplay} data-loop={loop} />
+  {caption && <figcaption class="cast-caption">{caption}</figcaption>}
+</figure>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/asciinema-player@3.8.0/dist/bundle/asciinema-player.css" />
+
+<style>
+  .cast-figure {
+    margin: 24px 0;
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 10px;
+    overflow: hidden;
+    background: #0d0f12;
+  }
+  .cast-title {
+    padding: 10px 16px;
+    font-family: var(--sl-font-mono);
+    font-size: 13px;
+    color: var(--sl-color-gray-2);
+    border-bottom: 1px solid var(--sl-color-hairline);
+  }
+  .cast-player {
+    min-height: 400px;
+  }
+  .cast-caption {
+    padding: 10px 16px;
+    font-size: 13px;
+    color: var(--sl-color-gray-3);
+    border-top: 1px solid var(--sl-color-hairline);
+  }
+</style>
+
+<script>
+  import 'asciinema-player/dist/bundle/asciinema-player.css';
+  import * as AsciinemaPlayer from 'asciinema-player';
+
+  document.querySelectorAll('.cast-player').forEach((el) => {
+    const url = el.getAttribute('data-cast');
+    if (!url) return;
+    const autoplay = el.getAttribute('data-autoplay') === 'true';
+    const loop = el.getAttribute('data-loop') === 'true';
+    AsciinemaPlayer.create(url, el, {
+      autoPlay: autoplay,
+      loop,
+      idleTimeLimit: 2,
+      theme: 'asciinema',
+      fit: 'width',
+    });
+  });
+</script>
