@@ -1,0 +1,94 @@
+---
+import versionMeta from '../version.json';
+
+interface Props {
+  title: string;
+  tagline: string;
+  installCmd?: string;
+  ctaPrimary: { label: string; href: string };
+  ctaSecondary: { label: string; href: string };
+}
+
+const {
+  title,
+  tagline,
+  installCmd = 'npm install -g @jhl_labs/jvim',
+  ctaPrimary,
+  ctaSecondary,
+} = Astro.props;
+---
+
+<section class="hero-block">
+  <div class="badges">
+    <span class="badge">v{versionMeta.version}</span>
+    <span class="badge">Linux x64 · arm64</span>
+    <span class="badge">single binary</span>
+  </div>
+  <h1>{title}</h1>
+  <p class="tagline">{tagline}</p>
+  <div class="cta-row">
+    <a class="cta-primary" href={ctaPrimary.href}>{ctaPrimary.label}</a>
+    <a class="cta-secondary" href={ctaSecondary.href}>{ctaSecondary.label}</a>
+  </div>
+  <div class="install-snippet">
+    <code>{installCmd}</code>
+    <button type="button" data-copy={installCmd} aria-label="copy">copy</button>
+  </div>
+</section>
+
+<style>
+  .badges {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+  .badge {
+    font-family: var(--sl-font-mono);
+    font-size: 12px;
+    padding: 4px 10px;
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 12px;
+    color: var(--sl-color-gray-2);
+  }
+  .install-snippet {
+    margin-top: 32px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    background: var(--sl-color-bg-nav);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 8px;
+  }
+  .install-snippet code {
+    font-family: var(--sl-font-mono);
+    font-size: 14px;
+    color: var(--sl-color-accent-high);
+  }
+  .install-snippet button {
+    background: transparent;
+    border: 1px solid var(--sl-color-hairline);
+    color: var(--sl-color-gray-2);
+    padding: 4px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+  }
+</style>
+
+<script>
+  document.querySelectorAll('[data-copy]').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const text = btn.getAttribute('data-copy') ?? '';
+      try {
+        await navigator.clipboard.writeText(text);
+        const original = btn.textContent;
+        btn.textContent = 'copied';
+        setTimeout(() => { btn.textContent = original; }, 1500);
+      } catch {
+        /* 권한 없음 — 무시 */
+      }
+    });
+  });
+</script>
