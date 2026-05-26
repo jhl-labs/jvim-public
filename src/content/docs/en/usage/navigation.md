@@ -1,0 +1,71 @@
+---
+title: Navigation
+description: Move around jvim using the command palette, file palette, outline overlay, go-to-line, and buffer tabs.
+---
+
+import AsciinemaPlayer from '../../../../components/AsciinemaPlayer.astro';
+import KeymapTable from '../../../../components/KeymapTable.astro';
+
+jvim provides several overlays for fast navigation: a command palette for running any action by name, a file palette for vault-wide file switching, an outline panel for jumping between headings, and buffer tabs for cycling open documents.
+
+<AsciinemaPlayer slug="navigation" title="Navigation: palette, outline, go-to-line" />
+
+## Command Palette
+
+The command palette lets you invoke any jvim command by typing part of its name. It is the fastest way to reach a feature you don't have memorized.
+
+![Command palette opened with F4](../../../../assets/images/05-command-palette-f4.png)
+
+<KeymapTable rows={[
+  { keys: 'F4', action: 'Open command palette', notes: 'Fuzzy-search all available commands' },
+  { keys: 'Ctrl+P', action: 'Open command palette', notes: 'Same as F4' },
+  { keys: 'Enter', action: 'Run selected command', notes: 'Executes the highlighted entry' },
+  { keys: 'Esc', action: 'Close', notes: 'Dismiss without running anything' },
+]} />
+
+Examples of commands reachable via the palette: `save`, `close buffer`, `toggle line numbers`, `format document`, `go to line`.
+
+## File Palette
+
+The file palette opens a fuzzy-search overlay across every file in the vault. It is faster than the file tree when you know approximately what the file is named.
+
+<KeymapTable rows={[
+  { keys: 'Ctrl+O', action: 'Open file palette', notes: 'Vault-wide fuzzy filename search' },
+  { keys: 'Enter', action: 'Open selected file', notes: 'Opens the file in the editor' },
+  { keys: 'Esc', action: 'Close', notes: 'Return to the editor without opening' },
+]} />
+
+## Outline Overlay
+
+The outline overlay lists all Markdown headings in the current document, indented by depth. It is the fastest way to jump between sections in a long document.
+
+<KeymapTable rows={[
+  { keys: 'F2', action: 'Open outline', notes: 'Shows headings for the current buffer' },
+  { keys: '↑ / ↓', action: 'Select heading', notes: 'Move through the heading list' },
+  { keys: 'Enter', action: 'Jump to heading', notes: 'Moves the cursor and closes the overlay' },
+  { keys: 'Esc', action: 'Close', notes: 'Dismiss without jumping' },
+]} />
+
+## Go to Line
+
+When you know the exact line number you need, skip the outline and jump directly.
+
+<KeymapTable rows={[
+  { keys: 'Shift+F3', action: 'Go to line', notes: 'Opens a dialog — type a line number and press Enter' },
+]} />
+
+## Buffer Tabs
+
+Each file you open is kept in a buffer. You can cycle through all open buffers without leaving the editor.
+
+<KeymapTable rows={[
+  { keys: 'Ctrl+PgUp', action: 'Previous buffer', notes: 'Switch to the previous open tab' },
+  { keys: 'Ctrl+PgDn', action: 'Next buffer', notes: 'Switch to the next open tab' },
+]} />
+
+## Related
+
+- [Editor Basics](/jvim-public/en/usage/editor-basics/)
+- [Vault Search](/jvim-public/en/usage/vault-search/)
+- [Buffers and Tabs](/jvim-public/en/usage/buffers-tabs/)
+- [Keymap — full reference](/jvim-public/en/keymap/full/)
