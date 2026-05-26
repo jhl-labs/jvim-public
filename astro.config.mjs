@@ -1,8 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
-import versionMeta from './src/version.json' with { type: 'json' };
-
 export default defineConfig({
   site: 'https://jhl-labs.github.io',
   base: '/jvim-public',
@@ -83,5 +81,3 @@ export default defineConfig({
     }),
   ],
 });
-
-export { versionMeta };
