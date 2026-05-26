@@ -1,0 +1,109 @@
+---
+title: AI Overlay
+description: Use jvim's AI overlay for vault-aware Q&A, inline text generation, selection rewriting, inline autocomplete, and document polish.
+---
+
+import AsciinemaPlayer from '../../../../components/AsciinemaPlayer.astro';
+import KeymapTable from '../../../../components/KeymapTable.astro';
+
+jvim integrates AI assistance throughout the editing workflow. The AI overlay (`F6`) offers three distinct modes for different tasks, inline ghost-text autocomplete runs as you type, and the AI context menu surfaces quick actions without opening a full prompt. All AI features are opt-in — no network traffic is sent unless you explicitly invoke them.
+
+<AsciinemaPlayer slug="ai-overlay" title="AI overlay: Ask, Insert, Rewrite, inline autocomplete" />
+
+## AI Overlay — Three Modes
+
+Press `F6` to open the AI prompt overlay and choose a mode:
+
+![AI overlay mode picker](../../../../assets/images/07-ai-overlay-f6-mode-pick.png)
+
+<KeymapTable rows={[
+  { keys: 'F6', action: 'Open AI overlay', notes: 'Shows the mode picker: Ask / Insert / Rewrite' },
+  { keys: 'Esc', action: 'Close overlay', notes: 'Dismiss without sending a prompt' },
+  { keys: 'Ctrl+Z', action: 'Undo AI result', notes: 'Revert an Insert or Rewrite after accepting' },
+]} />
+
+### Ask
+
+**Ask** is a vault-aware Q&A interface. Type a question and jvim answers it in context. If the semantic index is available, the first response retrieves relevant chunks from your vault before generating an answer — grounding it in your own notes rather than the model's general knowledge.
+
+After the response, a **Sources** section lists the vault notes that contributed, with snippet previews. Use arrow keys to navigate sources and press `O` to open a source note directly.
+
+![Ask mode with RAG sources listed](../../../../assets/images/54-ai-ask-rag-sources.png)
+
+<KeymapTable rows={[
+  { keys: 'F6 → Ask', action: 'Open Ask mode', notes: 'Vault-aware Q&A; uses semantic index when available' },
+  { keys: 'Enter', action: 'Submit question / follow-up', notes: 'Send the prompt; subsequent Enter sends a follow-up' },
+  { keys: 'O', action: 'Open source note', notes: 'Opens the highlighted RAG source in the editor' },
+]} />
+
+### Insert
+
+**Insert** generates new content at the cursor position. If you have text selected, that selection is passed to the model as context. If there is no selection, jvim uses the surrounding section as context automatically.
+
+The generated text streams into the buffer in real time. Undo (`Ctrl+Z`) removes the entire insertion as one step.
+
+### Rewrite
+
+**Rewrite** replaces a selection with AI-revised content. Select the text you want to improve, open the overlay with `F6`, choose Rewrite, and describe what you want changed. The model replaces the selection in-place.
+
+If the result is not what you wanted, `Ctrl+Z` restores the original selection in a single undo step.
+
+## AI Context Menu
+
+The context menu (`Alt+/`) opens an inline action picker next to the cursor — no full overlay needed. It lists common rewrite and insert actions: continue writing, complete paragraph, proofread, summarize, translate, change tone.
+
+<KeymapTable rows={[
+  { keys: 'Alt+/ or Ctrl+/', action: 'Open AI context menu', notes: 'Inline action picker at cursor position' },
+  { keys: '↑ / ↓', action: 'Select action', notes: 'Navigate the action list' },
+  { keys: 'Enter', action: 'Run action', notes: 'Applies the selected action to the selection or context' },
+  { keys: 'Esc', action: 'Close', notes: 'Dismiss without running any action' },
+]} />
+
+When text is selected, rewrite-type actions (proofread, summarize, translate) use the selection as their target. Without a selection, insert-type actions (continue writing, complete paragraph) use surrounding context.
+
+## Inline Autocomplete
+
+Inline autocomplete shows Copilot-style ghost text as you type. It is off by default — toggle it on with `Alt+I` or `F9`.
+
+Once active, jvim requests a completion a moment after you stop typing. The suggestion appears as faint ghost text extending from your cursor. You can accept all of it, accept one word at a time, or simply continue typing to discard it.
+
+<KeymapTable rows={[
+  { keys: 'Alt+I / F9', action: 'Toggle inline autocomplete', notes: 'Enable or disable ghost-text suggestions' },
+  { keys: 'Tab', action: 'Accept full suggestion', notes: 'Insert the entire ghost-text completion' },
+  { keys: '→ / Ctrl+→', action: 'Accept one word', notes: 'Insert just the next word of the suggestion' },
+  { keys: 'Any other key', action: 'Discard suggestion', notes: 'The ghost text disappears; normal typing continues' },
+]} />
+
+The status bar shows an AI badge indicating whether inline autocomplete is active and surfacing any connection errors (missing API key, unreachable endpoint).
+
+To use a faster, cheaper model for inline completions than for Ask/Rewrite, set `inline_model` separately in `providers.toml`.
+
+## Provider Configuration
+
+jvim works with OpenAI-compatible endpoints, Anthropic, and local LLMs (Ollama, llama.cpp, or any server that exposes an OpenAI-compatible chat API).
+
+Configure providers in `~/.config/jvim/config.toml` (or via the settings overlay at `F10`):
+
+```toml
+[ai]
+provider = "openai"       # openai | anthropic | ollama | custom
+model = "gpt-4o"
+inline_model = "gpt-4o-mini"   # optional: lighter model for ghost text
+```
+
+For local LLMs, set `provider = "ollama"` and optionally override the base URL:
+
+```toml
+[ai]
+provider = "ollama"
+base_url = "http://localhost:11434"
+model = "llama3"
+```
+
+No traffic is sent to any provider until you explicitly invoke an AI action. The inline autocomplete toggle is off by default.
+
+## Related
+
+- [Semantic Index](/jvim-public/en/usage/semantic-index/)
+- [Settings](/jvim-public/en/usage/settings/)
+- [Keymap — full reference](/jvim-public/en/keymap/full/)
