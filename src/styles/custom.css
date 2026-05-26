@@ -1,4 +1,12 @@
-/* Starlight 다크 테마 토큰 오버라이드 — 기존 jvim 사이트의 색 정체성 유지 */
+/* ============================================================
+ * jvim docs — Starlight theme + typography refinements
+ * ------------------------------------------------------------
+ * Goal: long-form bilingual (ko/en) reading. Comfortable line
+ * length, generous line-height, key-cap inline code, restrained
+ * accent color so dense pages don't feel busy.
+ * ============================================================ */
+
+/* ---------- Color tokens ---------- */
 :root {
   --sl-color-accent-low: #0e2a33;
   --sl-color-accent: #56d1f5;
@@ -6,37 +14,288 @@
   --sl-color-bg: #0d0f12;
   --sl-color-bg-nav: #11141a;
   --sl-color-bg-sidebar: #11141a;
-  --sl-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-  --sl-font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Font stacks — system Latin + Korean fallbacks */
+  --sl-font:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Pretendard Variable', Pretendard,
+    'Apple SD Gothic Neo', 'Noto Sans KR',
+    system-ui, sans-serif;
+  --sl-font-mono:
+    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Content measure — ~70 characters per line at 17px */
+  --sl-content-width: 50rem;
 }
 
-/* 코드 블록 — jvim 다크 톤 */
+/* ---------- Global font rendering ---------- */
+html {
+  font-size: 17px;            /* base bump for bilingual reading */
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  line-height: 1.7;
+}
+
+.sl-markdown-content {
+  overflow-wrap: break-word;
+  line-height: 1.7;
+}
+
+/* Korean-friendly word breaking only on Korean pages.
+ * On English pages keep-all would break "Notepad-ergonomic" oddly. */
+:lang(ko) .sl-markdown-content,
+:lang(ko) .hero-block {
+  word-break: keep-all;
+}
+
+/* ---------- Code block tone ---------- */
 :root[data-theme='dark'] {
   --astro-code-color-background: #16181d;
 }
 
-/* hero 영역 강조 */
+.sl-markdown-content pre {
+  font-size: 0.92em;
+  line-height: 1.55;
+  border: 1px solid var(--sl-color-hairline);
+  border-radius: 8px;
+  padding: 14px 18px;
+}
+
+/* ---------- Inline code → key-cap look ---------- */
+.sl-markdown-content :not(pre) > code,
+.sl-markdown-content :not(pre) > kbd {
+  background: #1a1d24;
+  padding: 0.15em 0.5em;
+  border: 1px solid #2a2f3a;
+  border-bottom-width: 2px;    /* subtle 3D — reads as a keycap */
+  border-radius: 5px;
+  font-family: var(--sl-font-mono);
+  font-size: 0.88em;
+  color: var(--sl-color-accent-high);
+  white-space: nowrap;          /* Ctrl+S never wraps */
+}
+
+/* But not inside table headers (would look noisy) */
+.sl-markdown-content th > code {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+/* ---------- Heading hierarchy ---------- */
+.sl-markdown-content h1,
+.sl-markdown-content h2,
+.sl-markdown-content h3,
+.sl-markdown-content h4 {
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+.sl-markdown-content h2 {
+  margin-top: 2.5em;
+  padding-bottom: 0.35em;
+  border-bottom: 1px solid var(--sl-color-hairline);
+  font-size: 1.55rem;
+}
+
+.sl-markdown-content h3 {
+  margin-top: 2em;
+  font-size: 1.2rem;
+  color: var(--sl-color-accent-high);
+}
+
+.sl-markdown-content h4 {
+  margin-top: 1.5em;
+  font-size: 1.02rem;
+  color: var(--sl-color-gray-2);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ---------- Paragraph & list spacing ---------- */
+.sl-markdown-content p,
+.sl-markdown-content ul,
+.sl-markdown-content ol {
+  margin-block: 0.9em;
+}
+
+.sl-markdown-content ul,
+.sl-markdown-content ol {
+  padding-inline-start: 1.5em;
+}
+
+.sl-markdown-content li {
+  margin-block: 0.4em;
+}
+
+.sl-markdown-content li::marker {
+  color: var(--sl-color-gray-3);
+}
+
+/* ---------- Links ---------- */
+.sl-markdown-content a {
+  color: var(--sl-color-accent-high);
+  text-decoration: none;
+  border-bottom: 1px dashed transparent;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.sl-markdown-content a:hover {
+  border-bottom-color: var(--sl-color-accent);
+  color: #fff;
+}
+
+/* ---------- Tables ---------- */
+.sl-markdown-content table {
+  font-size: 0.97em;
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.5em 0;
+}
+
+.sl-markdown-content table th,
+.sl-markdown-content table td {
+  padding: 11px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--sl-color-hairline);
+}
+
+.sl-markdown-content table th {
+  background: var(--sl-color-bg-nav);
+  font-weight: 600;
+  font-size: 0.92em;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--sl-color-gray-2);
+}
+
+.sl-markdown-content table tbody tr:nth-child(2n) {
+  background: rgba(255, 255, 255, 0.018);
+}
+
+/* ---------- Blockquote ---------- */
+.sl-markdown-content blockquote {
+  border-left: 3px solid var(--sl-color-accent);
+  padding: 0.3em 0 0.3em 1em;
+  margin: 1.2em 0;
+  color: var(--sl-color-gray-2);
+  background: rgba(86, 209, 245, 0.03);
+}
+
+.sl-markdown-content blockquote p {
+  margin: 0.4em 0;
+}
+
+/* ---------- KeymapTable component refinement ---------- */
+.keymap-table td:first-child code {
+  background: #1a1d24;
+  border: 1px solid #2a2f3a;
+  border-bottom-width: 2px;
+  color: var(--sl-color-accent-high);
+  padding: 3px 8px;
+  font-size: 0.9em;
+  display: inline-block;
+}
+
+.keymap-table table {
+  border: 1px solid var(--sl-color-hairline);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* ---------- Sidebar refinement ---------- */
+nav[aria-labelledby='starlight__sidebar-label'] a {
+  font-size: 0.93em;
+  line-height: 1.5;
+}
+
+nav[aria-labelledby='starlight__sidebar-label'] details > summary {
+  font-size: 0.85em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--sl-color-gray-3);
+  font-weight: 600;
+}
+
+/* ---------- ToC (right rail) ---------- */
+starlight-toc nav a {
+  font-size: 0.88em;
+  line-height: 1.55;
+}
+
+/* ============================================================
+ * Custom components
+ * ============================================================ */
+
+/* ---------- Landing-page tweaks (splash template) ---------- */
+/* On pages with a Hero, hide the auto page-title panel (Starlight emits
+ * two .content-panel siblings: first = page header, second = body). */
+main:has(.hero-block) > .content-panel:first-of-type {
+  display: none;
+}
+
+/* Let the Hero break out of the prose column to fill the splash viewport. */
+main:has(.hero-block) > .content-panel > .sl-container,
+main:has(.hero-block) .sl-markdown-content {
+  max-width: none;
+}
+
+/* ---------- Hero ---------- */
 .hero-block {
-  background: linear-gradient(180deg, #0d0f12 0%, #11141a 100%);
-  padding: 80px 0 60px;
+  background:
+    radial-gradient(ellipse at top, rgba(86, 209, 245, 0.06) 0%, transparent 60%),
+    linear-gradient(180deg, #0d0f12 0%, #11141a 100%);
+  padding: 88px 24px 64px;
   text-align: center;
   border-bottom: 1px solid var(--sl-color-hairline);
 }
 
 .hero-block h1 {
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  letter-spacing: -0.02em;
+  font-size: clamp(1.9rem, 4.5vw, 3rem);
+  letter-spacing: -0.025em;
+  line-height: 1.2;
   margin: 0 0 0.5em;
+  color: #f5f8fb;
+  /* gradient text on top — works because hero background is always dark */
+  background: linear-gradient(180deg, #f5f8fb 0%, #b8eaff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* allow English to wrap on word boundaries; Korean uses keep-all rule above */
+  overflow-wrap: break-word;
+  word-break: normal;
 }
 
 .hero-block .tagline {
-  font-size: 1.2rem;
+  font-size: 1.18rem;
+  line-height: 1.55;
   color: var(--sl-color-gray-2);
   max-width: 640px;
   margin: 0 auto 2em;
 }
 
-/* CTA 버튼 */
+.hero-block .badges {
+  margin-bottom: 28px;
+}
+
+.hero-block .badge {
+  font-family: var(--sl-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 5px 11px;
+  border: 1px solid var(--sl-color-hairline);
+  border-radius: 999px;
+  color: var(--sl-color-gray-2);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* ---------- CTAs ---------- */
 .cta-row {
   display: flex;
   gap: 12px;
@@ -45,11 +304,13 @@
 }
 
 .cta-row a {
-  padding: 12px 24px;
+  padding: 13px 28px;
   border-radius: 8px;
   font-weight: 600;
+  font-size: 0.98rem;
   text-decoration: none;
-  transition: transform 0.1s ease;
+  border: 1px solid transparent;
+  transition: transform 0.1s ease, box-shadow 0.15s ease, border-color 0.15s ease;
 }
 
 .cta-row a:hover {
@@ -61,8 +322,365 @@
   color: var(--sl-color-bg);
 }
 
+.cta-primary:hover {
+  box-shadow: 0 6px 20px -8px rgba(86, 209, 245, 0.55);
+}
+
 .cta-secondary {
-  background: var(--sl-color-bg-nav);
+  background: transparent;
   color: var(--sl-color-text);
+  border-color: var(--sl-color-hairline);
+}
+
+.cta-secondary:hover {
+  border-color: var(--sl-color-accent);
+}
+
+/* ---------- Install snippet ---------- */
+.install-snippet {
+  margin-top: 36px;
+  padding: 12px 18px;
+  border-radius: 10px;
+  background: var(--sl-color-bg-nav);
   border: 1px solid var(--sl-color-hairline);
+  display: inline-flex;
+  gap: 14px;
+  align-items: center;
+  font-family: var(--sl-font-mono);
+  font-size: 0.95rem;
+}
+
+.install-snippet code {
+  color: var(--sl-color-accent-high);
+  background: transparent;
+  border: none;
+  padding: 0;
+  white-space: pre;
+}
+
+.install-snippet button {
+  background: transparent;
+  border: 1px solid var(--sl-color-hairline);
+  color: var(--sl-color-gray-2);
+  padding: 5px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: var(--sl-font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.install-snippet button:hover {
+  color: var(--sl-color-accent-high);
+  border-color: var(--sl-color-accent);
+}
+
+/* ---------- Feature grid ---------- */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 18px;
+  margin: 40px 0;
+}
+
+.feature-card {
+  background: var(--sl-color-bg-nav);
+  border: 1px solid var(--sl-color-hairline);
+  border-radius: 10px;
+  padding: 22px;
+  transition: border-color 0.15s ease, transform 0.1s ease;
+}
+
+.feature-card:hover {
+  border-color: var(--sl-color-accent);
+  transform: translateY(-2px);
+}
+
+.feature-icon {
+  display: inline-block;
+  font-family: var(--sl-font-mono);
+  font-size: 13px;
+  padding: 4px 10px;
+  background: var(--sl-color-accent-low);
+  color: var(--sl-color-accent-high);
+  border-radius: 6px;
+  margin-bottom: 14px;
+  letter-spacing: 0.02em;
+}
+
+.feature-card h3 {
+  margin: 0 0 10px;
+  font-size: 1.1rem;
+  color: var(--sl-color-white);
+}
+
+.feature-card p {
+  margin: 0;
+  color: var(--sl-color-gray-2);
+  font-size: 0.96rem;
+  line-height: 1.6;
+}
+
+/* ---------- Asciinema player ---------- */
+.cast-figure {
+  margin: 28px 0;
+  border: 1px solid var(--sl-color-hairline);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #0a0c10;
+}
+
+.cast-title {
+  padding: 11px 18px;
+  font-family: var(--sl-font-mono);
+  font-size: 12px;
+  color: var(--sl-color-gray-2);
+  border-bottom: 1px solid var(--sl-color-hairline);
+  letter-spacing: 0.03em;
+}
+
+.cast-player {
+  min-height: 380px;
+}
+
+.cast-caption {
+  padding: 12px 18px;
+  font-size: 13px;
+  color: var(--sl-color-gray-3);
+  border-top: 1px solid var(--sl-color-hairline);
+  line-height: 1.55;
+}
+
+/* ---------- Hero demo frame ---------- */
+.demo-frame {
+  margin: 40px auto;
+  max-width: 880px;
+  text-align: center;
+}
+
+.demo-frame img {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--sl-color-hairline);
+  box-shadow: 0 20px 60px -25px rgba(86, 209, 245, 0.18);
+}
+
+.demo-caption {
+  color: var(--sl-color-gray-3);
+  font-size: 0.9rem;
+  margin-top: 14px;
+}
+
+.demo-caption a {
+  color: var(--sl-color-accent-high);
+  border-bottom: 1px dashed transparent;
+}
+
+.demo-caption a:hover {
+  border-bottom-color: var(--sl-color-accent);
+}
+
+/* ---------- Persona grid (landing) ---------- */
+.persona-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 16px;
+  margin: 32px 0 48px;
+}
+
+/* ---------- Why-jvim cards (landing) ---------- */
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: 14px;
+  margin: 32px 0;
+}
+
+.why-card {
+  background: var(--sl-color-bg-nav);
+  border: 1px solid var(--sl-color-hairline);
+  border-radius: 10px;
+  padding: 22px;
+  transition: border-color 0.15s ease, transform 0.1s ease;
+}
+
+.why-card:hover {
+  border-color: var(--sl-color-accent);
+  transform: translateY(-2px);
+}
+
+.why-tag {
+  display: inline-block;
+  font-family: var(--sl-font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--sl-color-accent);
+  background: var(--sl-color-accent-low);
+  padding: 3px 9px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+
+.why-card h3 {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  border-bottom: none !important;
+  padding-bottom: 0 !important;
+  color: var(--sl-color-white);
+}
+
+.why-card p {
+  margin: 0;
+  color: var(--sl-color-gray-2);
+  font-size: 0.93rem;
+  line-height: 1.55;
+}
+
+.why-card code {
+  font-size: 0.84em !important;
+  padding: 1px 5px !important;
+}
+
+/* ---------- Closing CTA row (landing footer) ---------- */
+.closing-cta {
+  display: flex;
+  justify-content: center;
+  margin: 56px 0 24px;
+}
+
+.closing-cta .cta-primary {
+  padding: 14px 32px;
+  border-radius: 8px;
+  font-weight: 600;
+  background: var(--sl-color-accent);
+  color: var(--sl-color-bg) !important;
+  text-decoration: none;
+  font-size: 1rem;
+  border-bottom: none !important;
+  transition: transform 0.1s ease, box-shadow 0.15s ease;
+}
+
+.closing-cta .cta-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px -8px rgba(86, 209, 245, 0.5);
+  color: var(--sl-color-bg) !important;
+}
+
+/* ---------- Persona card ---------- */
+.persona-card {
+  display: block;
+  padding: 26px;
+  background: var(--sl-color-bg-nav);
+  border: 1px solid var(--sl-color-hairline);
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--sl-color-text);
+  transition: transform 0.1s ease, border-color 0.1s ease;
+}
+
+.persona-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--sl-color-accent);
+}
+
+.persona-icon {
+  display: inline-block;
+  font-family: var(--sl-font-mono);
+  font-size: 17px;
+  margin-bottom: 14px;
+  color: var(--sl-color-accent);
+}
+
+.persona-card h3 {
+  margin: 0 0 10px;
+  font-size: 1.18rem;
+  border-bottom: none !important;     /* override sl-markdown h3 rule */
+  padding-bottom: 0 !important;
+  color: var(--sl-color-white);
+}
+
+.persona-card p {
+  margin: 0 0 18px;
+  color: var(--sl-color-gray-2);
+  font-size: 0.96rem;
+  line-height: 1.55;
+}
+
+.persona-cta {
+  color: var(--sl-color-accent);
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+/* ---------- Release badge ---------- */
+.release-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 12px;
+  background: var(--sl-color-bg-nav);
+  border: 1px solid var(--sl-color-hairline);
+  border-radius: 12px;
+  font-size: 13px;
+}
+
+.release-badge code {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  color: var(--sl-color-accent-high) !important;
+  font-family: var(--sl-font-mono);
+}
+
+.release-date {
+  color: var(--sl-color-gray-2);
+}
+
+/* ============================================================
+ * Responsive — mobile reading
+ * ============================================================ */
+@media (max-width: 640px) {
+  html {
+    font-size: 16px;
+  }
+
+  .hero-block {
+    padding: 60px 18px 48px;
+  }
+
+  .hero-block h1 {
+    font-size: clamp(1.8rem, 7vw, 2.4rem);
+  }
+
+  .hero-block .tagline {
+    font-size: 1.02rem;
+  }
+
+  .cta-row a {
+    padding: 12px 20px;
+    font-size: 0.94rem;
+  }
+
+  .install-snippet {
+    flex-wrap: wrap;
+    font-size: 0.88rem;
+  }
+
+  .sl-markdown-content h2 {
+    font-size: 1.35rem;
+  }
+
+  .sl-markdown-content h3 {
+    font-size: 1.1rem;
+  }
+
+  /* Tables overflow horizontally on narrow screens */
+  .sl-markdown-content table {
+    display: block;
+    overflow-x: auto;
+    font-size: 0.9em;
+  }
 }

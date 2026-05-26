@@ -3,7 +3,8 @@ node_modules/
 .pnpm-store/
 
 # Astro build output — deployed via GitHub Actions, not committed
-docs/
+# Leading slash anchors to repo root, so src/content/docs/ stays tracked.
+/docs/
 
 # Secrets / local config — never commit
 .env

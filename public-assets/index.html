@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jvim</title>
+  <meta name="description" content="AI-native TUI markdown workspace — vim-fast, Notepad-ergonomic.">
+  <script>
+    (function () {
+      var stored = null;
+      try { stored = localStorage.getItem('jvim-lang'); } catch (e) { /* private mode */ }
+      var nav = ((navigator.language || navigator.userLanguage || 'en') + '').toLowerCase();
+      var lang = (stored === 'ko' || stored === 'en')
+        ? stored
+        : (nav.indexOf('ko') === 0 ? 'ko' : 'en');
+      location.replace('./' + lang + '/');
+    })();
+  </script>
+  <meta http-equiv="refresh" content="0;url=./en/">
+  <style>
+    body { font-family: system-ui, sans-serif; background: #0d0f12; color: #e6e8eb; padding: 60px 20px; text-align: center; }
+    a { color: #56d1f5; text-decoration: none; padding: 8px 16px; border: 1px solid #56d1f5; border-radius: 6px; margin: 0 6px; display: inline-block; }
+  </style>
+</head>
+<body>
+  <h1>jvim</h1>
+  <p>Redirecting…</p>
+  <p>
+    <a href="./en/">English</a>
+    <a href="./ko/">한국어</a>
+  </p>
+</body>
+</html>

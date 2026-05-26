@@ -2,12 +2,13 @@
 title: jvim
 description: AI-native TUI markdown workspace — vim-fast, Notepad-ergonomic.
 template: splash
-hero:
-  tagline: ''
+pagefind: false
+tableOfContents: false
 ---
 
 import Hero from '../../../components/Hero.astro';
 import FeatureGrid from '../../../components/FeatureGrid.astro';
+import PersonaCard from '../../../components/PersonaCard.astro';
 
 <Hero
   title="Notepad-ergonomic, vim-fast, AI-native."
@@ -16,16 +17,38 @@ import FeatureGrid from '../../../components/FeatureGrid.astro';
   ctaSecondary={{ label: 'Install', href: '/jvim-public/en/install/' }}
 />
 
-<div style="text-align: center; margin: 40px 0;">
+<div class="demo-frame">
   <img
     src="https://raw.githubusercontent.com/jhl-labs/jvim-public/main/jvm_demo_compact.gif"
     alt="jvim demo"
-    style="max-width: 800px; width: 100%; border-radius: 10px; border: 1px solid var(--sl-color-hairline);"
     loading="lazy"
   />
-  <p style="color: var(--sl-color-gray-3); margin-top: 12px;">
+  <p class="demo-caption">
     Full video: <a href="https://github.com/jhl-labs/jvim-public/raw/main/jvim_demo.mp4">jvim_demo.mp4</a>
   </p>
+</div>
+
+## Coming from somewhere else?
+
+<div class="persona-grid">
+  <PersonaCard
+    persona="notepad"
+    title="From Notepad / Notepad++"
+    desc="Same Ctrl+S, Ctrl+Z, no modes. Plus a vault model and live markdown."
+    href="/jvim-public/en/migrate-from/notepad/"
+  />
+  <PersonaCard
+    persona="vim"
+    title="From vim / neovim"
+    desc="j/k/g/G in the file tree. Notepad keys in the editor. Single binary."
+    href="/jvim-public/en/migrate-from/vim/"
+  />
+  <PersonaCard
+    persona="obsidian"
+    title="From Obsidian"
+    desc="Wikilinks, tags, backlinks — same model. Terminal-native, single binary."
+    href="/jvim-public/en/migrate-from/obsidian/"
+  />
 </div>
 
 ## Features
@@ -45,9 +68,29 @@ import FeatureGrid from '../../../components/FeatureGrid.astro';
 
 ## Why jvim?
 
-- **No mode switching.** Insert mode is the default — like Notepad. vim users keep `j/k/g/G/n/r/d` in the tree.
-- **Markdown vault, not pages.** Open a folder, navigate with the file tree, link with `[[wikilinks]]`, tag with `#topics`.
-- **AI that knows your notes.** Ask mode searches your vault first (RAG), then composes — citing the sources.
-- **Single binary.** Download, run. Linux x64 / arm64.
+<div class="why-grid">
+  <div class="why-card">
+    <span class="why-tag">UX</span>
+    <h3>No mode switching</h3>
+    <p>Insert mode is the default — like Notepad. vim users keep <code>j</code>/<code>k</code>/<code>g</code>/<code>G</code>/<code>n</code>/<code>r</code>/<code>d</code> in the tree.</p>
+  </div>
+  <div class="why-card">
+    <span class="why-tag">Vault</span>
+    <h3>Folders, not pages</h3>
+    <p>Open a folder, navigate with the file tree, link with <code>[[wikilinks]]</code>, tag with <code>#topics</code>.</p>
+  </div>
+  <div class="why-card">
+    <span class="why-tag">AI</span>
+    <h3>Knows your notes</h3>
+    <p>Ask mode searches your vault first (RAG), then composes — citing the source notes.</p>
+  </div>
+  <div class="why-card">
+    <span class="why-tag">Ship</span>
+    <h3>Single binary</h3>
+    <p>Download, run. No node_modules, no Node runtime, no Electron. Linux x64 / arm64.</p>
+  </div>
+</div>
 
-[**Start the 5-minute tutorial →**](/jvim-public/en/getting-started/)
+<div class="closing-cta">
+  <a class="cta-primary" href="/jvim-public/en/getting-started/">Start the 5-minute tutorial →</a>
+</div>

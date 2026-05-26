@@ -1,6 +1,9 @@
 ---
-// asciinema-player v3 wrapper. cast 파일은 src/assets/casts/<slug>.cast.
+// asciinema-player v3 wrapper. cast 파일은 public-assets/casts/<slug>.cast.
 // 사용 예: <AsciinemaPlayer slug="editor-basics" title="Editor basics" />
+//
+// cast 파일이 없으면 placeholder가 자동으로 표시됨. JS가 cast HEAD를 먼저
+// fetch해서 200이면 player 마운트, 404면 placeholder 유지.
 
 interface Props {
   slug: string;
@@ -17,36 +20,84 @@ const castUrl = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/casts/${slug}.ca
 ---
 
 <figure class="cast-figure">
-  {title && <figcaption class="cast-title">{title}</figcaption>}
-  <div id={id} class="cast-player" data-cast={castUrl} data-autoplay={autoplay} data-loop={loop} />
+  {title && <figcaption class="cast-title">▶ {title}</figcaption>}
+  <div id={id} class="cast-player" data-cast={castUrl} data-autoplay={autoplay} data-loop={loop}>
+    <div class="cast-pending">
+      <span class="cast-pending-badge">cast</span>
+      <p>Demo recording in progress — coming in the next release.</p>
+      <p class="cast-pending-meta">slug: <code>{slug}</code></p>
+    </div>
+  </div>
   {caption && <figcaption class="cast-caption">{caption}</figcaption>}
 </figure>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/asciinema-player@3.8.0/dist/bundle/asciinema-player.css" />
-
 <style>
   .cast-figure {
-    margin: 24px 0;
+    margin: 28px 0;
     border: 1px solid var(--sl-color-hairline);
     border-radius: 10px;
     overflow: hidden;
-    background: #0d0f12;
+    background: #0a0c10;
   }
   .cast-title {
-    padding: 10px 16px;
+    padding: 11px 18px;
     font-family: var(--sl-font-mono);
-    font-size: 13px;
+    font-size: 12px;
     color: var(--sl-color-gray-2);
     border-bottom: 1px solid var(--sl-color-hairline);
+    letter-spacing: 0.03em;
   }
   .cast-player {
-    min-height: 400px;
+    min-height: 320px;
+    position: relative;
   }
   .cast-caption {
-    padding: 10px 16px;
+    padding: 11px 18px;
     font-size: 13px;
     color: var(--sl-color-gray-3);
     border-top: 1px solid var(--sl-color-hairline);
+    line-height: 1.55;
+  }
+
+  /* Pending placeholder — visible until cast file is recorded */
+  .cast-pending {
+    min-height: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 32px;
+    text-align: center;
+    background:
+      radial-gradient(circle at center, rgba(86, 209, 245, 0.04) 0%, transparent 60%);
+  }
+  .cast-pending-badge {
+    font-family: var(--sl-font-mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--sl-color-accent);
+    background: var(--sl-color-accent-low);
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: 4px;
+  }
+  .cast-pending p {
+    margin: 0;
+    color: var(--sl-color-gray-2);
+    font-size: 0.95rem;
+  }
+  .cast-pending-meta {
+    color: var(--sl-color-gray-3) !important;
+    font-size: 0.82rem !important;
+  }
+  .cast-pending code {
+    font-family: var(--sl-font-mono);
+    background: var(--sl-color-bg-nav);
+    padding: 1px 6px;
+    border-radius: 4px;
+    color: var(--sl-color-accent-high);
   }
 </style>
 
@@ -54,11 +105,27 @@ const castUrl = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/casts/${slug}.ca
   import 'asciinema-player/dist/bundle/asciinema-player.css';
   import * as AsciinemaPlayer from 'asciinema-player';
 
-  document.querySelectorAll('.cast-player').forEach((el) => {
+  document.querySelectorAll('.cast-player').forEach(async (el) => {
     const url = el.getAttribute('data-cast');
     if (!url) return;
     const autoplay = el.getAttribute('data-autoplay') === 'true';
     const loop = el.getAttribute('data-loop') === 'true';
+
+    let exists = false;
+    try {
+      const res = await fetch(url, { method: 'HEAD' });
+      exists = res.ok;
+    } catch {
+      exists = false;
+    }
+
+    if (!exists) {
+      // Keep the placeholder rendered server-side. Nothing else to do.
+      return;
+    }
+
+    // Cast available — clear placeholder children and mount the player.
+    el.replaceChildren();
     AsciinemaPlayer.create(url, el, {
       autoPlay: autoplay,
       loop,
