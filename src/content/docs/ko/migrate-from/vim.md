@@ -1,0 +1,51 @@
+---
+title: vim / neovim에서 마이그레이션
+description: vim에서 넘어온 분들을 위한 동일한 점, 다른 점, 없는 것 안내.
+---
+
+import KeymapTable from '../../../components/KeymapTable.astro';
+
+jvim은 vim 클론이 **아닙니다**. 파일 트리에서 vim 탐색 방식을 쓰는 Notepad 모양의 에디터입니다.
+
+## 동일한 것들
+
+**파일 트리**에서 (Ctrl+E로 포커스):
+
+<KeymapTable rows={[
+  { keys: 'j / k', action: '아래 / 위' },
+  { keys: 'g / G', action: '맨 위 / 맨 아래' },
+  { keys: 'n', action: '새 파일' },
+  { keys: 'r', action: '이름 바꾸기' },
+  { keys: 'd', action: '삭제 (확인 후)' },
+  { keys: '/', action: '타이핑으로 필터 (또는 바로 입력)' },
+  { keys: 'Enter', action: '파일 열기' },
+  { keys: 'q', action: '에디터로 돌아가기' },
+]} />
+
+**에디터 본문** — Notepad 방식, 모드 없음:
+
+- 삽입 모드 진입을 위한 `i` 없음 — 이미 삽입 상태.
+- `:wq` 없음 — `Ctrl+S`와 `Ctrl+Q`.
+- `dd / yy / p` 없음 — `Shift+Arrow` 선택 후 `Ctrl+X / Ctrl+C / Ctrl+V`.
+
+## 없는 것들
+
+- 모달 편집 (삽입 / 일반 / 비주얼 / 명령 모드)
+- vim 정규식 검색 (`:%s/...`)
+- ex 명령어 (`:set`, `:bd` 등)
+- vim 플러그인 (jvim에는 플러그인 시스템이 아직 없습니다)
+- `init.vim`을 통한 커스텀 키맵
+- 매크로 (`q` 레코딩)
+
+## 다르지만 더 나은 것들
+
+- **Vault가 일급 객체.** 폴더 기반, 백링크와 태그 브라우저 내장.
+- **플러그인 없이 전문 검색.** Shift+F4 — 추가 설치 필요 없음.
+- **AI 오버레이 내장.** Alt+A — vault RAG와 함께 Ask/Insert/Rewrite.
+- **단일 바이너리.** 패키지 매니저도, `plug.vim`도, `init.lua`도 없음.
+
+## 권장 첫 단계
+
+1. [시작하기](/jvim-public/ko/getting-started/)
+2. [파일 트리](/jvim-public/ko/usage/file-tree/) — vim 키가 여전히 적용되는 유일한 곳
+3. [키맵 전체 레퍼런스](/jvim-public/ko/keymap/full/)

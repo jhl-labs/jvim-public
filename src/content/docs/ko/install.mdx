@@ -1,0 +1,118 @@
+---
+title: 설치
+description: Linux (x64 / arm64)에 jvim 설치하기. npm 또는 독립 실행형 바이너리.
+---
+
+import ReleaseBadge from '../../../components/ReleaseBadge.astro';
+
+<ReleaseBadge />
+
+## 지원 플랫폼
+
+| OS | 아키텍처 | 상태 |
+|---|---|---|
+| Linux | x86_64 | ✅ 지원 |
+| Linux | aarch64 (ARM64) | ✅ 지원 |
+| macOS | 모두 | 🚧 미지원 — 계획 중 |
+| Windows | 모두 | 🚧 미지원 — 계획 중 |
+
+## 방법 1 — npm (권장)
+
+```bash
+npm install -g @jhl_labs/jvim
+jvim --version
+```
+
+패키지는 **`@jhl_labs/` 스코프** 아래에 있습니다 — npm의 타이포스쿼팅 정책상 `jvim` 같은 짧은 비스코프 이름은 차단됩니다. 설치된 CLI 명령어는 `bin` 필드 덕분에 스코프 접두사 없이 그냥 `jvim`입니다.
+
+설치되는 내용:
+- `@jhl_labs/jvim` — 플랫폼 바이너리로 디스패치하는 소형 JS 런처 (~1 KB).
+- `@jhl_labs/jvim-linux-x64` 또는 `@jhl_labs/jvim-linux-arm64` — `os`/`cpu` 기반으로 자동 선택.
+
+### `optionalDependencies`가 설치되지 않은 경우
+
+일부 `npm` 설정에서는 옵셔널 의존성을 건너뜁니다. `jvim`이 바이너리를 찾지 못한다고 표시하면:
+
+```bash
+npm install -g @jhl_labs/jvim --include=optional
+```
+
+### 업그레이드
+
+```bash
+npm install -g @jhl_labs/jvim@latest --include=optional
+jvim --version
+```
+
+업그레이드 시에도 `--include=optional` 플래그를 권장합니다 — npm이 업그레이드 계획에서 옵셔널 의존성을 생략하여 런처가 더 이상 설치되지 않은 바이너리를 가리키는 상황이 생길 수 있습니다.
+
+이전에 비스코프 이름(`jvim`)으로 초기 버전을 설치했다면 먼저 제거하세요:
+
+```bash
+npm uninstall -g jvim 2>/dev/null
+npm install -g @jhl_labs/jvim@latest --include=optional
+```
+
+### 제거
+
+```bash
+npm uninstall -g @jhl_labs/jvim
+```
+
+## 방법 2 — GitHub Releases (독립 실행형 바이너리)
+
+에어갭 환경, CI 캐시, 또는 npm을 사용할 수 없는 경우에 적합합니다.
+
+```bash
+VERSION="<VERSION>"  # 원하는 릴리스를 선택하세요; 최신 버전은 Releases 페이지 참고
+ARCH="linux-x64"      # 또는 linux-arm64
+URL="https://github.com/jhl-labs/jvim-public/releases/download/v${VERSION}/jvim-${VERSION}-${ARCH}.tar.gz"
+
+curl -LO "$URL"
+curl -LO "${URL}.sha256"
+sha256sum -c "jvim-${VERSION}-${ARCH}.tar.gz.sha256"
+
+tar -xzf "jvim-${VERSION}-${ARCH}.tar.gz"
+sudo mv jvim /usr/local/bin/
+jvim --version
+```
+
+업그레이드하려면 새 `VERSION`으로 동일한 단계를 반복하세요. 바이너리는 자체 완결형이므로 `/usr/local/bin/jvim`을 덮어쓰는 것이 업그레이드의 전부입니다.
+
+## 진위 확인
+
+모든 릴리스 자산에는 `.sha256` 파일이 함께 제공됩니다. **바이너리를 실행하기 전에 항상 체크섬을 확인하세요**, 특히 공용 인프라에서는 필수입니다.
+
+## 트러블슈팅 {#troubleshooting}
+
+### `npm install -g` 후 `jvim: command not found`
+
+`npm` 전역 bin 디렉터리가 `PATH`에 없는 경우입니다. 경로를 확인하고 추가하세요:
+
+```bash
+npm prefix -g          # npm 프리픽스 출력, 예: /usr/local
+# "$(npm prefix -g)/bin"을 셸 rc 파일(.bashrc, .zshrc)의 PATH에 추가
+```
+
+### `Unsupported platform: <os>-<arch>`
+
+사전 컴파일된 바이너리가 없는 플랫폼에서 실행 중입니다. 위 표를 확인하세요. 지원 플랫폼으로 표시된 경우 `os`/`cpu`가 일치하는지 확인하세요:
+
+```bash
+node -p "[process.platform, process.arch]"
+```
+
+지원 플랫폼인데도 이 오류가 발생하면 [버그 리포트](https://github.com/jhl-labs/jvim-public/issues/new?template=bug_report.yml)를 열어 주세요.
+
+### 터미널이 Ctrl+S, Ctrl+Q 등을 가로채는 경우
+
+`jvim`은 시작 시 터미널 흐름 제어(IXON)를 자동으로 비활성화하므로 Ctrl+S(저장)는 기본적으로 작동합니다. 작동하지 않는다면 터미널에 해당 키를 덮어쓰는 커스텀 키바인딩이 있을 수 있습니다. 터미널 에뮬레이터 수준에서 리바인딩하거나 재매핑하세요.
+
+### jvim이 빈 화면과 함께 즉시 종료되는 경우
+
+`screen`, `tmux`, 또는 대체 화면 버퍼를 지원하지 않는 멀티플렉서 안에서 실행 중일 가능성이 높습니다. 먼저 일반 터미널에서 확인한 후 멀티플렉서의 `altscreen` / `terminal-overrides` 설정을 점검하세요.
+
+## 다음 단계
+
+- 앱 내에서 **F1**을 누르면 키맵을 확인할 수 있습니다.
+- 일반적인 워크플로 질문은 [FAQ](/jvim-public/ko/faq/)를 참고하세요.

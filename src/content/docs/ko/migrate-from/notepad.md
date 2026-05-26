@@ -1,0 +1,43 @@
+---
+title: Notepad / Notepad++에서 마이그레이션
+description: Notepad 또는 Notepad++에서 넘어온 분들을 위한 단축키 대응표와 새로운 기능 안내.
+---
+
+import KeymapTable from '../../../components/KeymapTable.astro';
+
+vim을 배울 필요가 없습니다. jvim의 기본값은 Notepad 모양입니다.
+
+## 동일한 것들
+
+<KeymapTable rows={[
+  { keys: 'Ctrl+S', action: '저장' },
+  { keys: 'Ctrl+O', action: '열기' },
+  { keys: 'Ctrl+N', action: '새 파일' },
+  { keys: 'Ctrl+Z / Ctrl+Y', action: '실행 취소 / 다시 실행' },
+  { keys: 'Ctrl+C / X / V', action: '복사 / 잘라내기 / 붙여넣기' },
+  { keys: 'Ctrl+A', action: '전체 선택' },
+  { keys: 'Ctrl+F / Ctrl+T', action: '찾기 / 전체 바꾸기' },
+  { keys: 'Shift+Arrow', action: '텍스트 선택' },
+  { keys: 'Arrow / PgUp / PgDn / Home / End', action: '커서 이동' },
+]} />
+
+## 새로운 것들
+
+- **Vault 모델.** 파일 하나가 아니라 폴더를 엽니다. 왼쪽 패널은 실시간 파일 트리.
+- **마크다운 실시간 스타일링.** 제목, 목록, 코드 블록이 타이핑하는 동시에 인라인으로 스타일링됩니다.
+- **Wikilinks `[[link]]`.** `[[`를 입력하면 vault 파일을 자동완성. 백링크 패널에서 이 파일을 참조하는 노트를 확인.
+- **태그 `#주제`.** `#`를 입력하면 vault 전체 태그를 자동완성. 태그 브라우저(F7).
+- **전문 + 시맨틱 검색.** Shift+F4로 전체 vault 검색.
+- **커맨드 팔레트(F4).** VS Code처럼 — 이름으로 아무 명령이나 검색.
+
+## 달라진 점
+
+- **Ctrl+W는 창이 아닌 버퍼를 닫습니다.** (jvim에는 창 개념이 없습니다.)
+- **탭:** Ctrl+PgUp / Ctrl+PgDn으로 열린 버퍼를 순환합니다.
+- **메뉴 없음.** 모든 것은 커맨드 팔레트(F4) 또는 도움말(F1)에 있습니다.
+
+## 권장 첫 단계
+
+1. [시작하기 — 5분 안에](/jvim-public/ko/getting-started/)
+2. [키맵 핵심 — 10가지 단축키](/jvim-public/ko/keymap/essentials/)
+3. [파일 트리](/jvim-public/ko/usage/file-tree/)와 [vault 검색](/jvim-public/ko/usage/vault-search/)

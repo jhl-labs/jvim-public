@@ -1,0 +1,53 @@
+---
+title: jvim
+description: AI-native TUI 마크다운 워크스페이스 — vim 속도, Notepad 편의성.
+template: splash
+hero:
+  tagline: ''
+---
+
+import Hero from '../../../components/Hero.astro';
+import FeatureGrid from '../../../components/FeatureGrid.astro';
+
+<Hero
+  title="Notepad 편의성, vim 속도, AI-native."
+  tagline="터미널 마크다운 편집기. wikilinks · 태그 · git · 시맨틱 검색 · AI 오버레이를 단일 바이너리로. 1줄 설치, npm 권장."
+  ctaPrimary={{ label: '5분 안에 시작하기', href: '/jvim-public/ko/getting-started/' }}
+  ctaSecondary={{ label: '설치', href: '/jvim-public/ko/install/' }}
+/>
+
+<div style="text-align: center; margin: 40px 0;">
+  <img
+    src="https://raw.githubusercontent.com/jhl-labs/jvim-public/main/jvm_demo_compact.gif"
+    alt="jvim 데모"
+    style="max-width: 800px; width: 100%; border-radius: 10px; border: 1px solid var(--sl-color-hairline);"
+    loading="lazy"
+  />
+  <p style="color: var(--sl-color-gray-3); margin-top: 12px;">
+    전체 영상: <a href="https://github.com/jhl-labs/jvim-public/raw/main/jvim_demo.mp4">jvim_demo.mp4</a>
+  </p>
+</div>
+
+## 기능
+
+<FeatureGrid
+  features={[
+    { icon: 'md', title: '마크다운 우선 편집', desc: '제목, 강조, 목록, 코드 블록, 표, 인라인 링크를 타이핑하는 동시에 실시간 스타일링. 페이지가 아닌 워크스페이스.' },
+    { icon: '[[ ]]', title: 'Wikilinks + 백링크', desc: '[[ 를 입력해서 삽입. 백링크 패널에서 이 파일을 참조하는 노트를 확인.' },
+    { icon: '#', title: '태그 브라우저', desc: '#태그 자동완성 + F7 태그 브라우저. vault 전체 빈도 및 상위 파일 표시.' },
+    { icon: 'find', title: '전문 검색 + 시맨틱 검색', desc: 'Shift+F4 vault 검색, Shift+F5 인덱스 범위 지정, Ask 모드에서 RAG 소스 표시. SQLite FTS5 + 선택적 sqlite-vec.' },
+    { icon: 'cmd', title: 'Notepad 단축키', desc: 'Ctrl+C/X/V/A/Z/Y/S/O/N + Shift+Arrow 선택. 파일 트리에서 vim 스타일(j/k/g/G/n/r/d) 사용 가능.' },
+    { icon: 'AI', title: 'AI 오버레이', desc: 'Ask/Insert/Rewrite, 인라인 자동완성, 문서 다듬기, RAG 소스. 로컬 LLM 지원.' },
+    { icon: 'git', title: 'Git 통합', desc: 'diff 패널, 현재 파일 hunk, 에디터를 벗어나지 않고 commit/push/pull.' },
+    { icon: 'bin', title: '단일 바이너리', desc: 'Bun으로 컴파일. node_modules 없음, Node 런타임 불필요.' },
+  ]}
+/>
+
+## 왜 jvim인가?
+
+- **모드 전환 없음.** 기본이 삽입 모드 — Notepad처럼. vim 사용자는 파일 트리에서 `j/k/g/G/n/r/d`를 그대로 사용.
+- **마크다운 vault, 페이지 아님.** 폴더를 열고, 파일 트리로 탐색하고, `[[wikilinks]]`로 연결하고, `#주제`로 태그.
+- **내 노트를 아는 AI.** Ask 모드는 vault를 먼저 검색(RAG)한 후 출처를 인용해서 답변.
+- **단일 바이너리.** 다운로드하고 실행. Linux x64 / arm64.
+
+[**5분 튜토리얼 시작 →**](/jvim-public/ko/getting-started/)
