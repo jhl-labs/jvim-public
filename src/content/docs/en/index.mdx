@@ -1,0 +1,53 @@
+---
+title: jvim
+description: AI-native TUI markdown workspace — vim-fast, Notepad-ergonomic.
+template: splash
+hero:
+  tagline: ''
+---
+
+import Hero from '../../../components/Hero.astro';
+import FeatureGrid from '../../../components/FeatureGrid.astro';
+
+<Hero
+  title="Notepad-ergonomic, vim-fast, AI-native."
+  tagline="Terminal markdown editor for notes. wikilinks · tags · git · semantic search · AI overlay in a single binary. 1-line install, npm recommended."
+  ctaPrimary={{ label: 'Get started in 5 min', href: '/jvim-public/en/getting-started/' }}
+  ctaSecondary={{ label: 'Install', href: '/jvim-public/en/install/' }}
+/>
+
+<div style="text-align: center; margin: 40px 0;">
+  <img
+    src="https://raw.githubusercontent.com/jhl-labs/jvim-public/main/jvm_demo_compact.gif"
+    alt="jvim demo"
+    style="max-width: 800px; width: 100%; border-radius: 10px; border: 1px solid var(--sl-color-hairline);"
+    loading="lazy"
+  />
+  <p style="color: var(--sl-color-gray-3); margin-top: 12px;">
+    Full video: <a href="https://github.com/jhl-labs/jvim-public/raw/main/jvim_demo.mp4">jvim_demo.mp4</a>
+  </p>
+</div>
+
+## Features
+
+<FeatureGrid
+  features={[
+    { icon: 'md', title: 'Markdown-first editing', desc: 'Live styling for headings, emphasis, lists, code fences, tables, inline links. Workspace, not pages.' },
+    { icon: '[[ ]]', title: 'Wikilinks + Backlinks', desc: 'Type [[ to insert. Backlink panel shows incoming references.' },
+    { icon: '#', title: 'Tag browser', desc: '#tag autocomplete + F7 tag browser. Vault-wide frequency and top files.' },
+    { icon: 'find', title: 'Full-text + semantic search', desc: 'Shift+F4 vault search, Shift+F5 index scope, RAG sources in Ask mode. SQLite FTS5 + optional sqlite-vec.' },
+    { icon: 'cmd', title: 'Notepad shortcuts', desc: 'Ctrl+C/X/V/A/Z/Y/S/O/N + Shift+Arrow selection. Plus vim-style tree (j/k/g/G/n/r/d).' },
+    { icon: 'AI', title: 'AI overlay', desc: 'Ask/Insert/Rewrite, inline autocomplete, document polish, RAG sources. Local LLM supported.' },
+    { icon: 'git', title: 'Git integration', desc: 'Diff panel, current file hunks, commit/push/pull without leaving the editor.' },
+    { icon: 'bin', title: 'Single binary', desc: 'Bun-compiled. No node_modules, no Node runtime required.' },
+  ]}
+/>
+
+## Why jvim?
+
+- **No mode switching.** Insert mode is the default — like Notepad. vim users keep `j/k/g/G/n/r/d` in the tree.
+- **Markdown vault, not pages.** Open a folder, navigate with the file tree, link with `[[wikilinks]]`, tag with `#topics`.
+- **AI that knows your notes.** Ask mode searches your vault first (RAG), then composes — citing the sources.
+- **Single binary.** Download, run. Linux x64 / arm64.
+
+[**Start the 5-minute tutorial →**](/jvim-public/en/getting-started/)
