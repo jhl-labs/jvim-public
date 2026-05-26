@@ -1,6 +1,6 @@
 ---
 title: Wikilinks
-description: [[이중 괄호]] 문법으로 볼트 내부 링크를 만들고 탐색하며, 아웃바운드 링크를 살펴보고 백링크 그래프를 검색하세요.
+description: "'[[이중 괄호]]' 문법으로 볼트 내부 링크를 만들고 탐색하며, 아웃바운드 링크를 살펴보고 백링크 그래프를 검색하세요."
 ---
 
 import AsciinemaPlayer from '../../../../components/AsciinemaPlayer.astro';

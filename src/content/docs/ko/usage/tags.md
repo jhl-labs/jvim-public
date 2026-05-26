@@ -1,6 +1,6 @@
 ---
 title: 태그
-description: #을 입력하는 순간 자동완성 팝업이 열리고, F7 태그 브라우저로 볼트 전체의 태그 빈도를 한눈에 확인하세요.
+description: "'#'을 입력하는 순간 자동완성 팝업이 열리고, F7 태그 브라우저로 볼트 전체의 태그 빈도를 한눈에 확인하세요."
 ---
 
 import AsciinemaPlayer from '../../../../components/AsciinemaPlayer.astro';
