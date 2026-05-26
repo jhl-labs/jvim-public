@@ -1,0 +1,53 @@
+---
+title: Formatting
+description: Format the current document or a selection with Alt+F and Alt+Shift+F, with Prettier-style support for code and config files.
+---
+
+import AsciinemaPlayer from '../../../../components/AsciinemaPlayer.astro';
+import KeymapTable from '../../../../components/KeymapTable.astro';
+
+jvim's built-in formatter tidies your buffer without moving focus. Format the whole document in one keystroke, or limit the change to a selected region. Markdown lists get consistent spacing and numbering; code and config files are normalized with a Prettier-style pass where supported.
+
+<AsciinemaPlayer slug="formatting" title="Formatting: format document and selection" />
+
+## Format Current Document
+
+Press `Alt+F` to run the formatter over the entire current buffer. The result appears in-place — jvim does not open a diff or a secondary pane. You can keep typing immediately after formatting; the cursor stays in the editor.
+
+For Markdown files the formatter:
+- Corrects unordered-list indentation and bullet consistency.
+- Re-numbers ordered lists that have drifted out of sequence.
+- Normalises blank lines around headings and fenced code blocks.
+
+For code and config files (JSON, YAML, TOML, TypeScript, …) the formatter applies a Prettier-compatible style where the language is supported.
+
+![Format document with Alt+F](../../../../assets/images/51-format-document-altf.png)
+
+<KeymapTable rows={[
+  { keys: 'Alt+F', action: 'Format current document', notes: 'Applies to the entire buffer; cursor stays in place' },
+  { keys: 'Ctrl+S', action: 'Save', notes: 'Review the formatted result in the buffer before committing to disk' },
+]} />
+
+## Format Selection
+
+If you want to reformat only part of a document, select the region first with `Shift+Arrow` or `Shift+Click`, then press `Alt+Shift+F`. Only the selected lines are touched; the rest of the buffer is left exactly as-is.
+
+<KeymapTable rows={[
+  { keys: 'Alt+Shift+F', action: 'Format selection', notes: 'Requires an active selection; no-op when nothing is selected' },
+]} />
+
+Selection-only formatting is useful when a file mixes hand-crafted prose with auto-generated tables or code blocks that should stay verbatim.
+
+## Review Before Save
+
+Formatting is applied to the in-memory buffer immediately, but the file is not saved automatically. Use `Ctrl+S` to write to disk once you are satisfied. If the result is not what you expected, `Ctrl+Z` undoes the format operation in a single step.
+
+<KeymapTable rows={[
+  { keys: 'Ctrl+Z', action: 'Undo', notes: 'Reverts the entire format operation at once' },
+]} />
+
+## Related
+
+- [Editor Basics](/jvim-public/en/usage/editor-basics/)
+- [Find & Replace](/jvim-public/en/usage/find-replace/)
+- [Keymap — full reference](/jvim-public/en/keymap/full/)
