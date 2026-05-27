@@ -21,6 +21,31 @@ Every PR MUST add an entry under `[Unreleased]` unless it is a pure internal ref
 
 ## [Unreleased]
 
+## [0.5.4] — 2026-05-27
+
+### Added
+
+- **TUI setup wizard.** First-run/provider setup is now available from inside the settings flow, with IME-safe text input for provider IDs, base URLs, and custom headers.
+- **Current-file diff hunks in the Git panel.** The Git workflow overlay can now open a focused diff view for the active file.
+
+### Fixed
+
+- **Settings inputs no longer eat provider shortcut keys as commands.** Provider fields now treat normal text as text, including shortcut-looking letters.
+- **Provider role fields are constrained to valid values.** Invalid role/config values are normalized before they can break settings flows.
+- **AI context-menu rewrite failures are surfaced clearly** instead of silently failing.
+- **IME coalesced chunks no longer insert raw control characters.** Fast Korean/CJK input paths drop control bytes and keep only the committed text.
+- **Wrapped selection highlights stay within the viewport.** Multi-line selections on wrapped rows no longer bleed into unrelated rows.
+- **Short documents and empty/sparse trees fill the terminal with vim-style `~` rows** instead of leaving unstable blank space.
+- **Effective settings scroll on short terminals** so the panel remains navigable in compact layouts.
+
+### Performance
+
+- **Editor viewport rendering avoids redundant truncation and caches visible slice wrap counts.** Large-file cursor movement and repeated visible-row reads are materially cheaper.
+
+### Docs
+
+- **Astro Starlight docs site promoted with this app release.** The public docs now use the rebuilt bilingual site, updated release metadata, and re-recorded workflow asciicasts.
+
 ## [docs-v1.0.0] — 2026-05-27
 
 ### Docs
@@ -154,7 +179,8 @@ When cutting a release, replace `## [Unreleased]` with:
 ...and add a fresh empty `## [Unreleased]` above it. Link refs at the bottom.
 -->
 
-[Unreleased]: https://github.com/jhl-labs/jvim/compare/v0.5.2...HEAD
+[Unreleased]: https://github.com/jhl-labs/jvim/compare/v0.5.4...HEAD
+[0.5.4]: https://github.com/jhl-labs/jvim/releases/tag/v0.5.4
 [0.5.2]: https://github.com/jhl-labs/jvim/releases/tag/v0.5.2
 [0.5.1]: https://github.com/jhl-labs/jvim/releases/tag/v0.5.1
 [0.5.0]: https://github.com/jhl-labs/jvim/releases/tag/v0.5.0
