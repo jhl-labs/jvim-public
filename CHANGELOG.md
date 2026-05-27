@@ -38,6 +38,10 @@ Every PR MUST add an entry under `[Unreleased]` unless it is a pure internal ref
 - **Short documents and empty/sparse trees fill the terminal with vim-style `~` rows** instead of leaving unstable blank space.
 - **Effective settings scroll on short terminals** so the panel remains navigable in compact layouts.
 
+### Security
+
+- **Release dependency scans are clean.** Transitive packages flagged by local npm/Trivy audits were pinned to patched versions, and the v0.5.4 GitHub Release will ship regenerated SBOM, Trivy, OSV, and third-party notice reports.
+
 ### Performance
 
 - **Editor viewport rendering avoids redundant truncation and caches visible slice wrap counts.** Large-file cursor movement and repeated visible-row reads are materially cheaper.
