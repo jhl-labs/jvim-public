@@ -13,7 +13,7 @@ export default defineConfig({
   integrations: [
     starlight({
       title: 'jvim',
-      description: 'AI-native TUI markdown workspace — vim-fast, Notepad-ergonomic.',
+      description: 'Terminal markdown editor with familiar shortcuts, file-tree navigation, and optional AI.',
       logo: { src: './src/assets/images/favicon-j.svg' },
       favicon: '/favicon.svg',
       defaultLocale: 'en',
@@ -50,7 +50,7 @@ export default defineConfig({
         { label: 'Getting started', link: '/getting-started/' },
         { label: 'Install', link: '/install/' },
         {
-          label: 'Migrate from',
+          label: 'Tool notes',
           items: [
             { label: 'Notepad', link: '/migrate-from/notepad/' },
             { label: 'vim', link: '/migrate-from/vim/' },

@@ -1,6 +1,6 @@
 ---
 title: jvim
-description: AI-native TUI markdown workspace — vim-fast, Notepad-ergonomic.
+description: Terminal markdown editor with familiar shortcuts, file-tree navigation, and optional AI.
 template: splash
 pagefind: false
 tableOfContents: false
@@ -11,8 +11,8 @@ import FeatureGrid from '../../../components/FeatureGrid.astro';
 import PersonaCard from '../../../components/PersonaCard.astro';
 
 <Hero
-  title="Notepad-ergonomic, vim-fast, AI-native."
-  tagline="Terminal markdown editor for notes. wikilinks · tags · git · semantic search · AI overlay in a single binary. 1-line install, npm recommended."
+  title="A terminal markdown editor for notes."
+  tagline="Open a folder of markdown files, edit with familiar shortcuts, and use wikilinks, tags, git, search, and optional AI from one Linux binary."
   ctaPrimary={{ label: 'Get started in 5 min', href: '/jvim-public/en/getting-started/' }}
   ctaSecondary={{ label: 'Install', href: '/jvim-public/en/install/' }}
 />
@@ -28,25 +28,25 @@ import PersonaCard from '../../../components/PersonaCard.astro';
   </p>
 </div>
 
-## Coming from somewhere else?
+## Notes For Familiar Tools
 
 <div class="persona-grid">
   <PersonaCard
     persona="notepad"
-    title="From Notepad / Notepad++"
-    desc="Same Ctrl+S, Ctrl+Z, no modes. Plus a vault model and live markdown."
+    title="Notepad / Notepad++ shortcuts"
+    desc="Ctrl+S, Ctrl+Z, selection, and basic editing behave familiarly. jvim adds a file tree and markdown-aware views."
     href="/jvim-public/en/migrate-from/notepad/"
   />
   <PersonaCard
     persona="vim"
-    title="From vim / neovim"
-    desc="j/k/g/G in the file tree. Notepad keys in the editor. Single binary."
+    title="For vim / neovim users"
+    desc="Use j/k/g/G in the file tree. The editor body is intentionally non-modal."
     href="/jvim-public/en/migrate-from/vim/"
   />
   <PersonaCard
     persona="obsidian"
-    title="From Obsidian"
-    desc="Wikilinks, tags, backlinks — same model. Terminal-native, single binary."
+    title="Using Obsidian-style notes"
+    desc="Markdown files, wikilinks, tags, and backlinks are supported for plain-text vaults."
     href="/jvim-public/en/migrate-from/obsidian/"
   />
 </div>
@@ -55,12 +55,12 @@ import PersonaCard from '../../../components/PersonaCard.astro';
 
 <FeatureGrid
   features={[
-    { icon: 'md', title: 'Markdown-first editing', desc: 'Live styling for headings, emphasis, lists, code fences, tables, inline links. Workspace, not pages.' },
+    { icon: 'md', title: 'Markdown-first editing', desc: 'Live styling for headings, emphasis, lists, code fences, tables, and inline links.' },
     { icon: '[[ ]]', title: 'Wikilinks + Backlinks', desc: 'Type [[ to insert. Backlink panel shows incoming references.' },
     { icon: '#', title: 'Tag browser', desc: '#tag autocomplete + F7 tag browser. Vault-wide frequency and top files.' },
-    { icon: 'find', title: 'Full-text + semantic search', desc: 'Shift+F4 vault search, Shift+F5 index scope, RAG sources in Ask mode. SQLite FTS5 + optional sqlite-vec.' },
+    { icon: 'find', title: 'Full-text + optional semantic search', desc: 'Shift+F4 vault search, Shift+F5 index scope, SQLite FTS5, and optional sqlite-vec.' },
     { icon: 'cmd', title: 'Notepad shortcuts', desc: 'Ctrl+C/X/V/A/Z/Y/S/O/N + Shift+Arrow selection. Plus vim-style tree (j/k/g/G/n/r/d).' },
-    { icon: 'AI', title: 'AI overlay', desc: 'Ask/Insert/Rewrite, inline autocomplete, document polish, RAG sources. Local LLM supported.' },
+    { icon: 'AI', title: 'Optional AI overlay', desc: 'Ask/Insert/Rewrite and inline autocomplete when you configure a provider. Local LLMs are supported.' },
     { icon: 'git', title: 'Git integration', desc: 'Diff panel, current file hunks, commit/push/pull without leaving the editor.' },
     { icon: 'bin', title: 'Single binary', desc: 'Bun-compiled. No node_modules, no Node runtime required.' },
   ]}
@@ -81,8 +81,8 @@ import PersonaCard from '../../../components/PersonaCard.astro';
   </div>
   <div class="why-card">
     <span class="why-tag">AI</span>
-    <h3>Knows your notes</h3>
-    <p>Ask mode searches your vault first (RAG), then composes — citing the source notes.</p>
+    <h3>AI stays optional</h3>
+    <p>When configured, Ask mode can search the vault first and show source notes. Without a provider, jvim remains a local editor.</p>
   </div>
   <div class="why-card">
     <span class="why-tag">Ship</span>

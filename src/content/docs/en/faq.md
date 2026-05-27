@@ -91,10 +91,10 @@ via `stty -ixon -ixoff` on startup. If your terminal still swallows it, see
 Your vault is wherever you opened it. jvim doesn't move or copy files. Per-vault
 metadata (cursor positions, recent files) lives in `<vault>/.jvim/`.
 
-### How do I migrate from Obsidian / Notion / Notepad?
+### Can I use notes from Obsidian / Notion / Notepad?
 
 Drop the markdown files into a folder and `jvim ./that-folder/`. Wikilinks and tags
-work immediately. See [migrate from](/jvim-public/en/migrate-from/obsidian/).
+are recognized when they use plain markdown-style syntax. See [tool notes](/jvim-public/en/migrate-from/obsidian/).
 
 ### Does jvim sync across devices?
 

@@ -1,12 +1,12 @@
 ---
 title: Vault Search
-description: Full-text search across every file in your vault with Shift+F4, supporting tag and wikilink tokens natively.
+description: Full-text search across the open folder with Shift+F4, including tag and wikilink tokens.
 ---
 
 import AsciinemaPlayer from '../../../../components/AsciinemaPlayer.astro';
 import KeymapTable from '../../../../components/KeymapTable.astro';
 
-jvim indexes every file in your vault with SQLite FTS5, giving you sub-second full-text search regardless of vault size. The search overlay supports plain queries as well as `#tag` and `[[wikilink]]` tokens so you can think in Obsidian-style notation and get matching results immediately.
+jvim indexes the open markdown folder with SQLite FTS5 for practical full-text search. The search overlay supports plain queries as well as `#tag` and `[[wikilink]]` tokens, so existing note conventions remain useful in the terminal.
 
 <AsciinemaPlayer slug="vault-search" title="Vault Search: full-text search, tag queries, case toggle" />
 

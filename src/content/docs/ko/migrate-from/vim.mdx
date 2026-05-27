@@ -1,6 +1,6 @@
 ---
-title: vim / neovim에서 마이그레이션
-description: vim에서 넘어온 분들을 위한 동일한 점, 다른 점, 없는 것 안내.
+title: vim / neovim 사용자 참고
+description: jvim에서 vim식 탐색이 적용되는 위치와 의도적으로 다른 점 안내.
 ---
 
 import KeymapTable from '../../../../components/KeymapTable.astro';
@@ -37,12 +37,12 @@ jvim은 vim 클론이 **아닙니다**. 파일 트리에서 vim 탐색 방식을
 - `init.vim`을 통한 커스텀 키맵
 - 매크로 (`q` 레코딩)
 
-## 다르지만 더 나은 것들
+## jvim이 다른 지점
 
-- **Vault가 일급 객체.** 폴더 기반, 백링크와 태그 브라우저 내장.
-- **플러그인 없이 전문 검색.** Shift+F4 — 추가 설치 필요 없음.
-- **AI 오버레이 내장.** Alt+A — vault RAG와 함께 Ask/Insert/Rewrite.
-- **단일 바이너리.** 패키지 매니저도, `plug.vim`도, `init.lua`도 없음.
+- **폴더 기반 노트.** 파일 트리, 백링크, 태그 브라우저가 마크다운 폴더 중심으로 동작합니다.
+- **전문 검색.** Shift+F4로 열린 폴더를 추가 설정 없이 검색합니다.
+- **선택적 AI 오버레이.** 프로바이더를 설정한 뒤 Ask/Insert/Rewrite를 사용할 수 있습니다.
+- **단일 바이너리.** 에디터 플러그인 매니저나 런타임 설치가 필요 없습니다.
 
 ## 권장 첫 단계
 

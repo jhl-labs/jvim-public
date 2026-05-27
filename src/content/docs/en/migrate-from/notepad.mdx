@@ -1,11 +1,11 @@
 ---
-title: Migrate from Notepad / Notepad++
-description: If you came from Notepad or Notepad++, here's the mapping and what's new.
+title: Notes for Notepad / Notepad++ users
+description: Familiar shortcuts and the extra markdown features jvim adds.
 ---
 
 import KeymapTable from '../../../../components/KeymapTable.astro';
 
-You don't need to learn vim. jvim's defaults are Notepad-shaped.
+jvim keeps common desktop-editor shortcuts in the editor body. The vim-like keys are limited to the file tree.
 
 ## What's the same
 
@@ -21,15 +21,15 @@ You don't need to learn vim. jvim's defaults are Notepad-shaped.
   { keys: 'Arrow / PgUp / PgDn / Home / End', action: 'Move cursor' },
 ]} />
 
-## What's new
+## Additional features
 
-- **Vault model.** Open a folder, not just a file. The left panel is a live file tree.
+- **Folder-based editing.** Open a folder, not just a file. The left panel is a file tree.
 - **Markdown live styling.** Headings, lists, code fences are styled inline as you type.
 - **Wikilinks `[[link]]`.** Type `[[` to autocomplete a vault file. Backlinks panel shows
   who links here.
 - **Tags `#topic`.** Type `#` to autocomplete vault-wide tags. Tag browser (F7).
-- **Full-text + semantic search.** Shift+F4 across your whole vault.
-- **Command palette (F4).** Like VS Code — search any command by name.
+- **Full-text search.** Shift+F4 searches the open folder.
+- **Command palette (F4).** Search common commands by name.
 
 ## Differences to watch
 

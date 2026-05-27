@@ -1,6 +1,6 @@
 ---
-title: Migrate from vim / neovim
-description: If you came from vim, here's what's the same, what's different, and what's missing.
+title: Notes for vim / neovim users
+description: Where vim-like navigation appears in jvim, and where it intentionally differs.
 ---
 
 import KeymapTable from '../../../../components/KeymapTable.astro';
@@ -37,12 +37,12 @@ In the **editor body** — Notepad semantics, no modes:
 - Custom keymaps via `init.vim`
 - Macros (`q` recording)
 
-## What's different but better
+## Where jvim differs
 
-- **Vault as first class.** Folder-based, with backlinks and tag browser.
-- **Full-text search out of the box.** Shift+F4 — no plugin install.
-- **AI overlay built in.** Alt+A — Ask/Insert/Rewrite with vault RAG.
-- **Single binary.** No package manager, no `plug.vim`, no init.lua.
+- **Folder-based notes.** File tree, backlinks, and tag browser are built around a markdown folder.
+- **Full-text search.** Shift+F4 searches the open folder without extra setup.
+- **Optional AI overlay.** Ask/Insert/Rewrite are available after you configure a provider.
+- **Single binary.** No editor plugin manager or runtime install is required.
 
 ## Recommended first steps
 

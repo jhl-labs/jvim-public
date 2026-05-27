@@ -1,6 +1,6 @@
 ---
 title: jvim
-description: AI-native TUI 마크다운 워크스페이스 — vim 속도, Notepad 편의성.
+description: 익숙한 단축키, 파일 트리, 선택적 AI를 갖춘 터미널 마크다운 편집기.
 template: splash
 pagefind: false
 tableOfContents: false
@@ -11,8 +11,8 @@ import FeatureGrid from '../../../components/FeatureGrid.astro';
 import PersonaCard from '../../../components/PersonaCard.astro';
 
 <Hero
-  title="Notepad 편의성, vim 속도, AI-native."
-  tagline="터미널 마크다운 편집기. wikilinks · 태그 · git · 시맨틱 검색 · AI 오버레이를 단일 바이너리로. 설치 1줄, npm 권장."
+  title="터미널에서 쓰는 마크다운 편집기."
+  tagline="마크다운 폴더를 열고, 익숙한 단축키로 편집하며, wikilinks · 태그 · git · 검색 · 선택적 AI를 Linux 단일 바이너리에서 사용합니다."
   ctaPrimary={{ label: '5분 안에 시작', href: '/jvim-public/ko/getting-started/' }}
   ctaSecondary={{ label: '설치', href: '/jvim-public/ko/install/' }}
 />
@@ -28,25 +28,25 @@ import PersonaCard from '../../../components/PersonaCard.astro';
   </p>
 </div>
 
-## 어디서 옮겨오시나요?
+## 기존 도구 사용자 참고
 
 <div class="persona-grid">
   <PersonaCard
     persona="notepad"
-    title="Notepad / Notepad++ 에서"
-    desc="Ctrl+S, Ctrl+Z 그대로, 모드 전환 없음. 거기에 vault 모델과 마크다운 라이브 스타일."
+    title="Notepad / Notepad++ 단축키"
+    desc="Ctrl+S, Ctrl+Z, 선택, 기본 편집은 익숙하게 유지하고 파일 트리와 마크다운 표시를 더합니다."
     href="/jvim-public/ko/migrate-from/notepad/"
   />
   <PersonaCard
     persona="vim"
-    title="vim / neovim 에서"
-    desc="파일 트리에서 j/k/g/G. 에디터에서는 Notepad 키. 단일 바이너리."
+    title="vim / neovim 키에 익숙하다면"
+    desc="파일 트리에서 j/k/g/G를 사용합니다. 에디터 본문은 의도적으로 비모달 방식입니다."
     href="/jvim-public/ko/migrate-from/vim/"
   />
   <PersonaCard
     persona="obsidian"
-    title="Obsidian 에서"
-    desc="wikilinks · 태그 · 백링크 — 같은 모델. 터미널 네이티브, 단일 바이너리."
+    title="Obsidian 스타일 노트와 함께"
+    desc="일반 마크다운 vault에서 wikilinks, 태그, 백링크를 사용할 수 있습니다."
     href="/jvim-public/ko/migrate-from/obsidian/"
   />
 </div>
@@ -55,12 +55,12 @@ import PersonaCard from '../../../components/PersonaCard.astro';
 
 <FeatureGrid
   features={[
-    { icon: 'md', title: '마크다운 우선 편집', desc: '헤딩·강조·리스트·코드 펜스·표·인라인 링크에 라이브 스타일링. 페이지가 아닌 워크스페이스.' },
+    { icon: 'md', title: '마크다운 우선 편집', desc: '헤딩·강조·리스트·코드 펜스·표·인라인 링크에 라이브 스타일링.' },
     { icon: '[[ ]]', title: 'Wikilinks + 백링크', desc: '[[ 입력으로 삽입. 백링크 패널이 들어오는 참조를 보여줌.' },
     { icon: '#', title: '태그 브라우저', desc: '#tag 자동완성 + F7 태그 브라우저. vault 전체 빈도와 대표 파일.' },
-    { icon: 'find', title: '풀텍스트 + 시맨틱 검색', desc: 'Shift+F4 vault 검색, Shift+F5 인덱스 범위, Ask 모드의 RAG 출처. SQLite FTS5 + 선택적 sqlite-vec.' },
+    { icon: 'find', title: '풀텍스트 + 선택적 시맨틱 검색', desc: 'Shift+F4 vault 검색, Shift+F5 인덱스 범위, SQLite FTS5, 선택적 sqlite-vec.' },
     { icon: 'cmd', title: 'Notepad 단축키', desc: 'Ctrl+C/X/V/A/Z/Y/S/O/N + Shift+Arrow 선택. 거기에 vim 스타일 트리(j/k/g/G/n/r/d).' },
-    { icon: 'AI', title: 'AI 오버레이', desc: 'Ask/Insert/Rewrite, 인라인 자동완성, 문서 교정, RAG 출처. 로컬 LLM 지원.' },
+    { icon: 'AI', title: '선택적 AI 오버레이', desc: '프로바이더를 설정하면 Ask/Insert/Rewrite와 인라인 자동완성을 사용할 수 있습니다. 로컬 LLM 지원.' },
     { icon: 'git', title: 'Git 통합', desc: 'Diff 패널, 현재 파일 hunks, 에디터를 떠나지 않고 commit/push/pull.' },
     { icon: 'bin', title: '단일 바이너리', desc: 'Bun 컴파일. node_modules 없음, Node 런타임 불필요.' },
   ]}
@@ -81,8 +81,8 @@ import PersonaCard from '../../../components/PersonaCard.astro';
   </div>
   <div class="why-card">
     <span class="why-tag">AI</span>
-    <h3>당신의 노트를 압니다</h3>
-    <p>Ask 모드가 먼저 vault를 검색(RAG)한 뒤 출처 노트를 인용하며 답합니다.</p>
+    <h3>AI는 선택 사항</h3>
+    <p>설정한 경우 Ask 모드가 vault를 먼저 검색하고 출처 노트를 보여줄 수 있습니다. 설정하지 않아도 로컬 편집기로 동작합니다.</p>
   </div>
   <div class="why-card">
     <span class="why-tag">Ship</span>

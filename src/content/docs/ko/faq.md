@@ -79,9 +79,9 @@ API 키는 `~/.config/jvim/config.toml`(chmod 600)에 저장됩니다. 로그에
 
 vault는 열었던 위치 그대로입니다. jvim은 파일을 이동하거나 복사하지 않습니다. vault별 메타데이터(커서 위치, 최근 파일)는 `<vault>/.jvim/`에 저장됩니다.
 
-### Obsidian / Notion / Notepad에서 어떻게 마이그레이션하나요?
+### Obsidian / Notion / Notepad의 노트를 사용할 수 있나요?
 
-마크다운 파일을 폴더에 넣고 `jvim ./that-folder/`를 실행하면 됩니다. 위키링크와 태그가 즉시 동작합니다. 자세한 내용은 [마이그레이션 가이드](/jvim-public/ko/migrate-from/obsidian/)를 참고하세요.
+마크다운 파일을 폴더에 넣고 `jvim ./that-folder/`를 실행하면 됩니다. 일반 마크다운 문법으로 된 위키링크와 태그는 인식됩니다. 자세한 내용은 [기존 도구 참고](/jvim-public/ko/migrate-from/obsidian/)를 참고하세요.
 
 ### 기기 간 동기화가 가능한가요?
 

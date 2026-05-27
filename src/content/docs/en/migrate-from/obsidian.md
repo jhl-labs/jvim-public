@@ -1,43 +1,43 @@
 ---
-title: Migrate from Obsidian
-description: If you came from Obsidian, here's the mapping for vault, wikilinks, tags, and graph.
+title: Notes for Obsidian users
+description: How jvim handles plain markdown folders, wikilinks, tags, and backlinks.
 ---
 
-If you already use Obsidian, jvim's mental model is the same: **markdown vault, wikilinks, tags, backlinks**.
+If you already keep notes as markdown files, jvim can work with the same folder. It supports familiar pieces such as **wikilinks, tags, and backlinks**, but it is a smaller terminal editor rather than an Obsidian replacement.
 
-## Concepts that map 1:1
+## Familiar concepts
 
 | Obsidian | jvim |
 |---|---|
 | Vault folder | `jvim my-vault/` |
 | `[[wikilink]]` | Same syntax. `[[` autocomplete. |
 | `#tag` (inline or YAML) | `#tag` inline, autocomplete on `#`. F7 tag browser. |
-| Backlinks panel | Built-in for each note. |
+| Backlinks panel | Available for each note. |
 | Quick switcher (Ctrl+O) | `Ctrl+O` — same. |
 | Command palette (Ctrl+P) | `F4` — same idea, slightly different name. |
 | Search (Ctrl+Shift+F) | `Shift+F4` — full-text + tag + wikilink filters. |
 | Daily notes / templates | Manual for now. Templates planned. |
 
-## What's missing vs. Obsidian
+## Not included
 
 - **Graph view** — no visual graph (yet)
-- **Plugin marketplace** — jvim has no plugin system (yet)
+- **Plugin marketplace** — jvim has no plugin system
 - **Canvas / whiteboard** — text only
 - **Web/mobile sync** — terminal-only
 - **WYSIWYG preview pane** — jvim has live styling, no separate preview
 
-## What's better vs. Obsidian
+## jvim's focus
 
-- **Terminal-native.** Works over SSH, in tmux, in containers, in CI.
-- **Single binary.** No Electron, no node_modules.
-- **Vim-style tree.** j/k/g/G in the file tree.
-- **AI overlay with vault RAG built in** — no separate plugin install.
-- **Semantic search Tier 2** — `sqlite-vec` based, scope-pickable.
+- **Terminal use.** Works over SSH, in tmux, in containers, and in CI-like environments.
+- **Single binary.** No Electron or node_modules.
+- **Keyboard file tree.** j/k/g/G in the file tree.
+- **Optional AI overlay.** Can use vault search after a provider is configured.
+- **Optional semantic search.** `sqlite-vec` support can be enabled for scoped indexing.
 
-## Vault import
+## Using an existing folder
 
-jvim reads any folder of `.md` files. Drop your Obsidian vault and run `jvim ./my-vault/`.
-Wikilinks and tags work immediately. No conversion required.
+jvim reads folders of `.md` files. You can point it at an existing markdown folder with `jvim ./my-vault/`.
+Basic wikilinks and inline tags are recognized without a conversion step; Obsidian-specific plugin data and canvas files are outside jvim's scope.
 
 ## Recommended first steps
 

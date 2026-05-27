@@ -1,12 +1,12 @@
 ---
 title: AI Overlay
-description: Use jvim's AI overlay for vault-aware Q&A, inline text generation, selection rewriting, inline autocomplete, and document polish.
+description: Configure an AI provider to use Ask, Insert, Rewrite, and inline autocomplete from the editor.
 ---
 
 import AsciinemaPlayer from '../../../../components/AsciinemaPlayer.astro';
 import KeymapTable from '../../../../components/KeymapTable.astro';
 
-jvim integrates AI assistance throughout the editing workflow. The AI overlay (`F6`) offers three distinct modes for different tasks, inline ghost-text autocomplete runs as you type, and the AI context menu surfaces quick actions without opening a full prompt. All AI features are opt-in — no network traffic is sent unless you explicitly invoke them.
+jvim's AI features are optional. After you configure a provider, the AI overlay (`F6`) offers Ask, Insert, and Rewrite modes. Inline ghost-text autocomplete and the AI context menu can also be enabled when you want model assistance. No network traffic is sent unless you explicitly invoke an AI feature.
 
 <AsciinemaPlayer slug="ai-overlay" title="AI overlay: Ask, Insert, Rewrite, inline autocomplete" />
 
@@ -24,7 +24,7 @@ Press `F6` to open the AI prompt overlay and choose a mode:
 
 ### Ask
 
-**Ask** is a vault-aware Q&A interface. Type a question and jvim answers it in context. If the semantic index is available, the first response retrieves relevant chunks from your vault before generating an answer — grounding it in your own notes rather than the model's general knowledge.
+**Ask** is a Q&A interface that can use vault context. If the semantic index is available, the first response retrieves relevant chunks from your vault before generating an answer.
 
 After the response, a **Sources** section lists the vault notes that contributed, with snippet previews. Use arrow keys to navigate sources and press `O` to open a source note directly.
 

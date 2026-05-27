@@ -1,12 +1,12 @@
 ---
 title: Tags
-description: Auto-complete tags as you type with #, and browse vault-wide tag frequencies with the F7 tag browser.
+description: Complete tags with # and browse tag counts with the F7 tag browser.
 ---
 
 import AsciinemaPlayer from '../../../../components/AsciinemaPlayer.astro';
 import KeymapTable from '../../../../components/KeymapTable.astro';
 
-Tags in jvim are first-class citizens. As soon as you type `#` in the editor a completion popup appears with every tag that exists in your vault, ranked by frequency. The `F7` tag browser gives you a bird's-eye view of all tags and lets you drill into any one of them with a single keypress.
+jvim treats inline tags as searchable note metadata. When you type `#` in the editor, a completion popup can suggest tags already found in the open folder. The `F7` tag browser lists tags with counts and can hand a selected tag off to vault search.
 
 <AsciinemaPlayer slug="tags" title="Tags: autocomplete and tag browser" />
 
@@ -30,7 +30,7 @@ Press `F7` to open the tag browser overlay. The browser shows every tag in the v
 - **Frequency** — how many files carry that tag.
 - **Top files** — a preview of the most recent or most relevant files that use the tag.
 
-Type any characters to filter the list by prefix. When you find the tag you want, press `Enter` to hand off to vault search with a `tag:<name>` query pre-filled, so you immediately see all files tagged with it.
+Type any characters to filter the list by prefix. When you find the tag you want, press `Enter` to hand off to vault search with a `tag:<name>` query pre-filled.
 
 <KeymapTable rows={[
   { keys: 'F7', action: 'Open tag browser', notes: 'Vault-wide tag list with frequency counts and top files' },
