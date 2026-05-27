@@ -21,6 +21,27 @@ Every PR MUST add an entry under `[Unreleased]` unless it is a pure internal ref
 
 ## [Unreleased]
 
+## [docs-v1.0.0] — 2026-05-27
+
+### Docs
+
+- **Documentation site rewritten from Jekyll to Astro Starlight 0.39 (Astro 6).** Same hosting (`https://jhl-labs.github.io/jvim-public/`), all-new information architecture.
+- **First-class bilingual support.** Route-based i18n at `/en/` and `/ko/`. 28 pages × 2 languages = 56 pages, all 1:1 mirrored. Previous client-side `data-i18n` JS toggle removed.
+- **Brand-new sections.**
+  - `/getting-started/` — 5-minute setup walkthrough.
+  - `/migrate-from/{notepad,vim,obsidian}/` — persona-targeted migration guides.
+  - `/usage/*` — 13 focused workflow pages (split from the prior 90-card single landing block).
+  - `/keymap/{essentials,full,cheatsheet}/` — 3-tier shortcut reference (10 essentials → 8-group full reference → printable cheatsheet).
+  - `/transparency/` + `/transparency/reports/` — split out from the prior single landing section.
+  - `/faq/` expanded from 11 to **32 questions** across 6 categories (install, AI, keymaps, data, troubleshooting, license).
+- **Landing redesign.** Hero with badge row, demo media, "Coming from somewhere else?" persona-card grid, 8-feature grid, "Why jvim?" 4-card explanation grid, closing CTA.
+- **Search built in.** Pagefind index covers both languages.
+- **Typography overhaul.** 17px base · 1.7 line-height · Korean-aware `word-break: keep-all` · key-cap inline code styling · table zebra striping · h2 hairline rules · accent left-border blockquote.
+- **Asciinema demos.** `<AsciinemaPlayer>` component reserves space on every workflow page; graceful "recording in progress" placeholder until cast files land.
+- **Dark mode locked.** Site enforces dark theme on every page; light toggle removed for visual consistency with jvim's TUI.
+- **CI deployment.** New `.github/workflows/deploy-docs.yml` builds via Astro and deploys via `actions/deploy-pages`. GitHub Pages now serves from Actions instead of a branch folder.
+- **Single source of truth for version.** Site-wide version string is read from `src/version.json` (was `_config.yml`). Per-release: bump that one file, push, Pages rebuilds.
+
 ## [0.5.2] — 2026-04-22
 
 ### Docs
