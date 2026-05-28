@@ -17,7 +17,7 @@ jvim is closed source but ships with full transparency reports for every release
 ## Data handling
 
 - **Local-first.** Your vault stays on your machine. We don't see your notes.
-- **AI provider, when used, is your choice.** OpenAI / Anthropic / local LLM (Ollama / llama.cpp).
+- **AI provider, when used, is your choice.** Configure an OpenAI-compatible cloud or local endpoint.
 - **Telemetry: opt-in.** Off by default. See [release policy](/jvim-public/en/release-policy/) for details.
 
 ## Source access

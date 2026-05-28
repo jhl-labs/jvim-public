@@ -36,7 +36,7 @@ A useful report contains:
 
 **In scope:**
 
-- The `jvim` binary distributed via npm (`jvim`, `@jhl_labs/jvim-linux-*`)
+- The `jvim` binary distributed via npm (`@jhl_labs/jvim`, `@jhl_labs/jvim-linux-*`)
   and GitHub Releases.
 - The launcher shim and its platform dispatch logic.
 - The AI overlay when configured with an API key.

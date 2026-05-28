@@ -1,38 +1,45 @@
 ---
 title: Settings
-description: Explore jvim's settings overlay, TUI setup wizard, effective settings view, and config.toml location.
+description: Explore jvim's settings overlay, effective settings view, config.toml, and providers.toml.
 ---
 
 import AsciinemaPlayer from '../../../../components/AsciinemaPlayer.astro';
 import KeymapTable from '../../../../components/KeymapTable.astro';
 
-jvim stores all configuration in a single `config.toml` file. You can edit it directly or use the built-in settings overlay (`F10`), which opens the file inside jvim with syntax validation. Changes take effect immediately on save — no restart required.
+jvim stores core editor settings in `config.toml` and AI provider definitions in `providers.toml`. The settings overlay (`F10`) gives you a TUI for common settings, provider setup, and an effective-settings view. You can also open the raw config file from that overlay when you need direct TOML editing.
 
 <AsciinemaPlayer slug="settings" title="Settings: overlay, config.toml, F1 help" />
 
 ## Settings Overlay
 
-Press `F10` (or `Ctrl+K`) to open the settings overlay. This is a full-text editor for `config.toml` with the same keybindings as the main editor. Save with `Ctrl+S` to apply.
+Press `F10` (or `Ctrl+K`) to open the settings overlay. The home screen links to quick settings, provider setup, and effective settings. Press `e` from the overlay to open the raw global `config.toml` as a normal jvim buffer.
 
 ![Settings overlay opened with F10](../../../../assets/images/11-settings-f10.png)
 
 <KeymapTable rows={[
-  { keys: 'F10 / Ctrl+K', action: 'Open settings overlay', notes: 'Opens config.toml in an editable overlay' },
-  { keys: 'Ctrl+S', action: 'Save and apply', notes: 'Writes config.toml and applies changes without restart' },
-  { keys: 'Esc', action: 'Close without saving', notes: 'Discard edits and return to the editor' },
+  { keys: 'F10 / Ctrl+K', action: 'Open settings overlay', notes: 'Shows quick settings, provider setup, and effective settings' },
+  { keys: 'e', action: 'Open raw config', notes: 'Opens config.toml as a normal editable buffer' },
+  { keys: 'Enter', action: 'Apply selected setting', notes: 'Saves supported quick settings from the overlay' },
+  { keys: 'Esc', action: 'Close overlay', notes: 'Return to the editor' },
 ]} />
 
-If the TOML contains a syntax error when you save, jvim shows an error toast and keeps the previous valid configuration active. Your edited (invalid) text remains in the overlay so you can fix it.
+If you edit TOML directly and introduce a syntax error, jvim keeps using the previous valid configuration until the file is corrected.
 
 ## Config File Location
 
-The configuration file lives at:
+Core editor configuration lives at:
 
 ```
 ~/.config/jvim/config.toml
 ```
 
-You can also edit this file with any text editor outside of jvim. Changes made externally are picked up the next time jvim starts.
+AI providers live at:
+
+```
+~/.config/jvim/providers.toml
+```
+
+You can edit either file with any text editor outside of jvim. Changes made externally are picked up the next time jvim starts.
 
 ## Key Configuration Sections
 
@@ -48,10 +55,16 @@ scroll_off = 5
 ### AI Providers
 
 ```toml
-[ai]
-provider = "openai"          # openai | anthropic | ollama | custom
-model = "gpt-4o"
-inline_model = "gpt-4o-mini" # optional: separate model for ghost-text
+schema_version = 1
+default_provider = "openai-cloud"
+
+[[providers]]
+id = "openai-cloud"
+kind = "openai-compat"
+base_url = "https://api.openai.com/v1"
+api_key_env = "OPENAI_API_KEY"
+default_model = "gpt-4o"
+inline_model = "gpt-4o-mini"
 ```
 
 See [AI Overlay](/jvim-public/en/usage/ai-overlay/) for the full provider setup guide.
@@ -65,30 +78,27 @@ check_on_start = true    # set to false to disable npm update checks
 
 ## F1 Help Overlay
 
-`F1` opens a searchable keymap reference inside jvim. It lists every available shortcut grouped by category. Type to filter — the list narrows in real time.
+`F1` opens an in-app keymap reference. It lists the main shortcuts grouped by category and can be scrolled with the arrow keys.
 
 ![F1 help overlay showing keybindings](../../../../assets/images/04-help-f1.png)
 
 <KeymapTable rows={[
-  { keys: 'F1', action: 'Open keymap help overlay', notes: 'Searchable shortcut reference, always available' },
-  { keys: 'Type to filter', action: 'Narrow the list', notes: 'Shows only matching shortcuts as you type' },
+  { keys: 'F1', action: 'Open keymap help overlay', notes: 'Shortcut reference, always available' },
+  { keys: '↑ / ↓', action: 'Scroll help', notes: 'Move through the shortcut sections' },
   { keys: 'Esc', action: 'Close help', notes: 'Return to the editor' },
 ]} />
 
 The help overlay is a quick in-app reference — for the full annotated keymap, see [Keymap — full reference](/jvim-public/en/keymap/full/).
 
-## First-Run Setup Wizard
+## First-Run Defaults
 
-When jvim launches for the first time and finds no `config.toml`, it runs a TUI setup wizard. The wizard asks for:
+When jvim launches without a `config.toml`, it uses built-in defaults. For AI setup, jvim creates a commented `providers.toml` template when possible so you can uncomment and fill in the provider you want.
 
-- Your preferred AI provider and API key (optional — skip to use jvim without AI features)
-- Editor preferences (tab size, line numbers)
-
-The wizard writes the resulting `config.toml` and exits. You can re-run or adjust any setting later via `F10`.
+You can adjust common settings later via `F10`, or edit `config.toml` / `providers.toml` directly.
 
 ## Settings Reload Without Restart
 
-All settings changes made through the `F10` overlay take effect immediately when you save. There is no need to quit and relaunch jvim. The only exception is changes to the AI provider base URL, which require a restart to reconnect the HTTP client.
+Supported quick settings changed through the `F10` overlay are written immediately. Changes made by editing TOML directly are picked up on the next jvim start.
 
 ## Related
 

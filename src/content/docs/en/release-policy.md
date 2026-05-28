@@ -64,20 +64,20 @@ Binaries:
 Transparency reports (see [transparency reports](/jvim-public/en/transparency/reports/) for
 field-by-field explanations):
 
-- `test-report.html` — pass/fail for every test in the suite
-- `coverage-lcov.info` + `coverage-summary.txt` — coverage numbers
 - `sbom.json` — CycloneDX software bill of materials
 - `trivy-scan.json`, `osv-scan.json` — vulnerability scans
 - `third-party-notices.txt` — bundled dependency licenses
+
+Coverage and test HTML reports are kept internal because they enumerate private source paths.
 
 ## Obfuscation and source protection
 
 `jvim` is a closed-source product. Released binaries are:
 
 - **Minified** — all internal identifiers mangled to 1–2 characters.
-- **Stripped** — ELF symbol table removed (including for cross-arch builds).
 - **Sourcemap-free** — no inline base64 sourcemap is embedded.
-- **Whitelisted** — npm packages include only `bin/`, `LICENSE`, `README.md`.
+- **Whitelisted** — npm packages include the launcher/binary files, `LICENSE`,
+  `NOTICE`, `README.md`, and release transparency metadata.
   No `src/`, `tests/`, `*.map` files can reach users.
 
 Every release is verified against the above invariants before publish.

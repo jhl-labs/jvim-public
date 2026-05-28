@@ -1,12 +1,12 @@
 ---
 title: Vault Search
-description: Full-text search across the open folder with Shift+F4, including tag and wikilink tokens.
+description: Full-text search across the open folder with Shift+F4, including tag and path filters.
 ---
 
 import AsciinemaPlayer from '../../../../components/AsciinemaPlayer.astro';
 import KeymapTable from '../../../../components/KeymapTable.astro';
 
-jvim indexes the open markdown folder with SQLite FTS5 for practical full-text search. The search overlay supports plain queries as well as `#tag` and `[[wikilink]]` tokens, so existing note conventions remain useful in the terminal.
+jvim indexes the open markdown folder with SQLite FTS5 for practical full-text search. The search overlay supports plain queries, quoted phrases, and structured filters such as `tag:` and `path:`.
 
 <AsciinemaPlayer slug="vault-search" title="Vault Search: full-text search, tag queries, case toggle" />
 
@@ -22,14 +22,15 @@ Press `Shift+F4` to open the vault search overlay from anywhere in jvim. Start t
   { keys: 'Esc', action: 'Close overlay', notes: 'Returns focus to the editor without navigating' },
 ]} />
 
-## Special Query Tokens
+## Query Filters
 
-The search input understands two extra token types in addition to plain words:
+The search input understands these forms in addition to plain words:
 
-- **`#tag`** — matches files that contain the specified tag. For example, type `#travel` to find every file tagged with `#travel`.
-- **`[[wikilink]]`** — matches files that contain a wikilink referencing the given title. For example, `[[chunker]]` finds files that link to `chunker`.
+- **`tag:<name>`** — matches files that contain the specified tag. For example, type `tag:travel` to find files tagged `#travel`.
+- **`path:<glob>`** — limits results to matching paths. For example, `path:notes/*` searches files under `notes/`.
+- **`"quoted phrase"`** — searches for an exact phrase.
 
-You can combine these with regular keywords in a single query: `#project meeting notes` finds files tagged `#project` whose body also contains the words "meeting" and "notes".
+You can combine filters with regular keywords in a single query: `tag:project meeting notes` finds files tagged `#project` whose body also contains the words "meeting" and "notes".
 
 ## Case Sensitivity Toggle
 

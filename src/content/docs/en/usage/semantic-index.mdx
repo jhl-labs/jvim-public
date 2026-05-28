@@ -12,7 +12,7 @@ jvim's Tier 2 semantic index generates vector embeddings with `sqlite-vec` and s
 
 ## Opening the Scope Picker
 
-Press `Shift+F5` to open the scope selection dialog. The dialog presents three options and waits for your choice before doing any work.
+Press `Shift+F5` to open the scope selection dialog. The dialog presents scope options and waits for your choice before doing any work.
 
 ![Semantic index scope picker dialog](../../../../assets/images/53-semantic-scope-shift-f5.png)
 
@@ -25,9 +25,10 @@ Press `Shift+F5` to open the scope selection dialog. The dialog presents three o
 
 | Scope | What gets indexed |
 |---|---|
-| **Current document** | Only the file that is open in the editor. Fast; useful for a quick AI-assisted review of a single note. |
+| **Current file** | Only the file that is open in the editor. Fast; useful for a quick AI-assisted review of a single note. |
+| **Open docs** | Files currently open in editor tabs. Useful when you are working across a small set of notes. |
 | **Vault** | Every file in the vault. The most complete index; prompts a confirmation dialog before starting because it may take time on large vaults. |
-| **Favorites + current** | Files you have marked as favorites with `F11`, plus the document currently open. A focused middle ground that keeps the index small while covering your most important notes. |
+| **Selected docs** | Files matched by your selected-document rules. Useful when you want a repeatable subset without indexing the entire vault. |
 
 After choosing a scope, jvim builds (or incrementally updates) the embedding index in the background. A progress indicator appears in the status bar while the build is running.
 
@@ -40,17 +41,18 @@ When you select **Vault** and the vault contains many files, jvim shows a confir
   { keys: 'Esc', action: 'Cancel the confirmation', notes: 'Returns to the scope picker; no files are embedded' },
 ]} />
 
-## Marking Favorites
+## Selected Documents
 
-The **Favorites + current** scope is only useful once you have tagged some files as favorites. Press `F11` while a file is open to toggle its favorite status. Favorited files appear with a star marker in the file tree and are included in the "Favorites + current" index build.
+The **Selected docs** scope uses the selected-document rule manager in the scope dialog. You can add files or folders to keep a repeatable indexing subset without embedding the whole vault.
 
 <KeymapTable rows={[
-  { keys: 'F11', action: 'Toggle favorite', notes: 'Star marker in file tree; included in Favorites + current scope' },
+  { keys: 'Shift+F5 → Selected docs', action: 'Manage selected scope', notes: 'Choose files or folder rules for the semantic index' },
+  { keys: 'F11', action: 'Toggle favorite', notes: 'Marks the current file for quick reference in the file tree' },
 ]} />
 
 ## AI Ask Mode and RAG
 
-Once the index is built, the AI Ask mode (`Ctrl+K` overlay) uses it as the retrieval source. When you ask a question, jvim embeds your query and fetches the most semantically relevant chunks from the index to include as context. The quality of the RAG context depends directly on the scope you chose: a broader, up-to-date index produces more relevant results.
+Once the index is built, AI Ask mode (`F6 → Ask`) can use it as the retrieval source. When you ask a question, jvim embeds your query and fetches the most semantically relevant chunks from the index to include as context. The quality of the RAG context depends directly on the scope you chose: a broader, up-to-date index produces more relevant results.
 
 Re-run `Shift+F5` whenever you add notes you want available in the AI context.
 

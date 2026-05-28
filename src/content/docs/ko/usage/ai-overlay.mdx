@@ -80,24 +80,38 @@ Ask/Rewrite보다 빠르고 저렴한 모델을 인라인 자동완성에 사용
 
 ## 프로바이더 설정
 
-jvim은 OpenAI 호환 엔드포인트, Anthropic, 로컬 LLM(Ollama, llama.cpp, 또는 OpenAI 호환 채팅 API를 제공하는 서버)과 함께 동작합니다.
+jvim은 현재 OpenAI 호환 채팅 API에 연결합니다. OpenAI, Groq, `/v1` API를 제공하는 로컬 Ollama 또는 llama.cpp 서버를 사용할 수 있고, Anthropic은 OpenAI 호환 게이트웨이를 통해 사용할 수 있습니다.
 
-`~/.config/jvim/config.toml`에서 프로바이더를 설정하세요 (또는 `F10`의 설정 오버레이를 통해):
+프로바이더는 `~/.config/jvim/providers.toml`에 설정합니다:
 
 ```toml
-[ai]
-provider = "openai"       # openai | anthropic | ollama | custom
-model = "gpt-4o"
-inline_model = "gpt-4o-mini"   # 선택 사항: 고스트 텍스트용 경량 모델
+schema_version = 1
+default_provider = "openai-cloud"
+
+[[providers]]
+id = "openai-cloud"
+kind = "openai-compat"
+base_url = "https://api.openai.com/v1"
+api_key_env = "OPENAI_API_KEY"
+default_model = "gpt-4o"
+inline_model = "gpt-4o-mini" # 선택 사항: 고스트 텍스트용 경량 모델
+embedding_model = "text-embedding-3-small"
 ```
 
-로컬 LLM의 경우 `provider = "ollama"`로 설정하고 필요에 따라 기본 URL을 재정의하세요:
+로컬 LLM은 서버의 OpenAI 호환 엔드포인트를 가리키도록 설정하세요:
 
 ```toml
-[ai]
-provider = "ollama"
-base_url = "http://localhost:11434"
-model = "llama3"
+schema_version = 1
+default_provider = "ollama-local"
+
+[[providers]]
+id = "ollama-local"
+kind = "openai-compat"
+base_url = "http://localhost:11434/v1"
+api_key_env = "OLLAMA_API_KEY" # 서버가 인증을 무시하면 임의 값
+default_model = "llama3.2"
+inline_model = "qwen2.5-coder:3b"
+embedding_model = "nomic-embed-text"
 ```
 
 AI 작업을 명시적으로 호출하기 전까지는 어떤 프로바이더에도 트래픽이 전송되지 않습니다. 인라인 자동완성 전환은 기본적으로 꺼져 있습니다.

@@ -55,20 +55,20 @@ GitHub Release에는 [투명성 리포트](/jvim-public/ko/transparency/reports/
 
 투명성 리포트 ([투명성 리포트](/jvim-public/ko/transparency/reports/) 참고):
 
-- `test-report.html` — 테스트 스위트의 모든 테스트 합격/불합격
-- `coverage-lcov.info` + `coverage-summary.txt` — 커버리지 수치
 - `sbom.json` — CycloneDX 소프트웨어 구성 목록
 - `trivy-scan.json`, `osv-scan.json` — 취약점 스캔
 - `third-party-notices.txt` — 번들된 의존성 라이선스
+
+커버리지와 테스트 HTML 리포트는 비공개 소스 경로를 열거하므로 내부에만 보관합니다.
 
 ## 난독화와 소스 보호
 
 `jvim`은 클로즈드 소스 제품입니다. 릴리스 바이너리는:
 
 - **최소화됨** — 모든 내부 식별자가 1~2자리로 맹글링됨.
-- **심볼 제거됨** — ELF 심볼 테이블 제거 (크로스 아키텍처 빌드 포함).
 - **소스맵 없음** — 인라인 base64 소스맵 없음.
-- **화이트리스트 적용** — npm 패키지에는 `bin/`, `LICENSE`, `README.md`만 포함.
+- **화이트리스트 적용** — npm 패키지에는 런처/바이너리 파일, `LICENSE`,
+  `NOTICE`, `README.md`, 릴리스 투명성 메타데이터만 포함.
   `src/`, `tests/`, `*.map` 파일은 사용자에게 전달되지 않음.
 
 모든 릴리스는 공개 전 위 불변성을 검증합니다.

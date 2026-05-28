@@ -28,12 +28,12 @@ Type `#` anywhere in the editor body and jvim opens a real-time completion popup
 Press `F7` to open the tag browser overlay. The browser shows every tag in the vault together with:
 
 - **Frequency** — how many files carry that tag.
-- **Top files** — a preview of the most recent or most relevant files that use the tag.
+- **Representative file** — one matching file path to help identify where the tag appears.
 
 Type any characters to filter the list by prefix. When you find the tag you want, press `Enter` to hand off to vault search with a `tag:<name>` query pre-filled.
 
 <KeymapTable rows={[
-  { keys: 'F7', action: 'Open tag browser', notes: 'Vault-wide tag list with frequency counts and top files' },
+  { keys: 'F7', action: 'Open tag browser', notes: 'Vault-wide tag list with frequency counts and a representative file' },
   { keys: '↑ / ↓', action: 'Navigate tags', notes: 'Moves through the filtered tag list' },
   { keys: 'Enter', action: 'Search files with this tag', notes: 'Hands off to vault search with tag:<name> pre-filled' },
   { keys: 'Esc', action: 'Close tag browser', notes: 'Returns focus to the editor' },

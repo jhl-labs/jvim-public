@@ -18,14 +18,25 @@ This indicator gives you a constant read on how far the working tree has drifted
 
 ## Commit Log Overlay
 
-`F5` (or `Ctrl+L`) opens the commit log overlay — a list of recent commits with author, short SHA, and commit message. Use it to review history or verify that a recent commit landed.
+`Ctrl+L` opens the commit log overlay — a list of recent commits with author, short SHA, and commit message. Use it to review history or verify that a recent commit landed.
 
 ![Commit log overlay](../../../../assets/images/46-commit-log-f5.png)
 
 <KeymapTable rows={[
-  { keys: 'F5 / Ctrl+L', action: 'Open commit log', notes: 'Shows recent commits: author, SHA, message' },
+  { keys: 'Ctrl+L', action: 'Open commit log', notes: 'Shows recent commits: author, SHA, message' },
   { keys: '↑ / ↓', action: 'Navigate entries', notes: 'Browse the commit list' },
   { keys: 'Esc', action: 'Close overlay', notes: 'Return to the editor' },
+]} />
+
+## Git Panel
+
+`F5` opens the Git panel for the current repository. From there you can inspect current-file hunks and run common git actions.
+
+<KeymapTable rows={[
+  { keys: 'F5', action: 'Open Git panel', notes: 'Shows current-file git status and panel actions' },
+  { keys: 'd', action: 'Open current-file diff', notes: 'Shows diff hunks for the active file' },
+  { keys: 'c', action: 'Commit current file', notes: 'Prompts for a message and stages the active file' },
+  { keys: 'p / P / f', action: 'Push / pull / fetch', notes: 'Runs the corresponding system git command' },
 ]} />
 
 ## Current-File Diff Hunk Panel
@@ -40,15 +51,16 @@ Each hunk shows the old and new lines side by side. Navigate hunks with arrow ke
 
 ## Commit, Push, Pull, Fetch
 
-Git operations are available through the command palette (`F4` or `Ctrl+P`). Type the operation name to filter:
+Git operations are available through the Git panel (`F5`) and selected command-palette actions (`F4` or `Ctrl+P`). Type the operation name to filter:
 
-- **commit** — stages all tracked changes and opens a prompt for the commit message.
+- **commit** — opens the Git panel; use `c` there to commit the current file.
 - **push** — pushes the current branch to its upstream remote.
 - **pull** — fetches and fast-forwards (`--ff-only`). If the local branch has diverged, the pull is refused rather than creating a merge commit. Rebase or reset manually before retrying.
 - **fetch** — fetches from the remote without merging.
 
 <KeymapTable rows={[
-  { keys: 'F4 / Ctrl+P', action: 'Open command palette', notes: 'Type commit / push / pull / fetch to run git operations' },
+  { keys: 'F5', action: 'Open Git panel', notes: 'Diff and current-file commit actions' },
+  { keys: 'F4 / Ctrl+P', action: 'Open command palette', notes: 'Type git action names to find available operations' },
 ]} />
 
 Progress and errors appear as toast notifications in the status bar. A push that requires authentication will prompt via the system credential helper or SSH agent — jvim does not manage credentials itself.
@@ -66,10 +78,10 @@ If `git` is not on your `PATH`, git integration is silently disabled and the dif
 
 ## Re-indexing After Checkout
 
-The semantic index and wikilink graph are vault-aware and survive `git checkout` without corruption. If you switch branches and the vault contents change significantly, trigger a manual re-index:
+The vault search database and link metadata are vault-aware and survive `git checkout` without corruption. If you switch branches and the vault contents change significantly, trigger a manual re-index:
 
 <KeymapTable rows={[
-  { keys: 'Ctrl+R', action: 'Re-index vault', notes: 'Rebuilds the full semantic index and link graph' },
+  { keys: 'Ctrl+R', action: 'Re-index vault', notes: 'Rebuilds the full-text search database and link metadata' },
 ]} />
 
 ## Related

@@ -37,10 +37,10 @@ description: jvim 보안 취약점 신고 방법.
 
 **범위 내:**
 
-- npm(`jvim`, `@jhl_labs/jvim-linux-*`)과 GitHub Releases를 통해 배포된 `jvim` 바이너리.
+- npm(`@jhl_labs/jvim`, `@jhl_labs/jvim-linux-*`)과 GitHub Releases를 통해 배포된 `jvim` 바이너리.
 - 런처 심과 플랫폼 디스패치 로직.
 - API 키로 설정된 AI 오버레이.
-- `jvim` 내부의 MCP 서버, LSP 통합, 기타 네트워크 관련 코드.
+- AI 오버레이의 프로바이더 호출을 포함해 릴리스된 `jvim` 바이너리 안의 네트워크 관련 코드.
 
 **범위 외:**
 

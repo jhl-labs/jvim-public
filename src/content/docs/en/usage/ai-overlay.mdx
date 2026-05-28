@@ -80,24 +80,38 @@ To use a faster, cheaper model for inline completions than for Ask/Rewrite, set 
 
 ## Provider Configuration
 
-jvim works with OpenAI-compatible endpoints, Anthropic, and local LLMs (Ollama, llama.cpp, or any server that exposes an OpenAI-compatible chat API).
+jvim currently connects to OpenAI-compatible chat APIs. That includes OpenAI, Groq, local Ollama or llama.cpp servers that expose a `/v1` API, and Anthropic only when routed through an OpenAI-compatible gateway.
 
-Configure providers in `~/.config/jvim/config.toml` (or via the settings overlay at `F10`):
+Configure providers in `~/.config/jvim/providers.toml`:
 
 ```toml
-[ai]
-provider = "openai"       # openai | anthropic | ollama | custom
-model = "gpt-4o"
-inline_model = "gpt-4o-mini"   # optional: lighter model for ghost text
+schema_version = 1
+default_provider = "openai-cloud"
+
+[[providers]]
+id = "openai-cloud"
+kind = "openai-compat"
+base_url = "https://api.openai.com/v1"
+api_key_env = "OPENAI_API_KEY"
+default_model = "gpt-4o"
+inline_model = "gpt-4o-mini" # optional: lighter model for ghost text
+embedding_model = "text-embedding-3-small"
 ```
 
-For local LLMs, set `provider = "ollama"` and optionally override the base URL:
+For local LLMs, point a provider at the server's OpenAI-compatible endpoint:
 
 ```toml
-[ai]
-provider = "ollama"
-base_url = "http://localhost:11434"
-model = "llama3"
+schema_version = 1
+default_provider = "ollama-local"
+
+[[providers]]
+id = "ollama-local"
+kind = "openai-compat"
+base_url = "http://localhost:11434/v1"
+api_key_env = "OLLAMA_API_KEY" # any value if your server ignores auth
+default_model = "llama3.2"
+inline_model = "qwen2.5-coder:3b"
+embedding_model = "nomic-embed-text"
 ```
 
 No traffic is sent to any provider until you explicitly invoke an AI action. The inline autocomplete toggle is off by default.

@@ -35,13 +35,14 @@ because it handles upgrades automatically and resolves the right architecture.
 
 ### Does jvim send my notes to an AI provider?
 
-Only when you explicitly use the AI overlay (Alt+A and friends). With no AI request,
+Only when you explicitly use the AI overlay (`F6`) or inline AI actions. With no AI request,
 nothing leaves your machine.
 
 ### Which AI providers are supported?
 
-OpenAI, Anthropic, and local LLMs via Ollama or llama.cpp. Configure with `F1 → settings`
-or edit `~/.config/jvim/config.toml`.
+Any OpenAI-compatible chat endpoint, including OpenAI, Groq, and local Ollama or
+llama.cpp servers that expose a `/v1` API. Anthropic can be used through an
+OpenAI-compatible gateway. Configure providers in `~/.config/jvim/providers.toml`.
 
 ### Can I use a local LLM?
 
@@ -55,7 +56,7 @@ unless you explicitly enable it for debugging.
 
 ### How does jvim store my API key?
 
-API keys live in `~/.config/jvim/config.toml` (chmod 600). They're never logged or
+API keys or API-key environment variable names live in `~/.config/jvim/providers.toml`. They're never logged or
 sent anywhere except the configured provider.
 
 ## Keymaps & UX
@@ -130,7 +131,7 @@ search.
 
 ### AI overlay says "no provider configured"
 
-`F1 → AI settings` to set your provider and API key. See
+Open or create `~/.config/jvim/providers.toml`, then add an OpenAI-compatible provider. See
 [AI overlay setup](/jvim-public/en/usage/ai-overlay/).
 
 ### How do I report a bug?

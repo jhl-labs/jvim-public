@@ -44,18 +44,16 @@ Press `Ctrl+S`. The status bar's `●` marker disappears — saved.
 
 - `Ctrl+E` — toggle to the file tree. `j`/`k` to move, `Enter` to open.
 - `Ctrl+O` — vault-wide fuzzy file finder.
-- `Shift+F4` — search across all notes (full-text + tags + wikilinks).
+- `Shift+F4` — search across all notes (full-text, `tag:`, and `path:` filters).
 - `F2` — outline of the current document (heading jump).
 
 <AsciinemaPlayer slug="getting-started" title="The first 5 minutes" />
 
 ## 5. Ask the AI (1 min)
 
-`Alt+A` opens the Ask panel. Type a question — it searches your vault first, then composes
-an answer citing the source notes.
+`F6` opens the AI overlay. Choose Ask, type a question, and jvim can use your semantic index as context before composing an answer with source notes.
 
-> You need an AI provider configured. By default jvim prompts on first use.
-> See [AI overlay](/jvim-public/en/usage/ai-overlay/) for provider setup (OpenAI / Anthropic / local).
+> You need an AI provider configured in `providers.toml`. See [AI overlay](/jvim-public/en/usage/ai-overlay/) for OpenAI-compatible cloud or local endpoint setup.
 
 ## What next?
 

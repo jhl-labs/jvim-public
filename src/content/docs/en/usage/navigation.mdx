@@ -6,24 +6,24 @@ description: Move around jvim using the command palette, file palette, outline o
 import AsciinemaPlayer from '../../../../components/AsciinemaPlayer.astro';
 import KeymapTable from '../../../../components/KeymapTable.astro';
 
-jvim provides several overlays for fast navigation: a command palette for running any action by name, a file palette for vault-wide file switching, an outline panel for jumping between headings, and buffer tabs for cycling open documents.
+jvim provides several overlays for fast navigation: a command palette for common actions, a file palette for vault-wide file switching, an outline panel for jumping between headings, and buffer tabs for cycling open documents.
 
 <AsciinemaPlayer slug="navigation" title="Navigation: palette, outline, go-to-line" />
 
 ## Command Palette
 
-The command palette lets you invoke any jvim command by typing part of its name. It is the fastest way to reach a feature you don't have memorized.
+The command palette lets you invoke common jvim actions by typing part of their name. It is useful for frequently used actions that are also available elsewhere in the UI.
 
 ![Command palette opened with F4](../../../../assets/images/05-command-palette-f4.png)
 
 <KeymapTable rows={[
-  { keys: 'F4', action: 'Open command palette', notes: 'Fuzzy-search all available commands' },
+  { keys: 'F4', action: 'Open command palette', notes: 'Fuzzy-search common actions' },
   { keys: 'Ctrl+P', action: 'Open command palette', notes: 'Same as F4' },
   { keys: 'Enter', action: 'Run selected command', notes: 'Executes the highlighted entry' },
   { keys: 'Esc', action: 'Close', notes: 'Dismiss without running anything' },
 ]} />
 
-Examples of commands reachable via the palette: `save`, `close buffer`, `toggle line numbers`, `format document`, `go to line`.
+Examples of actions reachable via the palette: `save`, `close document`, `find`, `replace`, `outline`, `vault search`, `backlinks`, and selected git operations.
 
 ## File Palette
 
