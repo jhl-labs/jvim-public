@@ -236,8 +236,8 @@ When cutting a release, replace `## [Unreleased]` with:
 ...and add a fresh empty `## [Unreleased]` above it. Link refs at the bottom.
 -->
 
-[Unreleased]: https://github.com/jhl-labs/jvim-public/compare/v0.6.0-beta.0...HEAD
-[0.6.0-beta.0]: https://github.com/jhl-labs/jvim-public/releases/tag/v0.6.0-beta.0
+[Unreleased]: https://github.com/jhl-labs/jvim-public/compare/v0.6.0-beta.1...HEAD
+[0.6.0-beta.1]: https://github.com/jhl-labs/jvim-public/releases/tag/v0.6.0-beta.1
 [0.5.4]: https://github.com/jhl-labs/jvim-public/releases/tag/v0.5.4
 [0.5.2]: https://github.com/jhl-labs/jvim-public/releases/tag/v0.5.2
 [0.5.1]: https://github.com/jhl-labs/jvim/releases/tag/v0.5.1
