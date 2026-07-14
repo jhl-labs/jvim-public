@@ -39,9 +39,9 @@ Every PR MUST add an entry under `[Unreleased]` unless it is a pure internal ref
 - **All editor-adjacent text fields share cursor-aware, IME-safe editing.**
   Prompts, palettes, search/replace, Git messages, setup fields, and AI input
   now use one consistent input path.
-- **Linux arm64 release candidates run on native arm64 hardware before npm
-  publication.** The exact packaged binary must pass version and help smoke
-  tests before any package can publish.
+- **Linux arm64 release candidates execute before npm publication.** The exact
+  packaged binary must pass version and help smoke tests through an AArch64
+  QEMU + glibc runtime before any package can publish.
 
 ### Fixed
 
