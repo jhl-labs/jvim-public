@@ -44,7 +44,9 @@ To upgrade later:
 npm install -g @jhl_labs/jvim@latest --include=optional
 ```
 
-Detailed install + upgrade walkthrough: [`docs/install.md`](./docs/install.md).
+Detailed install + upgrade walkthrough:
+[English](https://jhl-labs.github.io/jvim-public/en/install/) ·
+[한국어](https://jhl-labs.github.io/jvim-public/ko/install/).
 
 ### GitHub Releases (standalone binary)
 
@@ -88,10 +90,13 @@ cd my-vault && jvim
 - **AI overlay** — inline completion, edit modes, quick prompts (Ctrl+/ or F6).
 - **Git-aware** — commit log viewer (F5), header `+N/−M` diff summary and
   `jvim diff` CLI, vault-aware indexing that survives `git checkout`.
-- **Single-binary distribution** — one file per platform, no Node runtime,
-  no `node_modules`.
+- **Self-contained platform binaries** — the editor itself is one binary per
+  platform. The npm launcher uses Node 18+ only to select and start it.
 
-Full keymap in [`docs/keymap.md`](./docs/keymap.md) or press **F1** in-app.
+Full keymap:
+[English](https://jhl-labs.github.io/jvim-public/en/keymap/full/) ·
+[한국어](https://jhl-labs.github.io/jvim-public/ko/keymap/full/), or press
+**F1** in-app.
 
 ## Support & community
 
@@ -107,12 +112,14 @@ Full keymap in [`docs/keymap.md`](./docs/keymap.md) or press **F1** in-app.
 Every release attaches, alongside the binaries:
 
 - **Binaries** — `jvim-<version>-linux-{x64,arm64}.tar.gz` + matching `.sha256`
-- **Test report** — `test-report.html`
-- **Coverage report** — `coverage-lcov.info`
 - **SBOM** — `sbom.json` (CycloneDX)
 - **Security scan** — `trivy-scan.json`, `osv-scan.json`
+- **License notices** — `third-party-notices.txt`
 
-See [`docs/reports/README.md`](./docs/reports/README.md) for how to read them.
+Coverage and per-file test reports are intentionally not public because they
+would expose private source paths. See the
+[transparency report guide](https://jhl-labs.github.io/jvim-public/en/transparency/reports/)
+for the current artifact policy.
 
 ## Project status
 

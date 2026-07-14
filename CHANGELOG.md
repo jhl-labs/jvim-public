@@ -21,6 +21,53 @@ Every PR MUST add an entry under `[Unreleased]` unless it is a pure internal ref
 
 ## [Unreleased]
 
+### Added
+
+- **Broader command discovery.** The command palette now exposes major file,
+  navigation, formatting, search, AI, knowledge-index, view, app, and Git
+  actions with context-aware availability and shortcut hints.
+- **Page navigation across long lists.** PageUp and PageDown now move by the
+  visible window in palettes, search, tags, links, outline, Git history/diffs,
+  and semantic-scope browsers.
+
+### Changed
+
+- **The TUI now adapts to short and narrow terminals throughout.** Full-screen
+  overlays, Help, Settings, semantic scope, inline completion menus, tabs,
+  dialogs, long AI responses, and retrieved-source lists stay inside the live
+  row and column budget, including Hangul/CJK cell widths.
+- **All editor-adjacent text fields share cursor-aware, IME-safe editing.**
+  Prompts, palettes, search/replace, Git messages, setup fields, and AI input
+  now use one consistent input path.
+- **Linux arm64 release candidates run on native arm64 hardware before npm
+  publication.** The exact packaged binary must pass version and help smoke
+  tests before any package can publish.
+
+### Fixed
+
+- **Korean/CJK IME commits coalesced with Enter preserve the newline** instead
+  of losing it or inserting control bytes.
+- **Live-index failures are visible and recoverable.** Watcher or incremental
+  refresh failures show a persistent stale-index status with a Ctrl+R retry;
+  successful recovery clears it.
+- **Unavailable shortcuts and Git history/diff loads explain what is missing**
+  instead of appearing to do nothing.
+- **Search, tag, and Git empty states distinguish legitimate empty results from
+  backend failures** and point to the appropriate recovery action.
+
+### Security
+
+- **Dependency audit findings were resolved**, including patched transitive
+  versions used by the application and documentation site.
+- **Release security reports are regenerated fail-closed.** Missing or invalid
+  Trivy/OSV output can no longer reuse an older report.
+
+### Docs
+
+- **Public English and Korean guides now match the implemented feature set,**
+  and npm metadata links to this public project instead of the private source
+  repository.
+
 ## [0.5.4] — 2026-05-27
 
 ### Added
