@@ -9,10 +9,17 @@ interface Props {
   ctaSecondary: { label: string; href: string };
 }
 
+const prereleaseChannel = versionMeta.version.includes('-')
+  ? versionMeta.version.split('-')[1]?.split('.')[0]
+  : undefined;
+const defaultInstallCmd = prereleaseChannel
+  ? `npm install -g @jhl_labs/jvim@${prereleaseChannel} --include=optional`
+  : 'npm install -g @jhl_labs/jvim';
+
 const {
   title,
   tagline,
-  installCmd = 'npm install -g @jhl_labs/jvim',
+  installCmd = defaultInstallCmd,
   ctaPrimary,
   ctaSecondary,
 } = Astro.props;
@@ -21,6 +28,7 @@ const {
 <section class="hero-block">
   <div class="badges">
     <span class="badge">v{versionMeta.version}</span>
+    {prereleaseChannel && <span class="badge">{prereleaseChannel}</span>}
     <span class="badge">Linux x64 · arm64</span>
     <span class="badge">single binary</span>
   </div>

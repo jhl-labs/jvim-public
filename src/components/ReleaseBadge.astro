@@ -1,9 +1,15 @@
 ---
 import versionMeta from '../version.json';
+
+const prereleaseChannel = versionMeta.version.includes('-')
+  ? versionMeta.version.split('-')[1]?.split('.')[0]
+  : undefined;
+const prereleaseLabel = prereleaseChannel === 'beta' ? 'Beta' : 'Pre-release';
 ---
 
 <span class="release-badge">
   <code>v{versionMeta.version}</code>
+  {prereleaseChannel && <strong>{prereleaseLabel}</strong>}
   <span class="release-date">released {versionMeta.releaseDate}</span>
 </span>
 

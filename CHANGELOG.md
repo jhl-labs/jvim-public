@@ -21,6 +21,12 @@ Every PR MUST add an entry under `[Unreleased]` unless it is a pure internal ref
 
 ## [Unreleased]
 
+> **Beta preview:** automated tests, security scans, package checks, and Linux
+> x64/arm64 execution smokes pass, but this build has not completed a manual
+> end-to-end TUI acceptance pass. Install it with
+> `npm install -g @jhl_labs/jvim@beta --include=optional`; npm `latest` remains
+> on the previous stable release.
+
 ### Added
 
 - **Broader command discovery.** The command palette now exposes major file,
@@ -230,9 +236,10 @@ When cutting a release, replace `## [Unreleased]` with:
 ...and add a fresh empty `## [Unreleased]` above it. Link refs at the bottom.
 -->
 
-[Unreleased]: https://github.com/jhl-labs/jvim/compare/v0.5.4...HEAD
-[0.5.4]: https://github.com/jhl-labs/jvim/releases/tag/v0.5.4
-[0.5.2]: https://github.com/jhl-labs/jvim/releases/tag/v0.5.2
+[Unreleased]: https://github.com/jhl-labs/jvim-public/compare/v0.6.0-beta.0...HEAD
+[0.6.0-beta.0]: https://github.com/jhl-labs/jvim-public/releases/tag/v0.6.0-beta.0
+[0.5.4]: https://github.com/jhl-labs/jvim-public/releases/tag/v0.5.4
+[0.5.2]: https://github.com/jhl-labs/jvim-public/releases/tag/v0.5.2
 [0.5.1]: https://github.com/jhl-labs/jvim/releases/tag/v0.5.1
 [0.5.0]: https://github.com/jhl-labs/jvim/releases/tag/v0.5.0
 [0.1.4]: https://github.com/jhl-labs/jvim/releases/tag/v0.1.4
